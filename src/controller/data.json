@@ -15,5 +15,11 @@
     },
     "contactUs": {
         "title": "Contact us"
+    },
+    "config": {
+        "src": "src",
+        "dist": "dist",
+        "bundle": "bundle.js",
+        "static": "static"
     }
 }

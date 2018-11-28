@@ -1,1 +1,5 @@
-module.exports = (a, b) => a + b;
+const React    = require('react');
+const ReactDOM = require('react-dom');
+const App      = require('./component/index');
+
+ReactDOM.hydrate(<App/>, document.getElementById('App'));

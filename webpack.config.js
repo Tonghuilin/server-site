@@ -25,6 +25,10 @@ const webpackConfig = {
         ],
     },
 
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+
     plugins: [
         new PreHandlebarsPlugin({
             entry:  path.join(process.cwd(), config.src, 'controller', 'index.js'),
