@@ -1,3 +1,4 @@
+require("@babel/register");
 const { writeFileSync } = require('fs');
 
 /**
@@ -17,7 +18,7 @@ class PreHandlebarsPlugin {
         ) => {
             try {
                 const data = require(this.entry);
-                return writeFileSync(this.output, JSON.stringify(data), 'utf8');
+                return writeFileSync(this.output, JSON.stringify(data, undefined, 4), 'utf8');
             } catch(err) {
                 if (err) { return console.log(err); }
                 return console.log(`PreHandlebarsPlugin updates ${this.output} successfully`);
