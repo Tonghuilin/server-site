@@ -1,14 +1,15 @@
-const express = require('express');
+const express       = require('express');
+const { log, color } = require('./helper/logger');
 
 const PORT = 3000;
-const app = express();
+const app  = express();
 
 app.use(express.static(
     'dist',
-    { extensions: [ 'html' ] },
+    { extensions: ['html'] },
 ));
 
-
 app.listen(PORT, () => {
-   console.log(`Listen to PORT: ${PORT}`);
+    log('NODE_ENV:', color.highlight(process.env.NODE_ENV));
+    log(`Listen to PORT: ${color.highlight(PORT)}`);
 });

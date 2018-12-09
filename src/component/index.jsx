@@ -1,5 +1,5 @@
 const React    = require('react');
-const { Home } = require('./home');
+const { Home } = require('./home/home');
 
 const App = () => (<React.Fragment><Home /></React.Fragment>);
 

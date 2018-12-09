@@ -1,7 +1,7 @@
-const path                = require('path');
-const PreHandlebarsPlugin = require('./webpack/plugin-pre-handlebars');
-const HandlebarsPlugin    = require('handlebars-webpack-plugin');
-const config              = require('./config');
+const path                    = require('path');
+const { PreHandlebarsPlugin } = require('./webpack/plugin-pre-handlebars');
+const HandlebarsPlugin        = require('handlebars-webpack-plugin');
+const config                  = require('./config');
 
 const webpackConfig = {
     mode:    'development',
@@ -26,13 +26,13 @@ const webpackConfig = {
     },
 
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
     },
 
     plugins: [
         new PreHandlebarsPlugin({
             entry:  path.join(process.cwd(), config.src, 'controller', 'index.js'),
-            output: path.join(process.cwd(), config.src, 'controller', 'data.json'),
+            output: path.join(process.cwd(), config.tmp, 'data.json'),
         }),
         new HandlebarsPlugin({
             entry:    path.join(process.cwd(), config.src, 'view', '*.hbs'),
@@ -40,7 +40,7 @@ const webpackConfig = {
             partials: [
                 path.join(process.cwd(), config.src, 'view', 'partial', '*.hbs'),
             ],
-            data:     path.join(process.cwd(), config.src, 'controller', 'data.json'),
+            data:     path.join(process.cwd(), config.tmp, 'data.json'),
         }),
     ],
 };

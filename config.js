@@ -3,4 +3,5 @@ module.exports = {
     dist:   'dist',
     bundle: 'bundle.js',
     static: 'static',
+    tmp:    '.tmp',
 };

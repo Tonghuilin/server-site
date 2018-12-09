@@ -1,10 +1,9 @@
-const React              = require('react');
-const { renderToString } = require('react-dom/server');
-const { Home }           = require('../component/home');
+const renderCompHtml = require('./helper/renderCompHtml');
+const { Home }       = require('../component/home/home');
 
-const content = renderToString(<Home/>);
+const content = renderCompHtml(Home);
 
 module.exports = {
-    title:   'Home page',
+    title: 'Home page',
     content,
 };

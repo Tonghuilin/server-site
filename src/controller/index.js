@@ -4,7 +4,8 @@ const config = require('../../config');
 module.exports = {
     menu:      [
         { name: 'Home', href: '/' },
-        { name: 'Contact us', href: '/contact-us' },
+        { name: 'Contact us!', href: '/contact-us' },
+        { name: 'Some other page'},
     ],
     index,
     contactUs: {

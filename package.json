@@ -4,9 +4,13 @@
   "description": "THL site server",
   "main": "test-server/server.js",
   "scripts": {
-    "build": "bash ./script/npm-build.sh",
-    "serve": "node .",
+    "build": "export PATH=$(npm bin):$PATH && webpack --config webpack.config.js",
+    "build:prod": "export NODE_env=production && npm run build",
+    "serve": "export NODE_ENV=development && node .",
+    "watch:build": "npm run build -- --watch",
+    "watch:serve": "nodemon --exec \"npm run serve\"",
     "start": "npm run build && npm run serve",
+    "watch": "npm-run-all --parallel watch:build watch:serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,14 +32,23 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-emotion": "^10.0.0",
+    "chalk": "^2.4.1",
+    "emotion": "^10.0.0",
+    "emotion-server": "^10.0.0",
     "express": "^4.16.4",
     "handlebars-loader": "^1.7.0",
     "handlebars-webpack-plugin": "^1.5.0",
-    "react-hot-loader": "^4.3.12",
+    "nodemon": "^1.18.7",
+    "npm-run-all": "^4.1.5",
+    "postcss-jsx": "^0.35.0",
+    "stylelint": "^9.9.0",
+    "stylelint-config-recommended": "^2.1.0",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
     "lodash": "^4.17.11",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2"
