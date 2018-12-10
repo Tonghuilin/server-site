@@ -1,6 +1,6 @@
-const path                    = require('path');
-const { PreHandlebarsPlugin } = require('./webpack/plugin-pre-handlebars');
-const config                  = require('./config');
+const path               = require('path');
+const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs');
+const config             = require('./config');
 
 const webConfig = {
     mode:    'development',
@@ -29,7 +29,7 @@ const webConfig = {
     },
 
     plugins: [
-        new PreHandlebarsPlugin({
+        new SsrByHbsPlugin({
             entry:    path.join(__dirname, config.src, 'controller', '*.js'),
             template: path.join(__dirname, config.src, 'view', 'index.hbs'),
             output:   path.join(__dirname, config.dist, '[name].html'),

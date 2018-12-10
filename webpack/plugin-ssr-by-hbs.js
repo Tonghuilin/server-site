@@ -1,22 +1,30 @@
 require('@babel/register');
 
+const Handlebars   = require('handlebars');
+const { execSync } = require('child_process');
+const glob         = require('glob');
 const {
           readFileSync,
           writeFileSync,
           existsSync,
           mkdirSync,
-      }              = require('fs');
-const glob           = require('glob');
-const path           = require('path');
-const { execSync }  = require('child_process');
-const Handlebars     = require('handlebars');
-const { log, color } = require('../test-server/helper/logger');
+      }            = require('fs');
+const path         = require('path');
+const {
+          log,
+          color,
+      }            = require('../test-server/helper/logger');
 
 const PLUGIN = {
-    NAME:    'PreHandleBarsPlugin',
-    HASH_ID: 'webpack-plugin-pre-handlebars',
+    NAME:    'SsrByHbsPlugin',
 };
 
+/**
+ * Log error
+ *
+ * @param err
+ * @returns {void | *}
+ */
 const logErr = (err) => log(`${PLUGIN.NAME}: ${color.error(err)}`);
 
 /**
@@ -114,12 +122,18 @@ const createPageContent = (templatePath, pageData) => {
     }
 };
 
+/**
+ * Capture shell print for hot data
+ *
+ * @param filePath
+ * @returns {*}
+ */
 const getPageData = (filePath) => {
     try {
-        const data = execSync(`node ./webpack/helper/consoleModuleExport.js --file=${filePath}`, { encoding: 'utf8' });
+        const data = execSync(`node ./webpack/helper/consoleTemplateData.js --file=${filePath}`, { encoding: 'utf8' });
 
         return JSON.parse(data);
-    } catch(err) {
+    } catch (err) {
         logErr(err);
 
         return {};
@@ -158,29 +172,45 @@ const writePages = (config) => {
 const writeEachPage = (outputPath, pageContent) => {
     try {
         writeFileSync(outputPath, pageContent, 'utf8');
-        log(`${PLUGIN.NAME}: updates ${color.success(outputPath)} successfully`);
+        log(`${color.highlight(PLUGIN.NAME)}: updates ${color.success(outputPath)} successfully`);
     } catch (err) {
         logErr(err);
     }
 };
 
+const addEntryToDependencies = ({ entry }, { fileDependencies }) => {
+    if (!fileDependencies) { return; }
+
+    const entryFiles = glob.sync(entry) || [];
+    entryFiles.forEach(filePath => {
+        if (fileDependencies.has(filePath)) { return; }
+
+        fileDependencies.add(filePath);
+        log(`${color.highlight(PLUGIN.NAME)}: Added ${color.success(filePath)} to file dependencies`);
+    });
+};
+
 /**
  * Prepare data.json for handlebars templates
  */
-class PreHandlebarsPlugin {
+class SsrByHbsPlugin {
     constructor(props) {
         this.config = props;
     }
 
     apply(compiler) {
-        compiler.hooks.make.tap('PreHandlebarsPlugin', () => {
+        compiler.hooks.make.tap(PLUGIN.NAME, () => {
             mayCreateOutputFolder(this.config);
             prepareHandlebars(this.config);
             writePages(this.config);
+        });
+
+        compiler.hooks.emit.tap(PLUGIN.NAME, (compliation) => {
+            addEntryToDependencies(this.config, compliation);
         });
     }
 }
 
 module.exports = {
-    PreHandlebarsPlugin,
+    SsrByHbsPlugin,
 };

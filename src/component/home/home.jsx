@@ -1,7 +1,7 @@
 const React         = require('react');
 const { homeTitle } = require('./homeStyle');
 
-const Home = () => (<div className={homeTitle}>Hello home</div>);
+const Home = ({ title, name }) => (<div className={homeTitle}>{title} {name}</div>);
 
 module.exports = {
     Home,
