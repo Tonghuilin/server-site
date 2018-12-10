@@ -12,7 +12,9 @@
     "watch:serve": "nodemon --exec \"npm run serve\"",
     "start": "npm run build && npm run serve",
     "watch": "npm-run-all --parallel watch:build watch:serve",
-    "test": "jest"
+    "test": "jest --config=jest.config.js",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage"
   },
   "repository": {
     "type": "git",
