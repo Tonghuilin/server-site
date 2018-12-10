@@ -8,6 +8,7 @@ const {
       }              = require('fs');
 const glob           = require('glob');
 const path           = require('path');
+const { execSync }  = require('child_process');
 const Handlebars     = require('handlebars');
 const { log, color } = require('../test-server/helper/logger');
 
@@ -77,7 +78,7 @@ const registerPartials = (folderPaths) => {
 
         files.forEach((filePath) => {
             const { name } = path.parse(filePath);
-            const content = readFileSync(filePath, 'utf8');
+            const content  = readFileSync(filePath, 'utf8');
 
             Handlebars.registerPartial(name, content);
         });
@@ -103,12 +104,25 @@ const prepareHandlebars = (config) => {
 const createPageContent = (templatePath, pageData) => {
     try {
         const template = readFileSync(templatePath, 'utf8');
-        const content = Handlebars.compile(template)(pageData);
+        const content  = Handlebars.compile(template)(pageData);
 
         return (content || '').trim();
     } catch (err) {
-        console.log(err);
+        logErr(err);
+
         return '';
+    }
+};
+
+const getPageData = (filePath) => {
+    try {
+        const data = execSync(`node ./webpack/helper/consoleModuleExport.js --file=${filePath}`, { encoding: 'utf8' });
+
+        return JSON.parse(data);
+    } catch(err) {
+        logErr(err);
+
+        return {};
     }
 };
 
@@ -122,13 +136,12 @@ const writePages = (config) => {
     const files = glob.sync(config.entry) || [];
 
     return files.map((filePath) => {
-        const pageData = require(filePath);
-        const fileName = getFileName(filePath);
-
+        const pageData     = getPageData(filePath);
+        const fileName     = getFileName(filePath);
         const templatePath = createPathByFileName(config.template, fileName);
         const pageContent  = createPageContent(templatePath, pageData);
+        const outputPath   = createPathByFileName(config.output, fileName);
 
-        const outputPath = createPathByFileName(config.output, fileName);
         writeEachPage(outputPath, pageContent);
     });
 };
