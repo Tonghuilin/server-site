@@ -1,14 +1,15 @@
 require('@babel/register');
 
 const {
+          readFileSync,
           writeFileSync,
           existsSync,
           mkdirSync,
       }              = require('fs');
+const glob           = require('glob');
 const path           = require('path');
-const format         = require('date-fns/format');
+const Handlebars     = require('handlebars');
 const { log, color } = require('../test-server/helper/logger');
-const config         = require('../config');
 
 const PLUGIN = {
     NAME:    'PreHandleBarsPlugin',
@@ -20,12 +21,13 @@ const logErr = (err) => log(`${PLUGIN.NAME}: ${color.error(err)}`);
 /**
  * Create the output folder if not exists
  *
- * @param filePath
+ * @param config
  * @returns {*}
  */
-const mayCreateOutputFolder = (filePath) => {
+const mayCreateOutputFolder = (config) => {
+
     try {
-        const dir       = path.dirname(filePath);
+        const dir       = path.dirname(config.output);
         const doesExist = existsSync(dir);
 
         if (doesExist) {
@@ -41,44 +43,111 @@ const mayCreateOutputFolder = (filePath) => {
 };
 
 /**
- * update hash in hbs partial to force it re-render
+ * get the file name from a file path
+ *
+ * @param filePath
+ */
+const getFileName = (filePath) => {
+    const { name } = path.parse(filePath);
+    return name;
+};
+
+/**
+ * replace [name] in a file path with the given file name
+ *
+ * @param filePath
+ * @param fileName
  * @returns {*}
  */
-const updateHash = () => {
-    try {
-        const hash     = `<!-- ${PLUGIN.HASH_ID}-${format(Date.now(), 'YYYY-MM-DD-HH-mm-ss')} -->`;
-        const filePath = path.join(process.cwd(), config.src, 'view/partial/hash.hbs');
+const createPathByFileName = (filePath, fileName) => {
+    const placeholder   = '[name]';
+    const needInjection = filePath.indexOf(placeholder) > -1;
 
-        writeFileSync(filePath, hash);
+    return needInjection ? filePath.replace(placeholder, fileName) : filePath;
+};
+
+/**
+ * register handlebar partials under the folder paths
+ *
+ * @param folderPaths
+ */
+const registerPartials = (folderPaths) => {
+    folderPaths.forEach((folderPath) => {
+        const files = glob.sync(folderPath) || [];
+
+        files.forEach((filePath) => {
+            const { name } = path.parse(filePath);
+            const content = readFileSync(filePath, 'utf8');
+
+            Handlebars.registerPartial(name, content);
+        });
+    });
+};
+
+/**
+ * prepare handlebar, e.g. partials
+ *
+ * @param config
+ */
+const prepareHandlebars = (config) => {
+    registerPartials(config.partials);
+};
+
+/**
+ * create page content by HBS template + data
+ *
+ * @param templatePath
+ * @param pageData
+ * @returns {string}
+ */
+const createPageContent = (templatePath, pageData) => {
+    try {
+        const template = readFileSync(templatePath, 'utf8');
+        const content = Handlebars.compile(template)(pageData);
+
+        return (content || '').trim();
     } catch (err) {
-        return logErr(err);
+        console.log(err);
+        return '';
     }
+};
+
+/**
+ * output all pages
+ *
+ * @param config
+ * @returns {any[]}
+ */
+const writePages = (config) => {
+    const files = glob.sync(config.entry) || [];
+
+    return files.map((filePath) => {
+        const pageData = require(filePath);
+        const fileName = getFileName(filePath);
+
+        const templatePath = createPathByFileName(config.template, fileName);
+        const pageContent  = createPageContent(templatePath, pageData);
+
+        const outputPath = createPathByFileName(config.output, fileName);
+        writeEachPage(outputPath, pageContent);
+    });
 };
 
 /**
  * Generate a callback function by config.
  * This CB function is to write JSON file for HandlebarsPlugin
  *
- * @param output
- * @param data
- * @returns {Function}
+ * @param outputPath
+ * @param pageContent
+ *
+ * @returns {{}|undefined}
  */
-const writeJSON = ({ entry, output }) => {
+const writeEachPage = (outputPath, pageContent) => {
     try {
-        const data    = require(entry);
-        const content = JSON.stringify(data, undefined, 4);
-
-        mayCreateOutputFolder(output);
-
-        writeFileSync(output, content, 'utf8');
-        log(`${PLUGIN.NAME}: updates ${color.success(output)} successfully`);
-
-        // updateHash();
-        return data;
+        writeFileSync(outputPath, pageContent, 'utf8');
+        log(`${PLUGIN.NAME}: updates ${color.success(outputPath)} successfully`);
     } catch (err) {
         logErr(err);
-
-        return undefined;
     }
 };
 
@@ -88,20 +157,17 @@ const writeJSON = ({ entry, output }) => {
 class PreHandlebarsPlugin {
     constructor(props) {
         this.config = props;
-        this.state  = {};
     }
 
     apply(compiler) {
-        compiler.hooks.beforeCompile.tapAsync('PreHandlebarsPlugin', (compliance, callback) => {
-            writeJSON(this.config);
-            callback();
+        compiler.hooks.make.tap('PreHandlebarsPlugin', () => {
+            mayCreateOutputFolder(this.config);
+            prepareHandlebars(this.config);
+            writePages(this.config);
         });
     }
 }
 
 module.exports = {
-    mayCreateOutputFolder,
-    writeJSON,
-    updateHash,
     PreHandlebarsPlugin,
 };

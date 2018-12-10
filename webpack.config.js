@@ -1,13 +1,12 @@
 const path                    = require('path');
 const { PreHandlebarsPlugin } = require('./webpack/plugin-pre-handlebars');
-const HandlebarsPlugin        = require('handlebars-webpack-plugin');
 const config                  = require('./config');
 
-const webpackConfig = {
+const webConfig = {
     mode:    'development',
-    entry:   path.join(process.cwd(), config.src, 'index.js'),
+    entry:   path.join(__dirname, config.src, 'index.js'),
     output:  {
-        path:       path.join(process.cwd(), config.dist),
+        path:       path.join(__dirname, config.dist),
         filename:   config.bundle,
         publicPath: config.static,
     },
@@ -18,7 +17,7 @@ const webpackConfig = {
             {
                 test:    /\.jsx?$/,
                 exclude: [
-                    path.join(process.cwd(), 'node_modules'),
+                    path.join(__dirname, 'node_modules'),
                 ],
                 loader:  'babel-loader',
             },
@@ -31,18 +30,14 @@ const webpackConfig = {
 
     plugins: [
         new PreHandlebarsPlugin({
-            entry:  path.join(process.cwd(), config.src, 'controller', 'index.js'),
-            output: path.join(process.cwd(), config.tmp, 'data.json'),
-        }),
-        new HandlebarsPlugin({
-            entry:    path.join(process.cwd(), config.src, 'view', '*.hbs'),
-            output:   path.join(process.cwd(), config.dist, '[name].html'),
+            entry:    path.join(__dirname, config.src, 'controller', '*.js'),
+            template: path.join(__dirname, config.src, 'view', 'index.hbs'),
+            output:   path.join(__dirname, config.dist, '[name].html'),
             partials: [
-                path.join(process.cwd(), config.src, 'view', 'partial', '*.hbs'),
+                path.join(__dirname, config.src, 'view', 'partial', '*.hbs'),
             ],
-            data:     path.join(process.cwd(), config.tmp, 'data.json'),
         }),
     ],
 };
 
-module.exports = webpackConfig;
+module.exports = webConfig;

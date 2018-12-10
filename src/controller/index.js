@@ -1,15 +1,8 @@
-const index  = require('./page-index');
-const config = require('../../config');
+const renderCompHtml = require('./helper/renderCompHtml');
+const { Home }       = require('../component/home/home');
+
+const html = renderCompHtml(Home);
 
 module.exports = {
-    menu:      [
-        { name: 'Home', href: '/' },
-        { name: 'Contact us!', href: '/contact-us' },
-        { name: 'Some other page'},
-    ],
-    index,
-    contactUs: {
-        title: 'Contact us',
-    },
-    config,
+    html,
 };
