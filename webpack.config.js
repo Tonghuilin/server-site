@@ -1,9 +1,14 @@
 const path               = require('path');
 const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs/index');
 const config             = require('./config');
+const { log, color }     = require('./server/helper/logger');
+
+const mode = process.env.NODE_ENV || 'development';
+
+log(`Mode: ${color.highlight(mode)} ${color.grayout(__dirname)}`);
 
 const webConfig = {
-    mode:    'development',
+    mode,
     entry:   path.join(__dirname, config.src, 'index.js'),
     output:  {
         path:       path.join(__dirname, config.dist),

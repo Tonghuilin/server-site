@@ -13,7 +13,7 @@ const path         = require('path');
 const {
           log,
           color,
-      }            = require('../../test-server/helper/logger');
+      }            = require('../../server/helper/logger');
 
 const PLUGIN = {
     NAME:    'SsrByHbsPlugin',
