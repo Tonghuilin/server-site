@@ -1,7 +1,7 @@
 const { css } = require('emotion');
 
 const homeTitle = css`
-        color: blue;
+        color: red;
     `;
 
 module.exports = {

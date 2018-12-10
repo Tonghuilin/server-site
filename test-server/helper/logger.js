@@ -7,6 +7,7 @@ const color = {
     error:     chalk.bold.red,
     success:   chalk.green,
     highlight: chalk.cyan,
+    grayout:   chalk.gray,
 };
 
 module.exports = {

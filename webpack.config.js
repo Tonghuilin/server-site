@@ -1,5 +1,5 @@
 const path               = require('path');
-const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs');
+const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs/index');
 const config             = require('./config');
 
 const webConfig = {

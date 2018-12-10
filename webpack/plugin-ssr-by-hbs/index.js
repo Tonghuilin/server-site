@@ -13,7 +13,7 @@ const path         = require('path');
 const {
           log,
           color,
-      }            = require('../test-server/helper/logger');
+      }            = require('../../test-server/helper/logger');
 
 const PLUGIN = {
     NAME:    'SsrByHbsPlugin',
@@ -25,7 +25,15 @@ const PLUGIN = {
  * @param err
  * @returns {void | *}
  */
-const logErr = (err) => log(`${PLUGIN.NAME}: ${color.error(err)}`);
+const logErr = (err) => log(color.error(`${PLUGIN.NAME}: ${err}`));
+
+/**
+ * Log info
+ *
+ * @param msg
+ * @returns {void | *}
+ */
+const logInfo = (msg) => log(color.grayout(`${PLUGIN.NAME}: ${msg}`));
 
 /**
  * Create the output folder if not exists
@@ -130,7 +138,8 @@ const createPageContent = (templatePath, pageData) => {
  */
 const getPageData = (filePath) => {
     try {
-        const data = execSync(`node ./webpack/helper/consoleTemplateData.js --file=${filePath}`, { encoding: 'utf8' });
+        const consoleToShell = path.join(__dirname, 'helper', 'consoleTemplateData.js');
+        const data         = execSync(`node ${consoleToShell} --file=${filePath}`, { encoding: 'utf8' });
 
         return JSON.parse(data);
     } catch (err) {
@@ -172,12 +181,18 @@ const writePages = (config) => {
 const writeEachPage = (outputPath, pageContent) => {
     try {
         writeFileSync(outputPath, pageContent, 'utf8');
-        log(`${color.highlight(PLUGIN.NAME)}: updates ${color.success(outputPath)} successfully`);
+        logInfo(`updated ${outputPath}`);
     } catch (err) {
         logErr(err);
     }
 };
 
+/**
+ * Need to add entry files (controller/*.js) to watch list, since they're only used for SSR
+ *
+ * @param entry
+ * @param fileDependencies
+ */
 const addEntryToDependencies = ({ entry }, { fileDependencies }) => {
     if (!fileDependencies) { return; }
 
@@ -186,7 +201,7 @@ const addEntryToDependencies = ({ entry }, { fileDependencies }) => {
         if (fileDependencies.has(filePath)) { return; }
 
         fileDependencies.add(filePath);
-        log(`${color.highlight(PLUGIN.NAME)}: Added ${color.success(filePath)} to file dependencies`);
+        logInfo(`Added ${filePath} to file dependencies`);
     });
 };
 
