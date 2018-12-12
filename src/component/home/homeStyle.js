@@ -1,9 +1,9 @@
-const { css } = require('emotion');
+import { css } from 'emotion';
 
-const homeTitle = css`
-        color: red;
-    `;
+export const homeTitle = css`
+    color: yellow;
+`;
 
-module.exports = {
-    homeTitle,
-};
+export const homeBody = css`
+    color: blue;
+`;

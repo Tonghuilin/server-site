@@ -1,6 +1,11 @@
-const React    = require('react');
-const ReactDOM = require('react-dom');
-const App      = require('./component/index');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './component';
+
+// Set global variables in Node
+require('./global');
 
 // Render
-ReactDOM.hydrate(<App/>, document.getElementById('App'));
+if (isClient) {
+  ReactDOM.hydrate(React.createElement(App), document.getElementById('App'));
+}
