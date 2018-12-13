@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './home';
 
-const App = () => (<React.Fragment><Home {...{ title: 'Hello', name: 'me' }} /></React.Fragment>);
+const App = (props) => (<React.Fragment><Home {...props} /></React.Fragment>);
 
 export default App;

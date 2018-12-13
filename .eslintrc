@@ -3,7 +3,8 @@
     "globals": {
         "window": true,
         "document": true,
-        "isClient": true
+        "isClient": true,
+        "axios": true
     },
     "extends": "airbnb"
 }

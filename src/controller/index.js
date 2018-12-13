@@ -1,10 +1,18 @@
-import Home from '../component/home';
+import App from '../component';
+import axios from 'axios';
 
-const data = {
-  html: {
-      component: Home,
-      props: { title: 'Hello', name: 'me' },
-  },
+const generateData = async () => {
+    const firstPost = await axios.get('https://jsonplaceholder.typicode.com/posts');
+
+    return {
+        component:      App,
+        componentProps: { title: 'Hello', name: 'me' },
+        firstPost,
+    };
 };
 
-module.exports = data;
+// module.exports = generateData();
+module.exports = {
+    component:      App,
+    componentProps: { title: 'Hello', name: 'me' },
+};

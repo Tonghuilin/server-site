@@ -1,3 +1,7 @@
+require('@babel/register');
+require('@babel/polyfill');
+require('./src/global');
+
 const path               = require('path');
 const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs/index');
 const config             = require('./config');

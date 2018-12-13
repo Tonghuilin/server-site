@@ -10,14 +10,12 @@ const renderCompHtml = require('./renderCompHtml');
  * }}
  * @returns {{html}}
  */
-const renderHtml = (data = {}) => {
-    const { component, props } = data.html || {};
-
+const renderHtml = ({ component, componentProps }) => {
     if (!component) {
         throw new Error('Cannot find component to render');
     }
 
-    return renderCompHtml(component, props);
+    return renderCompHtml(component, componentProps);
 };
 
 

@@ -1,5 +1,3 @@
-require('@babel/register');
-
 const Handlebars   = require('handlebars');
 const { execSync } = require('child_process');
 const glob         = require('glob');
@@ -42,7 +40,6 @@ const logInfo = (msg) => log(color.grayout(`${PLUGIN.NAME}: ${msg}`));
  * @returns {*}
  */
 const mayCreateOutputFolder = (config) => {
-
     try {
         const dir       = path.dirname(config.output);
         const doesExist = existsSync(dir);
@@ -53,6 +50,7 @@ const mayCreateOutputFolder = (config) => {
 
         const newDir = mkdirSync(dir);
         log(`${PLUGIN.NAME}: ${color.success(dir)} created`);
+
         return newDir;
     } catch (err) {
         logErr(err);
@@ -84,7 +82,17 @@ const createPathByFileName = (filePath, fileName) => {
 };
 
 /**
- * register handlebar partials under the folder paths
+ * register handlebars custom helpers
+ */
+const registerHelpers = () => {
+    Handlebars.registerHelper(
+        'jsonStringify',
+        (value) => (typeof value !== 'string' ? JSON.stringify(value) : value),
+    );
+};
+
+/**
+ * register handlebars partials under the folder paths
  *
  * @param folderPaths
  */
@@ -108,6 +116,7 @@ const registerPartials = (folderPaths) => {
  */
 const prepareHandlebars = (config) => {
     registerPartials(config.partials);
+    registerHelpers();
 };
 
 /**
@@ -136,10 +145,11 @@ const createPageContent = (templatePath, pageData) => {
  * @param filePath
  * @returns {*}
  */
-const getPageData = (filePath) => {
+const getPageData = async (filePath) => {
     try {
         const printer = path.join(__dirname, 'helper', 'printTemplateData.js');
-        const data    = execSync(`node ${printer} --file=${filePath}`, { encoding: 'utf8' });
+        const data = execSync(`node ${printer} --file=${filePath}`, { encoding: 'utf8' });
+        console.log(data);
 
         return JSON.parse(data);
     } catch (err) {
@@ -155,11 +165,12 @@ const getPageData = (filePath) => {
  * @param config
  * @returns {any[]}
  */
-const writePages = (config) => {
+const writePages = async (config) => {
     const files = glob.sync(config.entry) || [];
 
-    return files.map((filePath) => {
-        const pageData     = getPageData(filePath);
+    return await files.map(async (filePath) => {
+        const pageData     = await getPageData(filePath);
+
         const fileName     = getFileName(filePath);
         const templatePath = createPathByFileName(config.template, fileName);
         const pageContent  = createPageContent(templatePath, pageData);
@@ -217,10 +228,11 @@ class SsrByHbsPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.make.tap(PLUGIN.NAME, () => {
+        compiler.hooks.make.tap(PLUGIN.NAME, async () => {
             mayCreateOutputFolder(this.config);
             prepareHandlebars(this.config);
-            writePages(this.config);
+
+            await writePages(this.config);
         });
 
         compiler.hooks.emit.tap(PLUGIN.NAME, (compliation) => {
