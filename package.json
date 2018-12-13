@@ -16,7 +16,8 @@
     "watch:serve": "nodemon --exec \"npm run serve\"",
     "watch:test": "npm run test -- --watch",
     "watch": "npm-run-all --parallel watch:build watch:serve",
-    "test:coverage": "npm run test -- --coverage"
+    "test:coverage": "npm run test -- --coverage",
+    "build:jenkins": "chmod a+rx ./script/build-jenkins.sh && ./script/build-jenkins.sh"
   },
   "repository": {
     "type": "git",
