@@ -138,8 +138,8 @@ const createPageContent = (templatePath, pageData) => {
  */
 const getPageData = (filePath) => {
     try {
-        const consoleToShell = path.join(__dirname, 'helper', 'consoleTemplateData.js');
-        const data         = execSync(`node ${consoleToShell} --file=${filePath}`, { encoding: 'utf8' });
+        const printer = path.join(__dirname, 'helper', 'printTemplateData.js');
+        const data    = execSync(`node ${printer} --file=${filePath}`, { encoding: 'utf8' });
 
         return JSON.parse(data);
     } catch (err) {
@@ -210,7 +210,10 @@ const addEntryToDependencies = ({ entry }, { fileDependencies }) => {
  */
 class SsrByHbsPlugin {
     constructor(props) {
-        this.config = props;
+        this.config = {
+            mode: process.env.NODE_ENV || 'development',
+            ...props,
+        };
     }
 
     apply(compiler) {
