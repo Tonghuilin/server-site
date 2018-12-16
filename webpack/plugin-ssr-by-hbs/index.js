@@ -1,37 +1,15 @@
-const Handlebars   = require('handlebars');
-const { execSync } = require('child_process');
-const glob         = require('glob');
+const { fork }                           = require('child_process');
+const glob                               = require('glob');
 const {
-          readFileSync,
           writeFileSync,
           existsSync,
           mkdirSync,
-      }            = require('fs');
-const path         = require('path');
-const {
-          log,
-          color,
-      }            = require('../../server/helper/logger');
-
-const PLUGIN = {
-    NAME:    'SsrByHbsPlugin',
-};
-
-/**
- * Log error
- *
- * @param err
- * @returns {void | *}
- */
-const logErr = (err) => log(color.error(`${PLUGIN.NAME}: ${err}`));
-
-/**
- * Log info
- *
- * @param msg
- * @returns {void | *}
- */
-const logInfo = (msg) => log(color.grayout(`${PLUGIN.NAME}: ${msg}`));
+      }                                  = require('fs');
+const path                               = require('path');
+const flattern                           = require('lodash/flatten');
+const logger                             = require('./helper/logger');
+const { PLUGIN_NAME }                    = require('./helper/const');
+const { registerHbs, renderHbsTemplate } = require('./helper/hbs');
 
 /**
  * Create the output folder if not exists
@@ -49,11 +27,11 @@ const mayCreateOutputFolder = (config) => {
         }
 
         const newDir = mkdirSync(dir);
-        log(`${PLUGIN.NAME}: ${color.success(dir)} created`);
+        logger.logInfo(`${dir} created`);
 
         return newDir;
     } catch (err) {
-        logErr(err);
+        logger.logErr(err);
     }
 };
 
@@ -62,7 +40,7 @@ const mayCreateOutputFolder = (config) => {
  *
  * @param filePath
  */
-const getFileName = (filePath) => {
+const getNameFromPath = (filePath) => {
     const { name } = path.parse(filePath);
     return name;
 };
@@ -74,90 +52,63 @@ const getFileName = (filePath) => {
  * @param fileName
  * @returns {*}
  */
-const createPathByFileName = (filePath, fileName) => {
+const setNameInPath = (filePath, fileName) => {
     const placeholder   = '[name]';
     const needInjection = filePath.indexOf(placeholder) > -1;
 
     return needInjection ? filePath.replace(placeholder, fileName) : filePath;
 };
 
-/**
- * register handlebars custom helpers
- */
-const registerHelpers = () => {
-    Handlebars.registerHelper(
-        'jsonStringify',
-        (value) => (typeof value !== 'string' ? JSON.stringify(value) : value),
-    );
-};
+const deBuffer = (buf) => Buffer.from(buf, 'utf-8').toString();
 
 /**
- * register handlebars partials under the folder paths
- *
- * @param folderPaths
- */
-const registerPartials = (folderPaths) => {
-    folderPaths.forEach((folderPath) => {
-        const files = glob.sync(folderPath) || [];
-
-        files.forEach((filePath) => {
-            const { name } = path.parse(filePath);
-            const content  = readFileSync(filePath, 'utf8');
-
-            Handlebars.registerPartial(name, content);
-        });
-    });
-};
-
-/**
- * prepare handlebar, e.g. partials
- *
- * @param config
- */
-const prepareHandlebars = (config) => {
-    registerPartials(config.partials);
-    registerHelpers();
-};
-
-/**
- * create page content by HBS template + data
- *
- * @param templatePath
- * @param pageData
- * @returns {string}
- */
-const createPageContent = (templatePath, pageData) => {
-    try {
-        const template = readFileSync(templatePath, 'utf8');
-        const content  = Handlebars.compile(template)(pageData);
-
-        return (content || '').trim();
-    } catch (err) {
-        logErr(err);
-
-        return '';
-    }
-};
-
-/**
- * Capture shell print for hot data
+ * user child_process.fork: fork a module => data for its handlebar template
+ * FYI: fork does not send functions
  *
  * @param filePath
- * @returns {*}
+ * @returns {Promise<any>}
  */
-const getPageData = async (filePath) => {
-    try {
-        const printer = path.join(__dirname, 'helper', 'printTemplateData.js');
-        const data = execSync(`node ${printer} --file=${filePath}`, { encoding: 'utf8' });
-        console.log(data);
+const getTemplateData = (filePath) => new Promise((resolve, reject) => {
+    const forked = fork(
+        './webpack/plugin-ssr-by-hbs/helper/forkModule.js',
+        ['--filePath', filePath],
+        {
+            // execPath: 'babel-node',
+            silent: true,
+        },
+    );
 
-        return JSON.parse(data);
-    } catch (err) {
-        logErr(err);
+    const { stdout, stderr } = forked;
 
-        return {};
-    }
-};
+    forked.on('message', (buf) => {
+        const pageData = deBuffer(buf);
+        console.log('[message]', pageData);
+        resolve(pageData);
+    });
+
+    forked.on('error', (buf) => {
+        const err = deBuffer(buf);
+        console.log(err);
+        reject(err);
+    });
+
+    forked.on('close', (code) => {
+        console.log('[code on close] ', code);
+    });
+
+    forked.send('getProps');
+
+    stdout.on('data', (buf) => {
+        const data = deBuffer(buf);
+        console.log('[stdout data]', data);
+    });
+
+    stderr.on('data', (buf) => {
+        const err = deBuffer(buf);
+        console.log('[stdout err]', err);
+    });
+});
+
 
 /**
  * output all pages
@@ -169,33 +120,23 @@ const writePages = async (config) => {
     const files = glob.sync(config.entry) || [];
 
     return await files.map(async (filePath) => {
-        const pageData     = await getPageData(filePath);
+        const templateData = await getTemplateData(filePath);
 
-        const fileName     = getFileName(filePath);
-        const templatePath = createPathByFileName(config.template, fileName);
-        const pageContent  = createPageContent(templatePath, pageData);
-        const outputPath   = createPathByFileName(config.output, fileName);
+        const fileName     = getNameFromPath(filePath);
 
-        writeEachPage(outputPath, pageContent);
+        const outputPath   = setNameInPath(config.output, fileName);
+        const templatePath = setNameInPath(config.template, fileName);
+
+        const renderedContent = renderHbsTemplate(templatePath, templateData);
+
+        writeFileSync(outputPath, renderedContent, 'utf8', (err) => {
+            if (err) {
+                logger.logErr(err);
+                throw new Error(`Failed to write File: ${outputPath}`);
+            }
+            logger.logInfo(`updated ${outputPath}`);
+        });
     });
-};
-
-/**
- * Generate a callback function by config.
- * This CB function is to write JSON file for HandlebarsPlugin
- *
- * @param outputPath
- * @param pageContent
- *
- * @returns {{}|undefined}
- */
-const writeEachPage = (outputPath, pageContent) => {
-    try {
-        writeFileSync(outputPath, pageContent, 'utf8');
-        logInfo(`updated ${outputPath}`);
-    } catch (err) {
-        logErr(err);
-    }
 };
 
 /**
@@ -204,15 +145,23 @@ const writeEachPage = (outputPath, pageContent) => {
  * @param entry
  * @param fileDependencies
  */
-const addEntryToDependencies = ({ entry }, { fileDependencies }) => {
-    if (!fileDependencies) { return; }
+const addToDependencies = ({ template, partials }, { fileDependencies }) => {
+    if (!fileDependencies) {
+        return;
+    }
 
-    const entryFiles = glob.sync(entry) || [];
-    entryFiles.forEach(filePath => {
-        if (fileDependencies.has(filePath)) { return; }
+    // glob patterns to track => file paths
+    const filePaths = flattern(
+        [template, ...partials].map((pattern) => glob.sync(pattern)),
+    );
+
+    filePaths.forEach(filePath => {
+        if (fileDependencies.has(filePath)) {
+            return;
+        }
 
         fileDependencies.add(filePath);
-        logInfo(`Added ${filePath} to file dependencies`);
+        logger.logInfo(`Added ${filePath} to file dependencies`);
     });
 };
 
@@ -228,15 +177,19 @@ class SsrByHbsPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.make.tap(PLUGIN.NAME, async () => {
+        compiler.hooks.make.tap(PLUGIN_NAME, async () => {
             mayCreateOutputFolder(this.config);
-            prepareHandlebars(this.config);
+            registerHbs(this.config);
 
-            await writePages(this.config);
+            try {
+                await writePages(this.config);
+            } catch (err) {
+                logger.logErr(err);
+            }
         });
 
-        compiler.hooks.emit.tap(PLUGIN.NAME, (compliation) => {
-            addEntryToDependencies(this.config, compliation);
+        compiler.hooks.emit.tap(PLUGIN_NAME, (compliation) => {
+            addToDependencies(this.config, compliation);
         });
     }
 }

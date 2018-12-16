@@ -1,5 +1,3 @@
-require('@babel/register');
-require('@babel/polyfill');
 require('./src/global');
 
 const path               = require('path');
@@ -13,7 +11,7 @@ log(`Mode: ${color.highlight(mode)} ${color.grayout(__dirname)}`);
 
 const webConfig = {
     mode,
-    entry:   path.join(__dirname, config.src, 'index.js'),
+    entry:   ['@babel/polyfill', path.join(__dirname, config.src, 'index.js')],
     output:  {
         path:       path.join(__dirname, config.dist),
         filename:   config.bundle,
@@ -45,6 +43,9 @@ const webConfig = {
             partials: [
                 path.join(__dirname, config.src, 'view', 'partial', '*.hbs'),
             ],
+            helpers: {
+                jsonStringify: (value) => (typeof value !== 'string' ? JSON.stringify(value) : value),
+            },
         }),
     ],
 };

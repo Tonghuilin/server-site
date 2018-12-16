@@ -1,26 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './component';
+
+import { component, getProps } from './controller';
 
 // Set global variables in Node
 require('./global');
 
-const getProps = (appDom) => {
-    const appProps = appDom.getAttribute('data-props');
+// Render
+const render = async () => {
+    const dom = document.getElementById('App');
 
-    if (appProps) {
-        try {
-            return JSON.parse(appProps);
-        } catch (err) {
-            console.log('data-props is an invalid JSON', err);
-        }
+    if (!isClient || !Boolean(dom)) {
+        return false;
+    }
+
+    if (isClient) {
+        const props = await getProps();
+
+        ReactDOM.hydrate(
+            React.createElement(component, props),
+            dom,
+        );
+
+        return true;
     }
 };
 
-// Render
-const dom   = document.getElementById('App');
-const props = getProps(dom);
-
-if (isClient) {
-    ReactDOM.hydrate(React.createElement(App, props), dom);
-}
+render();

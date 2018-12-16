@@ -1,18 +1,25 @@
 import App from '../component';
+// import noop from 'lodash/noop';
 import axios from 'axios';
 
-const generateData = async () => {
-    const firstPost = await axios.get('https://jsonplaceholder.typicode.com/posts');
+// const noop = () => { console.log('noop'); };
 
-    return {
-        component:      App,
-        componentProps: { title: 'Hello', name: 'me' },
-        firstPost,
-    };
+// process.send = process.send || noop;
+
+export const getProps = async () => {
+    const someFetch = () => new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ title: 'Hello', name: 'that' });
+        }, 1000);
+    });
+
+    try {
+        const data = await someFetch();
+        return data;
+    } catch (err) {
+        console.log(err);
+        return {};
+    }
 };
 
-// module.exports = generateData();
-module.exports = {
-    component:      App,
-    componentProps: { title: 'Hello', name: 'me' },
-};
+export const component = App;

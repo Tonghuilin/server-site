@@ -1,7 +1,7 @@
 import { css } from 'emotion';
 
 export const homeTitle = css`
-    color: yellow;
+    color: red;
 `;
 
 export const homeBody = css`

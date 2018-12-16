@@ -8,7 +8,7 @@
     "build": "export PATH=$(npm bin):$PATH && npm run clean && webpack --config webpack.config.js",
     "build:prod": "export NODE_ENV=production && npm run clean && npm run build",
     "build:jenkins": "chmod a+rx ./script/build-jenkins.sh && ./script/build-jenkins.sh",
-    "serve": "export NODE_ENV=development && node .",
+    "serve": "export NODE_ENV=development && babel-node .",
     "start": "npm run build && npm run serve",
     "test": "jest --config=jest.config.js",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/Tonghuilin/server-site#readme",
   "devDependencies": {
     "@babel/core": "^7.1.6",
+    "@babel/node": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
