@@ -27,7 +27,7 @@ const trySsr = ({ component, componentProps }) => {
  *     component
  *     componentProps
  * }}
- * @returns {string}
+ * @returns {{html}}
  */
 const prepareHbsTemplateData = (data = {}) => {
     const result = {
@@ -35,7 +35,7 @@ const prepareHbsTemplateData = (data = {}) => {
         html: trySsr(data),
     };
 
-    return JSON.stringify(result);
+    return result;
 };
 
 module.exports = {

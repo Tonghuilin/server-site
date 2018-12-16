@@ -8,8 +8,9 @@
 require('@babel/register');
 require('@babel/polyfill');
 
-const args                      = require('yargs').argv || {};
+const args                       = require('yargs').argv || {};
 const { prepareHbsTemplateData } = require('./prepareHbsTemplateData');
+const logger                     = require('./logger');
 
 process.on('message', async (msg) => {
     const { filePath } = args;
@@ -17,15 +18,14 @@ process.on('message', async (msg) => {
     const module                  = require(filePath);
     const { getProps, component } = module;
 
-    console.log(`Message from parent: ${msg}`);
-    console.log(getProps, component);
+    logger.logInfo(`Message from parent: ${msg}`);
 
     try {
         const componentProps  = await getProps();
         const hbsTemplateData = await prepareHbsTemplateData({ component, componentProps });
 
-        process.send(JSON.stringify(hbsTemplateData));
+        process.send(hbsTemplateData);
     } catch (error) {
-        process.send(JSON.stringify(error));
+        process.send(error);
     }
 });

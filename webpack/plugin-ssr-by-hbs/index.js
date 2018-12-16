@@ -59,7 +59,10 @@ const setNameInPath = (filePath, fileName) => {
     return needInjection ? filePath.replace(placeholder, fileName) : filePath;
 };
 
-const deBuffer = (buf) => Buffer.from(buf, 'utf-8').toString();
+const bufToJson = (buf) => JSON.stringify((buf));
+
+const bufToData = (buf) => JSON.parse(bufToJson(buf));
+
 
 /**
  * user child_process.fork: fork a module => data for its handlebar template
@@ -81,14 +84,18 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
     const { stdout, stderr } = forked;
 
     forked.on('message', (buf) => {
-        const pageData = deBuffer(buf);
-        console.log('[message]', pageData);
+        const pageData       = bufToData(buf);
+        const pageDataString = bufToJson(buf);
+
+        logger.logInfo(`[message] ${pageDataString}`);
         resolve(pageData);
     });
 
     forked.on('error', (buf) => {
-        const err = deBuffer(buf);
-        console.log(err);
+        const err       = bufToData(buf);
+        const errString = bufToJson(buf);
+
+        logger.logErr(errString);
         reject(err);
     });
 
@@ -99,13 +106,13 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
     forked.send('getProps');
 
     stdout.on('data', (buf) => {
-        const data = deBuffer(buf);
-        console.log('[stdout data]', data);
+        const data = bufToJson(buf);
+        logger.logInfo(`[stdout data] ${data}`);
     });
 
     stderr.on('data', (buf) => {
-        const err = deBuffer(buf);
-        console.log('[stdout err]', err);
+        const err = bufToJson(buf);
+        logger.logInfo(`[stdout err] ${err}`);
     });
 });
 
@@ -122,7 +129,7 @@ const writePages = async (config) => {
     return await files.map(async (filePath) => {
         const templateData = await getTemplateData(filePath);
 
-        const fileName     = getNameFromPath(filePath);
+        const fileName = getNameFromPath(filePath);
 
         const outputPath   = setNameInPath(config.output, fileName);
         const templatePath = setNameInPath(config.template, fileName);
