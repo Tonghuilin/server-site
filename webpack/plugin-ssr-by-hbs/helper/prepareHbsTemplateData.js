@@ -18,6 +18,9 @@ const trySsr = ({ component, componentProps }) => {
     return ssr(component, componentProps);
 };
 
+const makeHeadData = ({ componentProps }) => ({
+    title: componentProps.title,
+});
 
 /**
  * prepare Hbs template data: inject html, then omit component and props used to generate html
@@ -31,7 +34,7 @@ const trySsr = ({ component, componentProps }) => {
  */
 const prepareHbsTemplateData = (data = {}) => {
     const result = {
-        ...data,
+        head: makeHeadData(data),
         html: trySsr(data),
     };
 

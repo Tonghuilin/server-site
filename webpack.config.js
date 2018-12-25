@@ -3,7 +3,7 @@ require('./src/global');
 const path               = require('path');
 const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs/index');
 const config             = require('./config');
-const { log, color }     = require('./server/helper/logger');
+const { log, color }     = require('./src/helper/logger');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -15,7 +15,7 @@ const webConfig = {
     output:  {
         path:       path.join(__dirname, config.dist),
         filename:   config.bundle,
-        publicPath: config.static,
+        publicPath: `${config.dist}/`,
     },
     devtool: 'source-map',
 
@@ -43,7 +43,7 @@ const webConfig = {
             partials: [
                 path.join(__dirname, config.src, 'view', 'partial', '*.hbs'),
             ],
-            helpers: {
+            helpers:  {
                 jsonStringify: (value) => (typeof value !== 'string' ? JSON.stringify(value) : value),
             },
         }),

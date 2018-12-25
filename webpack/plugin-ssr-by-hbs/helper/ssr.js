@@ -9,9 +9,11 @@ const { renderStylesToString } = require('emotion-server');
  * @param props
  * @returns {string}
  */
-module.exports = (comp, props = {}) =>
-    renderStylesToString(
+module.exports = (comp, props = {}) => {
+    return renderStylesToString(
         renderToString(
             React.createElement(comp, props),
         ),
     );
+}
+

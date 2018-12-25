@@ -1,0 +1,31 @@
+import React from 'react';
+import { string, func } from 'prop-types';
+import { SubmitButton } from './index.style';
+
+const Form = ({ method, action, children, onSubmit, submitText }) => {
+    return (
+        <form method={method} action={action} onSubmit={onSubmit}>
+            {children}
+
+            <SubmitButton type="submit">
+                {submitText}
+            </SubmitButton>
+        </form>
+    );
+};
+
+Form.propTypes = {
+    method:     string,
+    action:     string,
+    onSubmit:   func,
+    submitText: string,
+};
+
+Form.defaultProps = {
+    method:     'GET',
+    action:     '/',
+    submitText: 'submit',
+
+};
+
+export default Form;

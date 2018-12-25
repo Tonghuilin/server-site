@@ -4,5 +4,6 @@ module.exports = {
     bundle:    'bundle.js',
     bundleMap: 'bundle.js.map',
     static:    'static',
+    asset:     'asset',
     tmp:       '.tmp',
 };

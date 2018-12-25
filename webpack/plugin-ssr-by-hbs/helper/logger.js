@@ -1,5 +1,5 @@
 const { PLUGIN_NAME } = require('./const');
-const { log, color }  = require('../../../server/helper/logger');
+const { log, color }  = require('../../../src/helper/logger');
 
 /**
  * Log error

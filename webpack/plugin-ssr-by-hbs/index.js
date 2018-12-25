@@ -59,7 +59,7 @@ const setNameInPath = (filePath, fileName) => {
     return needInjection ? filePath.replace(placeholder, fileName) : filePath;
 };
 
-const bufToJson = (buf) => JSON.stringify((buf));
+const bufToJson = (buf, replacer, space) => JSON.stringify(buf, replacer, space);
 
 const bufToData = (buf) => JSON.parse(bufToJson(buf));
 
@@ -85,9 +85,10 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
 
     forked.on('message', (buf) => {
         const pageData       = bufToData(buf);
-        const pageDataString = bufToJson(buf);
+        const pageDataString = bufToJson(buf, null, 4);
 
-        logger.logInfo(`[message] ${pageDataString}`);
+        // logger.logInfo(`[message] ${pageDataString}`);
+        logger.logInfo(`[message length] ${pageDataString.length}`);
         resolve(pageData);
     });
 
@@ -105,13 +106,11 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
 
     forked.send('getProps');
 
-    stdout.on('data', (buf) => {
-        const data = bufToJson(buf);
+    stdout.on('data', (data) => {
         logger.logInfo(`[stdout data] ${data}`);
     });
 
-    stderr.on('data', (buf) => {
-        const err = bufToJson(buf);
+    stderr.on('data', (err) => {
         logger.logInfo(`[stdout err] ${err}`);
     });
 });

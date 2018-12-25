@@ -2,6 +2,8 @@ const chalk = require('chalk');
 
 const log = console.log;
 
+const warn = console.warn;
+
 const color = {
     warn:      chalk.yellow,
     error:     chalk.bold.red,
@@ -12,5 +14,6 @@ const color = {
 
 module.exports = {
     log,
+    warn,
     color,
 };

@@ -1,5 +1,5 @@
 const express       = require('express');
-const { log, color } = require('./helper/logger');
+const { log, color } = require('../src/helper/logger');
 
 const PORT = 3000;
 const app  = express();
