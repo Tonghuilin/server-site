@@ -5,9 +5,7 @@
  *              you won't get the fresh exports of a file by calling require('...').
  *              We need hot execute the file, and process.send the result back to the parent.
  */
-require('@babel/register')({
-    root: require('path').resolve(__dirname, '../../../'),
-});
+require('@babel/register')(require('../../../babel.config'));
 
 require('@babel/polyfill');
 

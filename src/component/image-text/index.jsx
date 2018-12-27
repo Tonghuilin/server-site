@@ -1,6 +1,9 @@
-import React from 'react';
-import { string, shape, bool } from 'prop-types';
+import React                                      from 'react';
+import { string, shape, bool, number, oneOfType } from 'prop-types';
+
+// styled component
 import {
+    Wrapper,
     Container,
     Title,
     Body,
@@ -10,17 +13,27 @@ import {
 } from './index.style';
 
 const ImageText = ({ id, title, body, image, setting }) => {
-    return (
-        <Container id={id} {...setting}>
-            <ImageWrapper {...setting}>
-                <Image src={image.url} alt={image.title}/>
-            </ImageWrapper>
+    const { width, height, url, title: imageTitle } = image;
 
-            <TextWrapper {...setting}>
-                <Title>{title}</Title>
-                <Body dangerouslySetInnerHTML={{ __html: body }}/>
-            </TextWrapper>
-        </Container>
+    return (
+        <Wrapper id={id} {...setting}>
+            <Container {...setting}>
+                <ImageWrapper {...setting}>
+                    <Image
+                        width={width}
+                        height={height}
+                        src={url}
+                        alt={imageTitle}
+                        {...setting}
+                    />
+                </ImageWrapper>
+
+                <TextWrapper {...setting}>
+                    <Title>{title}</Title>
+                    <Body dangerouslySetInnerHTML={{ __html: body }}/>
+                </TextWrapper>
+            </Container>
+        </Wrapper>
     );
 };
 
@@ -33,17 +46,27 @@ ImageText.propTypes = {
         description: string,
         url:         string,
         fileType:    string,
+        width:       oneOfType([number, string]),
+        height:      oneOfType([number, string]),
     }),
     setting: shape({
-        vertical: bool,
-        reverse:  bool,
+        vertical:              bool,
+        reverse:               bool,
+        fullWidth:             bool,
+        bannerBackgroundColor: string,
+        imageBackgroundColor:  string,
+        textBackgroundColor:   string,
     }),
 };
 
 ImageText.defaultProps = {
     title:   '',
     body:    '',
-    image:   {},
+    image:   {
+        height: 'auto',
+        width:  '100%',
+    },
+    text:    {},
     setting: {
         vertical: false,
         reverse:  false,

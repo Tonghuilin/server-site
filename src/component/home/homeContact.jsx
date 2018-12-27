@@ -1,44 +1,53 @@
-import React from 'react';
+import React      from 'react';
 import { string } from 'prop-types';
-import { Container, Title } from './homeContact.style';
-import Form from '../form';
-import TextInput from '../input/textInput';
+import Form       from '../form';
+import TextInput  from '../input/textInput';
+
+// styled component
+import { Wrapper, Title } from './homeContact.style';
+import { Container }      from '../typography';
 
 const HomeContact = ({ title, submitText }) => {
-    const onSubmit = () => {};
+    const onSubmit = () => {
+    };
 
     const inputs = [
         {
-            id: 'first-name',
-            label: 'I\'m',
+            id:          'first-name',
+            label:       'I\'m',
             placeholder: 'first name',
-            inline: true,
-            onChange: () => {},
+            mode:        'inline-lite',
+            onChange:    () => {
+            },
         },
         {
-            id: 'email',
-            label: ', my email is',
+            id:          'email',
+            label:       ', my email is',
             placeholder: 'email address',
-            inline: true,
-            onChange: () => {},
+            mode:        'inline-lite',
+            onChange:    () => {
+            },
         },
         {
-            id: 'phone',
-            label: 'and you can call me on',
+            id:          'phone',
+            label:       'and you can call me on',
             placeholder: '138xxxxxxxx',
-            inline: true,
-            onChange: () => {},
+            mode:        'inline-lite',
+            onChange:    () => {
+            },
         },
     ];
 
     return (
-        <Container>
-            <Title>{title}</Title>
+        <Wrapper>
+            <Container>
+                <Title>{title}</Title>
 
-            <Form onSubmit={onSubmit} submitText={submitText}>
-                {inputs.map((props) => <TextInput key={props.id} {...props} />)}
-            </Form>
-        </Container>
+                <Form onSubmit={onSubmit} submitText={submitText}>
+                    {inputs.map((props) => <TextInput key={props.id} {...props} />)}
+                </Form>
+            </Container>
+        </Wrapper>
     );
 };
 
@@ -48,7 +57,7 @@ HomeContact.propTypes = {
 };
 
 HomeContact.defaultProps = {
-    title: '',
+    title:      '',
     submitText: '',
 };
 

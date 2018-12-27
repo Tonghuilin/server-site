@@ -1,15 +1,17 @@
-import React from 'react';
-import { string, func } from 'prop-types';
-import { SubmitButton } from './index.style';
+import React                           from 'react';
+import { string, func }                from 'prop-types';
+import { ButtonWrapper, SubmitButton } from './index.style';
 
 const Form = ({ method, action, children, onSubmit, submitText }) => {
     return (
         <form method={method} action={action} onSubmit={onSubmit}>
             {children}
 
-            <SubmitButton type="submit">
-                {submitText}
-            </SubmitButton>
+            <ButtonWrapper>
+                <SubmitButton type="submit">
+                    {submitText}
+                </SubmitButton>
+            </ButtonWrapper>
         </form>
     );
 };

@@ -1,22 +1,28 @@
-import React from 'react';
+import React                      from 'react';
 import { string, arrayOf, shape } from 'prop-types';
-import { Container, Title, List, Item } from './index.style';
+import Icon                       from '../icon';
+
+// styled component
+import { Wrapper, Container, Title, List, Item } from './index.style';
 
 const Social = ({ title, items }) => {
     return (
-        <Container>
-            <Title>{title}</Title>
-
-            {
-                items.length ? (
-                    <List>
-                        {
-                            items.map((props) => (<Item key={props.id} />))
-                        }
-                    </List>
-                ) : null
-            }
-        </Container>
+        <Wrapper>
+            <Container>
+                <Title>{title}</Title>
+                {
+                    items.length ? (
+                        <List>
+                            {items.map(({ id, url }) => (
+                                <Item href={url} key={id}>
+                                    <Icon name={id} width={20} height={20}/>
+                                </Item>
+                            ))}
+                        </List>
+                    ) : null
+                }
+            </Container>
+        </Wrapper>
     );
 };
 

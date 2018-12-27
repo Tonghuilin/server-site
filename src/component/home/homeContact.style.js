@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { H4 } from '../typography';
 
-export const Container = styled.div`
-    background: pink;
+export const Wrapper = styled.div`
+    background-color: transparent; 
+    text-align: center;
 `;
 
-export const Title = styled.h3`
-`;
+export const Title = styled(H4)``;

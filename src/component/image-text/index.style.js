@@ -1,46 +1,65 @@
-import styled from '@emotion/styled';
+import Styled                                  from '@emotion/styled';
+import { Container as BaseContainer, H4, Img } from '../typography';
 
-const getDislay = ({ vertical }) => vertical ? undefined : 'flex';
+export const Wrapper = Styled.div(({ backgroundColor }) => ({
+    backgroundColor,
+}));
 
-const getFlexDirection = ({ vertical, reverse }) => {
-    if (vertical) {
-        return undefined;
-    }
-    return reverse ? 'row-reverse' : 'row';
-};
+export const Container = Styled(BaseContainer)(
+    ({ vertical, reverse, fullWidth }) => (vertical ? {
+        padding: fullWidth ? 0 : undefined,
+    } : {
+        display:        'flex',
+        flexDirection:  reverse ? 'row-reverse' : undefined,
+        justifyContent: 'space-between',
+    }),
+);
 
-const getTextAlign = ({ vertical, reverse }) => {
-    if (vertical) {
-        return 'center';
-    }
-    return reverse ? 'left' : 'right';
-};
+export const ImageWrapper = Styled.div(
+    ({ vertical, imageBackgroundColor, theme }) => (vertical ? {
+        backgroundColor: imageBackgroundColor,
+        width:           '100%',
+        height:          vertical ? theme.pxToRem(300) : 'auto',
+        overflow:        'hidden',
+        position:        'relative',
+    } : {
+        flexBasis:  '50%',
+        flexShrink: 0,
+    }),
+);
 
-const getWidth = ({ vertical }) => vertical ? undefined : '50%';
+export const TextWrapper = Styled.div(
+    ({ vertical, reverse, textBackgroundColor, theme }) => {
+        const shared = {
+            backgroundColor: textBackgroundColor,
+        };
 
-export const Container = styled.div`
-    display: ${getDislay};
-    flex-direction: ${getFlexDirection}
+        return vertical ? {
+            ...shared,
+            width:     '100%',
+            textAlign: 'center',
+            padding:   theme.pxToRem(30),
+        } : {
+            ...shared,
+            flexBasis: '100%',
+            textAlign: reverse ? 'left' : 'right',
+        };
+    },
+);
+
+export const Title = Styled(H4)`
+    margin: 1rem 0;
 `;
 
-export const ImageWrapper = styled.div`
-    flex-basis: ${getWidth};
-`;
-
-export const TextWrapper = styled.div`
-    flex-basis: ${getWidth};
-    text-align: ${getTextAlign};
-`;
-
-export const Title = styled.h3`
-    color: red;
-`;
-
-export const Body = styled.div`
+export const Body = Styled.div`
     font-weight: 100;
 `;
 
-export const Image = styled.img`
-    height: auto;
-    width: 100%;
-`;
+export const Image = Styled(Img)(
+    ({ vertical }) => (vertical ? {
+        position:  'absolute',
+        top:       '50%',
+        left:      '50%',
+        transform: 'translate(-50%, -50%)',
+    } : {}),
+);

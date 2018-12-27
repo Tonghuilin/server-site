@@ -1,27 +1,35 @@
-import App   from '../component';
-import axios from 'axios';
+import App             from '../component';
+import pencilUrl       from '../asset/pencil.gif';
+import chemistryUrl    from '../asset/chemistry.gif';
+import thanksGivingUrl from '../asset/thanks-giving.gif';
+import Color           from '../theme/color';
+import axios           from 'axios';
 
 export const getProps = async () => {
     const someFetch = () => new Promise((resolve) => {
         setTimeout(() => {
             resolve({
-                theme:   'light',
-                title:   'Tong Hui Lin',
-                section: [
+                themeName: 'light',
+                title:     '通慧林',
+                section:   [
                     {
                         id:             'section-one',
                         componentType:  'image-text',
                         componentProps: {
                             title:   'We are building an ARK this Christmas!',
-                            body:    'section body <a href="www.google.com.au">Google</a>',
+                            body:    'No, we don\'t mean a flood is coming. We just plan to put smiles on the faces of everyday people around us with our ARK (acts of random kindness).',
                             image:   {
                                 title:       'image title',
-                                url:         'https://placehold.it/300x200',
+                                url:         chemistryUrl,
                                 description: 'this is description',
                                 fileType:    '',
+                                height:      '100%',
+                                width:       'auto',
                             },
                             setting: {
-                                vertical: true,
+                                vertical:             true,
+                                fullWidth:            true,
+                                imageBackgroundColor: Color.mantis,
                             },
                         },
                     },
@@ -32,14 +40,19 @@ export const getProps = async () => {
                             title: 'Share with friends',
                             items: [
                                 {
-                                    id:       'weichat',
+                                    id:       'wechat',
                                     username: 'yanxsc',
-                                    url:      'test.url',
+                                    url:      'weichat.url',
                                 },
                                 {
                                     id:       'qq',
                                     username: '123456',
-                                    url:      '123456.url',
+                                    url:      'qq.url',
+                                },
+                                {
+                                    id:       'weibo',
+                                    username: '123456',
+                                    url:      'weibo.url',
                                 },
                             ],
                         },
@@ -48,11 +61,16 @@ export const getProps = async () => {
                         id:             'section-two',
                         componentType:  'image-text',
                         componentProps: {
-                            title: 'section one',
-                            body:  'section body <a href="www.google.com.au">Google</a>',
+                            title: 'So here’s the plan.',
+                            body:  '<p class="subheading mb-md-0">' +
+                                   'Our debut ARK project this December is to share happiness with as many people as we\n' +
+                                   'can. We believe Happiness is only real when shared. It will take more than our team\n' +
+                                   'to make this dream come true so we are calling on friends to <a href="#" class="scroll-to">Join\n' +
+                                   'us.</a>' +
+                                   '</p>',
                             image: {
                                 title:       'image title',
-                                url:         'https://placehold.it/300x200',
+                                url:         thanksGivingUrl,
                                 description: 'this is description',
                                 fileType:    '',
                             },
@@ -76,7 +94,7 @@ export const getProps = async () => {
                         },
                     },
                 ],
-                contact: {
+                contact:   {
                     title:      'Ready to join us this Christmas?',
                     submitText: 'Yes! Let us do this!',
                 },

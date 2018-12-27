@@ -18,15 +18,20 @@ const webConfig = {
         publicPath: `${config.dist}/`,
     },
     devtool: 'source-map',
-
-    module: {
+    module:  {
         rules: [
             {
                 test:    /\.jsx?$/,
                 exclude: [
                     path.join(__dirname, 'node_modules'),
                 ],
-                loader:  'babel-loader',
+                use:     {
+                    loader:  'babel-loader',
+                    options: {
+                        configFile: './babel.config.js',
+                        ...require('./babel.config'),
+                    },
+                },
             },
         ],
     },

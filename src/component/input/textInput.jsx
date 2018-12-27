@@ -1,13 +1,13 @@
-import React from 'react';
-import { string, func, bool } from 'prop-types';
-import { Container, Label, Input, InputWrapper } from './textInput.style';
-import { COMP_NAME } from './const';
+import React                                   from 'react';
+import { string, func, bool, oneOf }           from 'prop-types';
+import { Wrapper, InputWrapper, Label, Input } from './textInput.style';
+import { COMP_NAME, MODE }                     from './const';
 
 const TextInput = ({ mode, id, type, name, label, placeholder, onChange, onValidate, value, errMsg }) => {
     const showError = typeof onValidate === 'function' && !Boolean(onValidate(value));
 
     return (
-        <Container mode={mode}>
+        <Wrapper mode={mode}>
             <Label mode={mode} htmlFor={id}>{label}</Label>
 
             <InputWrapper mode={mode}>
@@ -16,12 +16,12 @@ const TextInput = ({ mode, id, type, name, label, placeholder, onChange, onValid
             </InputWrapper>
 
             {showError ? <Error mode={mode}>{errMsg}</Error> : null}
-        </Container>
+        </Wrapper>
     );
 };
 
 TextInput.propTypes = {
-    mode:        string,
+    mode:        oneOf(MODE),
     id:          string.isRequired,
     type:        string,
     name:        string,

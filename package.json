@@ -5,9 +5,10 @@
   "main": "server/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "export PATH=$(npm bin):$PATH && npm run clean && webpack --config webpack.config.js",
-    "build:prod": "export NODE_ENV=production && npm run clean && npm run build",
+    "build:svg": "export PATH=$(npm bin):$PATH && svg-sprite --config svg-sprite.config.json ./src/svg/*.svg",
     "build:jenkins": "chmod a+rx ./script/build-jenkins.sh && ./script/build-jenkins.sh",
+    "build": "export PATH=$(npm bin):$PATH && npm run clean && npm run build:svg && webpack --config webpack.config.js",
+    "build:prod": "export NODE_ENV=production && npm run build",
     "serve": "export NODE_ENV=development && babel-node .",
     "start": "npm run build && npm run serve",
     "test": "jest --config=jest.config.js",
@@ -61,6 +62,7 @@
     "jest": "^23.6.0",
     "nodemon": "^1.18.7",
     "npm-run-all": "^4.1.5",
+    "svg-sprite": "^1.5.0",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
     "yargs": "^12.0.5"
