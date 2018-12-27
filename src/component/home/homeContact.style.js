@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { H4 } from '../typography';
 
 export const Wrapper = styled.div`
-    background-color: transparent; 
+    background-color: ${({ theme }) => theme.backgroundColor.common}; 
     text-align: center;
 `;
 

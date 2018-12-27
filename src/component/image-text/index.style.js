@@ -1,8 +1,9 @@
 import Styled                                  from '@emotion/styled';
 import { Container as BaseContainer, H4, Img } from '../typography';
 
-export const Wrapper = Styled.div(({ backgroundColor }) => ({
+export const Wrapper = Styled.div(({ theme, backgroundColor }) => ({
     backgroundColor,
+    marginBottom: theme.pxToRem(50),
 }));
 
 export const Container = Styled(BaseContainer)(
@@ -16,15 +17,17 @@ export const Container = Styled(BaseContainer)(
 );
 
 export const ImageWrapper = Styled.div(
-    ({ vertical, imageBackgroundColor, theme }) => (vertical ? {
+    ({ vertical, reverse, imageBackgroundColor, theme }) => (vertical ? {
         backgroundColor: imageBackgroundColor,
         width:           '100%',
         height:          vertical ? theme.pxToRem(300) : 'auto',
         overflow:        'hidden',
         position:        'relative',
     } : {
-        flexBasis:  '50%',
-        flexShrink: 0,
+        flexBasis:   '50%',
+        flexShrink:  0,
+        marginRight: reverse ? undefined : theme.pxToRem(16),
+        marginLeft:  reverse ? theme.pxToRem(16) : undefined,
     }),
 );
 

@@ -1,42 +1,55 @@
-import Color        from './color';
+import colors       from './color';
 import { getMixin } from './mixin';
 import logger       from '../helper/logger';
 
-export const light = {
+export const common = {
     font:            'Helvetica, Tahoma, Arial, STXihei, “华文细黑”, ' +
                      '“Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif',
     fontSize:        16,
+    transitionStyle: 'cubic-bezier(.88,.01,.68,1)',
+    transitionTime:  '0.2s',
+    transition:      `0.2s cubic-bezier(.88,.01,.68,1)`,
+};
+
+export const light = {
+    ...common,
     color:           {
-        body:   Color.dune,
-        button: Color.white,
-        icon:   Color.dune,
+        common: colors.white,
+        body:   colors.dune,
+        button: colors.white,
+        icon:   colors.dune,
+        a:      colors.celery,
     },
     backgroundColor: {
-        body:   Color.white,
-        button: Color.mantis,
-        icon:   Color.mantis,
+        common: colors.celery,
+        body:   colors.white,
+        button: colors.mantis,
+        icon:   colors.mantis,
     },
-    borderColor: {
-        input: Color.mantis,
+    borderColor:     {
+        common: colors.mantis,
+        input:  colors.mantis,
     },
 };
 
 export const dark = {
-    font:            'Helvetica, Tahoma, Arial, STXihei, “华文细黑”, ' +
-                     '“Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif',
-    fontSize:        16,
+    ...common,
     color:           {
-        body:   Color.white,
-        button: Color.white,
-        icon:   Color.white,
+        common: colors.white,
+        body:   colors.white,
+        button: colors.white,
+        icon:   colors.white,
+        a:      colors.celery,
     },
     backgroundColor: {
-        body:   Color.dune,
-        button: Color.mantis,
-        icon:   Color.dune,
+        common: colors.celery,
+        body:   colors.dune,
+        button: colors.mantis,
+        icon:   colors.dune,
     },
-    borderColor: {
-        input: Color.mantis,
+    borderColor:     {
+        common: colors.mantis,
+        input:  colors.mantis,
     },
 };
 

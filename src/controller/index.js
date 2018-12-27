@@ -80,8 +80,13 @@ export const getProps = async () => {
                         id:             'section-three',
                         componentType:  'image-text',
                         componentProps: {
-                            title:   'section two',
-                            body:    'section body <a href="www.google.com.au">Google</a>',
+                            title:   'And after Christmas?',
+                            body:    '<p class="subheading mb-md-0">\n' +
+                                     'We will be donating 5% of Cregital’s monthly revenue to a charitable cause. ARK\n' +
+                                     'will be our own way to give back as part of your celebration. We will partner with\n' +
+                                     'charitable organizations that are making a difference. <a href="mailto:ark@cregital.com?&amp;subject=Partnership Enquiry&amp;body=Hey%20Guys,%20I\'ll%20love%20to%20partner%20with%20the%20ARK%20project%20by...">Email\n' +
+                                     'us.</a>\n' +
+                                     '</p>',
                             image:   {
                                 title:       'image title',
                                 url:         'https://placehold.it/300x200',

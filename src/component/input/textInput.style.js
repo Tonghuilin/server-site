@@ -18,7 +18,9 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+    background-color: inherit;
     border: none;
-    width: 100%;
+    color: inherit;
     font-size: inherit;
+    width: 100%;
 `;

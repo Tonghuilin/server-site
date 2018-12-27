@@ -1,4 +1,5 @@
-import styled      from '@emotion/styled';
+import styled from '@emotion/styled';
+import Color  from 'color';
 
 export const H1 = styled.h1`
     font-size: ${({ theme }) => theme.pxToRem(48)};
@@ -34,12 +35,18 @@ export const Caption = styled.caption`
 
 export const Button = styled.button(({ theme }) => ({
     backgroundColor: theme.backgroundColor.button,
-    border: 'none',
-    color: theme.color.button,
-    fontSize: theme.pxToRem(14),
-    fontWeight: 600,
-    lineHeight: 1.5,
-    padding: `${theme.pxToRem(8)} ${theme.pxToRem(10)}`,
+    border:          'none',
+    color:           theme.color.button,
+    cursor:          'pointer',
+    fontSize:        theme.pxToRem(14),
+    fontWeight:      600,
+    lineHeight:      1.5,
+    padding:         `${theme.pxToRem(8)} ${theme.pxToRem(10)}`,
+    transition:      `background-color ${theme.transition}`,
+
+    '&:hover': {
+        backgroundColor: theme.darken(theme.backgroundColor.button, 0.5),
+    },
 }));
 
 export const Container = styled.div`

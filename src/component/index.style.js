@@ -10,10 +10,9 @@ export default ({ theme }) => {
     const body = css`
         body {
             background-color: ${theme.backgroundColor.body};
-            color:           ${theme.color.body};
-            font-family:      ${theme.font};
-            font-size:        ${theme.fontSize}px;
-            margin:          0,
+            color: ${theme.color.body};
+            font-family: ${theme.font};
+            font-size: ${theme.fontSize}px;
         }
     `;
 
@@ -23,8 +22,16 @@ export default ({ theme }) => {
         }
     `;
 
+    const a = css`
+        a {
+            color: ${theme.color.a};
+            font-weight: bold;
+        }
+    `;
+
     return {
         body,
         all,
+        a,
     };
 };
