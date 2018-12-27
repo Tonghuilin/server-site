@@ -1,6 +1,12 @@
 import Color from 'color';
 
-export const pxToRem = (base = 16) => px => `${px / base}rem`;
+export const pxToRem = (base = 16) => px => {
+    if (typeof px === 'string') {
+        return px;
+    }
+
+    return `${px / base}rem`;
+};
 
 /**
  * get mixin by selected theme object

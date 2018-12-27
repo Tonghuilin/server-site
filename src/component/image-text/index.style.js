@@ -3,7 +3,6 @@ import { Container as BaseContainer, H4, Img } from '../typography';
 
 export const Wrapper = Styled.div(({ theme, backgroundColor }) => ({
     backgroundColor,
-    marginBottom: theme.pxToRem(50),
 }));
 
 export const Container = Styled(BaseContainer)(

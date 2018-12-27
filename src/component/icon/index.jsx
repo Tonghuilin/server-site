@@ -1,8 +1,7 @@
-import React              from 'react';
-import { string, number } from 'prop-types';
+import React                         from 'react';
+import { string, number, oneOfType } from 'prop-types';
 
 import { Svg } from './index.style';
-import color   from '../../theme/color';
 
 const Icon = ({ name, width, height, color }) => {
     const iconUrl = `./asset/sprite.symbol.svg#${name}`;
@@ -16,8 +15,8 @@ const Icon = ({ name, width, height, color }) => {
 
 Icon.propTypes = {
     name:   string,
-    width:  number,
-    height: number,
+    width:  oneOfType([number, string]),
+    height: oneOfType([number, string]),
     color:  string,
 };
 

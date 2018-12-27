@@ -13,7 +13,7 @@ export const getProps = async () => {
                 title:     '通慧林',
                 section:   [
                     {
-                        id:             'section-one',
+                        id:             'image-text-vertical',
                         componentType:  'image-text',
                         componentProps: {
                             title:   'We are building an ARK this Christmas!',
@@ -58,7 +58,7 @@ export const getProps = async () => {
                         },
                     },
                     {
-                        id:             'section-two',
+                        id:             'image-text',
                         componentType:  'image-text',
                         componentProps: {
                             title: 'So here’s the plan.',
@@ -77,7 +77,61 @@ export const getProps = async () => {
                         },
                     },
                     {
-                        id:             'section-three',
+                        id:             'team',
+                        componentType:  'team',
+                        componentProps: {
+                            title: 'Meet our team!',
+                            desc:  '<p>A little spend can go a long way to put a smile on the faces of everyday Nigerians. What act of random kindness can you suggest?</p>',
+                            team:  [
+                                {
+                                    username: 'cyan',
+                                    name:     'Chi Yan',
+                                    position: 'Developer',
+                                },
+                                {
+                                    username:  'linda',
+                                    name:      'Linda Li',
+                                    thumbnail: 'https://picsum.photos/200/300',
+                                    position:  'Teacher',
+                                },
+                                {
+                                    username: 'cyan2',
+                                    name:     'Chi Yan',
+                                    position: 'Developer',
+                                },
+                                {
+                                    username:  'linda2',
+                                    name:      'Linda Li',
+                                    thumbnail: 'error.url',
+                                    position:  'Teacher',
+                                },
+                                {
+                                    username: 'cyan3',
+                                    name:     'Chi Yan',
+                                    position: 'Developer',
+                                },
+                                {
+                                    username:  'linda3',
+                                    name:      'Linda Li',
+                                    thumbnail: 'https://picsum.photos/50/50',
+                                    position:  'Teacher',
+                                },
+                                {
+                                    username: 'cyan4',
+                                    name:     'Chi Yan',
+                                    position: 'Developer',
+                                },
+                                {
+                                    username:  'linda4',
+                                    name:      'Linda Li',
+                                    thumbnail: 'https://picsum.photos/300/200',
+                                    position:  'Teacher',
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        id:             'image-text-reverse',
                         componentType:  'image-text',
                         componentProps: {
                             title:   'And after Christmas?',
@@ -89,7 +143,7 @@ export const getProps = async () => {
                                      '</p>',
                             image:   {
                                 title:       'image title',
-                                url:         'https://placehold.it/300x200',
+                                url:         'https://picsum.photos/300/200',
                                 description: 'this is description',
                                 fileType:    '',
                             },
@@ -98,11 +152,15 @@ export const getProps = async () => {
                             },
                         },
                     },
+                    {
+                        id:             'contact-form',
+                        componentType:  'contact-form',
+                        componentProps: {
+                            title:      'Ready to join us this Christmas?',
+                            submitText: 'Yes! Let us do this!',
+                        },
+                    },
                 ],
-                contact:   {
-                    title:      'Ready to join us this Christmas?',
-                    submitText: 'Yes! Let us do this!',
-                },
             });
         }, 1000);
     });

@@ -1,13 +1,13 @@
 import React      from 'react';
 import { string } from 'prop-types';
-import Form       from '../form';
+import Form       from './index';
 import TextInput  from '../input/textInput';
 
 // styled component
-import { Wrapper, Title } from './homeContact.style';
-import { Container }      from '../typography';
+import { Wrapper, Title } from './contactForm.style';
+import { Container }      from '../typography/index';
 
-const HomeContact = ({ title, submitText }) => {
+const ContactForm = ({ title, submitText }) => {
     const onSubmit = () => {
     };
 
@@ -51,14 +51,14 @@ const HomeContact = ({ title, submitText }) => {
     );
 };
 
-HomeContact.propTypes = {
+ContactForm.propTypes = {
     title:      string,
     submitText: string,
 };
 
-HomeContact.defaultProps = {
+ContactForm.defaultProps = {
     title:      '',
     submitText: '',
 };
 
-export default HomeContact;
+export default ContactForm;

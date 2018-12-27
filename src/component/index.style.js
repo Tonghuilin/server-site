@@ -13,6 +13,7 @@ export default ({ theme }) => {
             color: ${theme.color.body};
             font-family: ${theme.font};
             font-size: ${theme.fontSize}px;
+            margin: 0;
         }
     `;
 
