@@ -1,13 +1,24 @@
-import Styled                                  from '@emotion/styled';
-import { Container as BaseContainer, H4, Img } from '../typography';
+import Styled from '@emotion/styled';
+import {
+    Container as BaseContainer,
+    Content as BaseContent,
+    H4,
+    Img,
+}             from '../typography';
 
 export const Wrapper = Styled.div(({ theme, backgroundColor }) => ({
     backgroundColor,
 }));
 
 export const Container = Styled(BaseContainer)(
+    ({ vertical, fullWidth }) => ({
+        padding: vertical && fullWidth ? 0 : undefined,
+    }),
+);
+
+export const Content = Styled(BaseContent)(
     ({ vertical, reverse, fullWidth }) => (vertical ? {
-        padding: fullWidth ? 0 : undefined,
+        maxWidth: fullWidth ? 'none' : undefined,
     } : {
         display:        'flex',
         flexDirection:  reverse ? 'row-reverse' : undefined,
@@ -31,14 +42,15 @@ export const ImageWrapper = Styled.div(
 );
 
 export const TextWrapper = Styled.div(
-    ({ vertical, reverse, textBackgroundColor, theme }) => {
+    ({ vertical, reverse, textBackgroundColor, fullWidth, theme }) => {
         const shared = {
             backgroundColor: textBackgroundColor,
         };
 
         return vertical ? {
             ...shared,
-            width:     '100%',
+            width:     fullWidth ? '50%' : '100%',
+            margin:    fullWidth ? 'auto' : undefined,
             textAlign: 'center',
             padding:   theme.pxToRem(30),
         } : {

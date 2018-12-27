@@ -2,7 +2,7 @@ import Styled  from '@emotion/styled';
 import { Img } from '../typography';
 
 export const Wrapper = Styled.div(({ theme, width, height, color, isDefault }) => ({
-    border:       `${theme.pxToRem(10)} solid ${color || theme.borderColor.common}`,
+    border:       `${theme.pxToRem(2)} solid ${color || theme.borderColor.common}`,
     borderRadius: '50%',
     display:      'inline-block',
     height:       theme.pxToRem(height),

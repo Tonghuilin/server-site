@@ -2,13 +2,15 @@ import React                    from 'react';
 import { string, number, bool } from 'prop-types';
 import Avatar                   from '../avatar';
 
-import { Item } from './index.style';
+import { Item, ItemInner } from './teamItem.style';
 
 const TeamItem = ({ thumbnail, name, position, index, reflective }) => {
 
     return (
         <Item index={index} reflective={reflective}>
-            <Avatar title={`${name}, ${position}`} url={thumbnail}/>
+            <ItemInner index={index}>
+                <Avatar title={`${name}, ${position}`} url={thumbnail}/>
+            </ItemInner>
         </Item>
     );
 };

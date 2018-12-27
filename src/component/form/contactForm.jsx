@@ -4,8 +4,8 @@ import Form       from './index';
 import TextInput  from '../input/textInput';
 
 // styled component
-import { Wrapper, Title } from './contactForm.style';
-import { Container }      from '../typography/index';
+import { Wrapper, Title }     from './contactForm.style';
+import { Container, Content } from '../typography';
 
 const ContactForm = ({ title, submitText }) => {
     const onSubmit = () => {
@@ -41,11 +41,13 @@ const ContactForm = ({ title, submitText }) => {
     return (
         <Wrapper>
             <Container>
-                <Title>{title}</Title>
+                <Content>
+                    <Title>{title}</Title>
 
-                <Form onSubmit={onSubmit} submitText={submitText}>
-                    {inputs.map((props) => <TextInput key={props.id} {...props} />)}
-                </Form>
+                    <Form onSubmit={onSubmit} submitText={submitText}>
+                        {inputs.map((props) => <TextInput key={props.id} {...props} />)}
+                    </Form>
+                </Content>
             </Container>
         </Wrapper>
     );

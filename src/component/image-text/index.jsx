@@ -5,6 +5,7 @@ import { string, shape, bool, number, oneOfType } from 'prop-types';
 import {
     Wrapper,
     Container,
+    Content,
     Title,
     Body,
     Image,
@@ -18,20 +19,22 @@ const ImageText = ({ id, title, body, image, setting }) => {
     return (
         <Wrapper id={id} {...setting}>
             <Container {...setting}>
-                <ImageWrapper {...setting}>
-                    <Image
-                        width={width}
-                        height={height}
-                        src={url}
-                        alt={imageTitle}
-                        {...setting}
-                    />
-                </ImageWrapper>
+                <Content {...setting}>
+                    <ImageWrapper {...setting}>
+                        <Image
+                            width={width}
+                            height={height}
+                            src={url}
+                            alt={imageTitle}
+                            {...setting}
+                        />
+                    </ImageWrapper>
 
-                <TextWrapper {...setting}>
-                    <Title>{title}</Title>
-                    <Body dangerouslySetInnerHTML={{ __html: body }}/>
-                </TextWrapper>
+                    <TextWrapper {...setting}>
+                        <Title>{title}</Title>
+                        <Body dangerouslySetInnerHTML={{ __html: body }}/>
+                    </TextWrapper>
+                </Content>
             </Container>
         </Wrapper>
     );

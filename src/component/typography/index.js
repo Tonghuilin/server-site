@@ -1,39 +1,39 @@
-import styled from '@emotion/styled';
+import Styled from '@emotion/styled';
 import Color  from 'color';
 
-export const H1 = styled.h1`
+export const H1 = Styled.h1`
     font-size: ${({ theme }) => theme.pxToRem(48)};
 `;
 
-export const H2 = styled.h2`
+export const H2 = Styled.h2`
     font-size: ${({ theme }) => theme.pxToRem(40)};
 `;
 
-export const H3 = styled.h3`
+export const H3 = Styled.h3`
     font-size: ${({ theme }) => theme.pxToRem(32)};
 `;
 
-export const H4 = styled.h4`
+export const H4 = Styled.h4`
     font-size: ${({ theme }) => theme.pxToRem(24)};
 `;
 
-export const H5 = styled.h5`
+export const H5 = Styled.h5`
     font-size: ${({ theme }) => theme.pxToRem(18)};
 `;
 
-export const H6 = styled.h6`
+export const H6 = Styled.h6`
     font-size: ${({ theme }) => theme.pxToRem(16)};
 `;
 
-export const P = styled.p`
+export const P = Styled.p`
     font-size: ${({ theme }) => theme.pxToRem(16)};
 `;
 
-export const Caption = styled.caption`
+export const Caption = Styled.caption`
     font-size: ${({ theme }) => theme.pxToRem(12)};
 `;
 
-export const Button = styled.button(({ theme }) => ({
+export const Button = Styled.button(({ theme }) => ({
     backgroundColor: theme.backgroundColor.button,
     border:          'none',
     color:           theme.color.button,
@@ -49,12 +49,17 @@ export const Button = styled.button(({ theme }) => ({
     },
 }));
 
-export const Container = styled.div`
+export const Container = Styled.div`
     padding: 0 ${({ theme }) => theme.pxToRem(15)};
-    width: 100%;
 `;
 
-export const Img = styled.img`
+export const Content = Styled.div`
+    width: 100%;
+    max-width: ${({ theme }) => theme.pxToRem(900)};
+    margin: auto;
+`;
+
+export const Img = Styled.img`
     height: auto;
     width: 100%;
 `;

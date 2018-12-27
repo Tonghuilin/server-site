@@ -1,11 +1,11 @@
 import Styled                             from '@emotion/styled';
-import { H4, Container as ContainerBase } from '../typography';
+import { H4, Content as BaseContent } from '../typography';
 
 export const Wrapper = Styled.div`
     text-align: center;
 `;
 
-export const Container = Styled(ContainerBase)`
+export const Content = Styled(BaseContent)`
     display: flex;
 `;
 
@@ -34,3 +34,8 @@ export const Item = Styled.div(({ theme, index, reflective }) => {
         transform: `translate(${prefix}${theme.pxToRem(25)})`,
     };
 });
+
+export const ItemInner = Styled.div`
+    display: inline;
+    animation: 'float 5s infinite',
+`;

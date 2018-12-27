@@ -30,9 +30,20 @@ export default ({ theme }) => {
         }
     `;
 
+    const animationFloat = css`
+        @keyFrames float {
+            0% {transform: translateY(0)}
+            25% {transform: translateY(15%)}
+            50% {transform: translateY(0)}
+            75% {transform: translateY(-15%)}
+            100% {transform: translateY(0)}
+        }
+    `;
+
     return {
         body,
         all,
         a,
+        animationFloat,
     };
 };
