@@ -1,4 +1,5 @@
-import Styled from '@emotion/styled';
+import Styled      from '@emotion/styled';
+import { pxToRem } from '../style/mixin';
 
 export const Item = Styled.div(({ theme, index, reflective }) => {
     // add 1 offset to index for the reflective items
@@ -7,7 +8,7 @@ export const Item = Styled.div(({ theme, index, reflective }) => {
     const prefix = even ? '-' : '';
 
     return {
-        transform: `translate(${prefix}${theme.pxToRem(25)})`,
+        transform: `translate(${prefix}${pxToRem(25)})`,
     };
 });
 

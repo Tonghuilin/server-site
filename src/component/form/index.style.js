@@ -1,8 +1,9 @@
 import styled     from '@emotion/styled';
-import { Button } from '../style/typography';
+import { Button } from '../style/styled-component';
+import { pxToRem } from '../style/mixin';
 
 export const ButtonWrapper = styled.div`
-    margin: ${({ theme }) => theme.pxToRem(16)} 0;
+    margin: ${pxToRem(16)} 0;
 `;
 
 export const SubmitButton = styled(Button)``;

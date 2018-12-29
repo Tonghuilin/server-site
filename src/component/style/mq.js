@@ -1,14 +1,14 @@
 import variable    from './variable';
 import { pxToRem } from './mixin';
 
-const { breakpoint, fontSize } = variable;
+const { breakpoint } = variable;
 
 export const mq = Object
     .keys(breakpoint)
     .reduce(
         (mq, key) => ({
             ...mq,
-            [key]: `@media (min-width: ${pxToRem(fontSize)(breakpoint[key])})`,
+            [key]: `@media (min-width: ${pxToRem(breakpoint[key])})`,
         }),
         {},
     );

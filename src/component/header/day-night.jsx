@@ -19,7 +19,7 @@ const DayNight = ({ themeName, setThemeName }) => {
 
     return (
         <Button onClick={onClick}>
-            <Icon name={name} />
+            <Icon name={name} width="100%" height="100%" />
         </Button>
     );
 };

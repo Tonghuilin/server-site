@@ -2,24 +2,15 @@ import React                                      from 'react';
 import { bool, number, oneOfType, shape, string } from 'prop-types';
 
 // styled component
-import { Container, Content }                      from '../style/typography';
-import { Body }                                    from './index.style';
-import { ImageWrapper, Image, TextWrapper, Title } from './bannerMode.style';
+import { Container, Content } from '../style/styled-component';
+import { Body }               from './index.style';
+import { TextWrapper, Title } from './bannerMode.style';
+import { ImageWrapper }       from './index.style';
 
 
 const BannerMode = ({ id, title, body, image, setting }) => {
-    const { width, height, url, title: imageTitle } = image;
-
     const imageElement = (
-        <ImageWrapper key={`${id}-image`} {...setting}>
-            <Image
-                width={width}
-                height={height}
-                src={url}
-                alt={imageTitle}
-                {...setting}
-            />
-        </ImageWrapper>
+        <ImageWrapper key={`${id}-image`} {...setting} url={image.url} />
     );
 
     const textElement = (

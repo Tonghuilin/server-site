@@ -1,5 +1,6 @@
-import Styled from '@emotion/styled';
+import Styled      from '@emotion/styled';
+import { pxToRem } from '../style/mixin';
 
 export const Footer = Styled.footer`
-    padding: ${({ theme }) => theme.pxToRem(25)};
+    padding: ${pxToRem(25)};
 `;

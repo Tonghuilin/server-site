@@ -2,25 +2,15 @@ import React                                      from 'react';
 import { bool, number, oneOfType, shape, string } from 'prop-types';
 
 // styled component
-import { Container }                                        from '../style/typography';
-import { Body }                                             from './index.style';
-import { Content, Image, ImageWrapper, TextWrapper, Title } from './defaultMode.style';
+import { Container }                                 from '../style/styled-component';
+import { Body }                                      from './index.style';
+import { Content, ImageWrapper, TextWrapper, Title } from './defaultMode.style';
 
 const DefaultMode = ({ id, title, body, image, setting }) => {
-    const { width, height, url, title: imageTitle } = image;
-
     return (
         <Container {...setting}>
             <Content {...setting}>
-                <ImageWrapper {...setting}>
-                    <Image
-                        width={width}
-                        height={height}
-                        src={url}
-                        alt={imageTitle}
-                        {...setting}
-                    />
-                </ImageWrapper>
+                <ImageWrapper {...setting} url={image.url}/>
 
                 <TextWrapper {...setting}>
                     <Title>{title}</Title>

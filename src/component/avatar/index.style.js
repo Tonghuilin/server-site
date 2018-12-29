@@ -1,15 +1,16 @@
-import Styled  from '@emotion/styled';
-import { Img } from '../style/typography';
+import Styled      from '@emotion/styled';
+import { pxToRem } from '../style/mixin';
+import { Img }     from '../style/styled-component';
 
 export const Wrapper = Styled.div(({ theme, width, height, color, isDefault }) => ({
-    border:       `${theme.pxToRem(2)} solid ${color || theme.borderColor.common}`,
+    border:       `${pxToRem(2)} solid ${color || theme.borderColor.common}`,
     borderRadius: '50%',
     display:      'inline-block',
-    height:       theme.pxToRem(height),
+    height:       pxToRem(height),
     overflow:     'hidden',
-    padding:      isDefault ? theme.pxToRem(12) : undefined,
+    padding:      isDefault ? pxToRem(12) : undefined,
     position:     'relative',
-    width:        theme.pxToRem(width),
+    width:        pxToRem(width),
 }));
 
 export const Image = Styled(Img)(({ size }) => {

@@ -4,7 +4,7 @@ import Home                from './home';
 // style
 import { ThemeProvider } from 'emotion-theming';
 import { Global }        from '@emotion/core';
-import getStyle          from './style';
+import { getTheme }      from './style';
 
 export const GlobalContext = React.createContext();
 
@@ -21,7 +21,7 @@ const GlobalStyle = ({ styles }) => Object.keys(styles).map(
 
 const App = (props) => {
     const [themeName, setThemeName] = useState(props.themeName);
-    const { theme, global }                     = getStyle(themeName);
+    const { theme, global }         = getTheme(themeName);
 
     const contextValue = {
         themeName,
@@ -32,7 +32,7 @@ const App = (props) => {
         <React.Fragment>
             <GlobalContext.Provider value={contextValue}>
                 <ThemeProvider theme={theme}>
-                    <GlobalStyle styles={global} />
+                    <GlobalStyle styles={global}/>
 
                     <Home {...props} theme={theme}/>
                 </ThemeProvider>

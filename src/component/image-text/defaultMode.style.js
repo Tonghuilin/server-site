@@ -1,6 +1,8 @@
-import Styled                              from '@emotion/styled';
-import { Content as BaseContent, H4, Img } from '../style/typography';
-import mq          from '../style/mq';
+import Styled                               from '@emotion/styled';
+import { Content as BaseContent, H4, Img }  from '../style/styled-component';
+import mq                                   from '../style/mq';
+import { pxToRem }                          from '../style/mixin';
+import { ImageWrapper as ImageWrapperBase } from './index.style';
 
 export const Content = Styled(BaseContent)`
     ${mq.tablet} {
@@ -10,19 +12,13 @@ export const Content = Styled(BaseContent)`
     }
 `;
 
-export const ImageWrapper = Styled.div`
-    background-color: ${props => props.imageBackgroundColor};
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    height: ${props => props.theme.pxToRem(100)};
-
+export const ImageWrapper = Styled(ImageWrapperBase)`
     ${mq.tablet} {
         flex-basis: 50%;
-        flexShrink:  0;
-        height: ${props => props.theme.pxToRem(300)};
-        margin-right: ${props => props.reverse ? undefined : props.theme.pxToRem(16)};
-        margin-left:  ${props => props.reverse ? props.theme.pxToRem(16) : undefined};
+        flex-shrink:  0;
+        height: ${pxToRem(300)};
+        margin-right: ${props => props.reverse ? undefined : pxToRem(16)};
+        margin-left:  ${props => props.reverse ? pxToRem(16) : undefined};
     }
 `;
 

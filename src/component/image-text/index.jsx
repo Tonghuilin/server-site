@@ -15,22 +15,13 @@ const ImageText = (props) => (
 ImageText.propTypes = {
     id:      string.isRequired,
     setting: shape({
-        mode: string,
+        fullWidth: bool,
     }),
 };
 
 ImageText.defaultProps = {
-    title:   '',
-    body:    '',
-    image:   {
-        height: 'auto',
-        width:  '100%',
-    },
-    text:    {},
     setting: {
         fullWidth: false,
-        vertical: false,
-        reverse:  false,
     },
 };
 

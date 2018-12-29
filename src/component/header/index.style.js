@@ -1,25 +1,41 @@
-import styled                             from '@emotion/styled';
-import { Container as BaseContainer, H1 } from '../style/typography';
+import Styled                         from '@emotion/styled';
+import { Content as BaseContent, H1 } from '../style/styled-component';
+import { pxToRem }                    from '../style/mixin';
+import mq                             from '../style/mq';
 
-export const Wrapper = styled.header`
+export const Wrapper = Styled.header`
     background-color: ${({ theme }) => theme.backgroundColor.common};
+    height: ${pxToRem(60)};
+    
+    ${mq.tablet} {
+        height: ${pxToRem(90)};
+    }
 `;
 
-export const Container = styled(BaseContainer)`
-    height: ${({ theme }) => theme.pxToRem(90)};
+export const Content = Styled(BaseContent)`
     display: flex;
+    height: 100%;
     justify-content: space-between;
 `;
 
-export const Title = styled(H1)`
+export const Title = Styled(H1)`
     margin: 0 0 0 10px;
+    font-size: ${pxToRem(18)};
+    
+    ${mq.tablet} {
+        font-size: ${pxToRem(28)};
+    }
 `;
 
-export const LeftWrapper = styled.div`
+export const LeftWrapper = Styled.div`
     display: flex;
     align-items: center;
+    
+    ${mq.tablet} {
+        flex-basis: 30%;
+    }
 `;
 
-export const RightWrapper = styled.div`
+export const RightWrapper = Styled.div`
     display: flex;
 `;

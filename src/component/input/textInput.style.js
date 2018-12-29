@@ -1,17 +1,18 @@
-import styled from '@emotion/styled';
+import styled      from '@emotion/styled';
+import { pxToRem } from '../style/mixin';
 
-export const Wrapper = styled.div(({ theme, mode }) => ({
-    display: /^(inline)/.test(mode) ? 'inline-block' : 'block',
-    margin:  `${theme.pxToRem(5)} 0`,
-}));
+export const Wrapper = styled.div`
+    display: ${props => (/^(inline)/.test(props.mode) ? 'inline-block' : 'block')};
+    margin: ${pxToRem(5)} 0;
+`;
 
-export const InputWrapper = styled.div(({ theme, mode }) => ({
-    borderBottom: `${theme.pxToRem(2)} solid ${theme.borderColor.input}`,
-    display:      /^(inline)/.test(mode) ? 'inline-block' : 'block',
-    fontSize:     'larger',
-    margin:       `0 ${theme.pxToRem(5)}`,
-    padding:      `${theme.pxToRem(3)} ${theme.pxToRem(6)}`,
-}));
+export const InputWrapper = styled.div`
+    border-bottom: ${pxToRem(2)} solid ${props => props.theme.borderColor.input};
+    display:      ${props => (/^(inline)/.test(props.mode) ? 'inline-block' : 'block')};
+    font-size:     larger;
+    margin:       0 ${pxToRem(5)};
+    padding:      ${pxToRem(3)} ${pxToRem(6)};
+`;
 
 export const Label = styled.label(
     ({ labelSsrOnly }) => (labelSsrOnly ? {

@@ -10,6 +10,7 @@ export const getProps = async () => {
             resolve({
                 themeName: 'light',
                 title:     '通慧林',
+                logo:      {},
                 section:   [
                     {
                         id:             'image-text-vertical',

@@ -1,9 +1,13 @@
-import styled  from '@emotion/styled';
-import { Img } from '../style/typography';
+import Styled      from '@emotion/styled';
+import { Img }     from '../style/styled-component';
+import { pxToRem } from '../style/mixin';
 
-export const Wrapper = styled.div(({ width, height, theme }) => ({
-    width:  theme.pxToRem(width),
-    height: theme.pxToRem(height),
-}));
+export const Wrapper = Styled.div`
+    height:  ${props => pxToRem(props.height)};
+    width:  ${props => pxToRem(props.width)};
+`;
 
-export const Image = styled(Img)``;
+export const Image = Styled(Img)`
+    height:  ${props => pxToRem(props.height)};
+    width:  ${props => pxToRem(props.width)};
+`;

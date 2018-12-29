@@ -1,9 +1,10 @@
 import styled                             from '@emotion/styled';
-import { Container as BaseContainer, H5 } from '../style/typography';
+import { Container as BaseContainer, H5 } from '../style/styled-component';
+import { pxToRem }                        from '../style/mixin';
 
 export const Wrapper = styled.div`
     align-items: center;
-    margin: ${({ theme }) => theme.pxToRem(30)} 0;
+    margin: ${pxToRem(30)} 0;
 `;
 
 export const Container = styled(BaseContainer)`
@@ -20,9 +21,9 @@ export const List = styled.div`
     display: flex;
 `;
 
-export const Item = styled.a(({ theme }) => ({
-    backgroundColor: theme.backgroundColor.button,
-    display: 'block',
-    margin: `0 ${theme.pxToRem(5)}`,
-    padding: theme.pxToRem(8),
-}));
+export const Item = styled.a`
+    background-color: ${props => props.theme.backgroundColor.button};
+    display: block;
+    margin: 0 ${pxToRem(5)};
+    padding: ${pxToRem(8)};
+`;

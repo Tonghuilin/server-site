@@ -1,4 +1,5 @@
-import { css } from '@emotion/core';
+import { css }  from '@emotion/core';
+import variable from './variable';
 
 /**
  * get global style by theme, e.g. body style
@@ -11,8 +12,8 @@ export default ({ theme }) => {
         body {
             background-color: ${theme.backgroundColor.body};
             color: ${theme.color.body};
-            font-family: ${theme.font};
-            font-size: ${theme.fontSize}px;
+            font-family: ${variable.font};
+            font-size: ${variable.fontSize}px;
             margin: 0;
         }
     `;

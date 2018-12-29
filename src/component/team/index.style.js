@@ -1,5 +1,6 @@
 import Styled                         from '@emotion/styled';
-import { H4, Content as BaseContent } from '../style/typography';
+import { H4, Content as BaseContent } from '../style/styled-component';
+import { pxToRem }                    from '../style/mixin';
 
 export const Wrapper = Styled.div`
     text-align: center;
@@ -24,14 +25,14 @@ export const List = Styled.div`
     flex-shrink: 0;
 `;
 
-export const Item = Styled.div(({ theme, index, reflective }) => {
+export const Item = Styled.div(({ index, reflective }) => {
     // add 1 offset to index for the reflective items
     const ind    = reflective ? index + 1 : index;
     const even   = ind % 2 === 0;
     const prefix = even ? '-' : '';
 
     return {
-        transform: `translate(${prefix}${theme.pxToRem(25)})`,
+        transform: `translate(${prefix}${pxToRem(25)})`,
     };
 });
 

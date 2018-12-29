@@ -1,20 +1,19 @@
-import variable       from './variable';
-import mq             from './mq';
-import mixin          from './mixin';
-import getGlobalStyle from './global';
-import getTheme       from './theme';
+import styleVariable from './variable';
+import styleMq       from './mq';
+import styleMixin    from './mixin';
+import styledComp    from './styled-component';
+import styleGetTheme from './theme';
 
-export default (themeName) => {
-    const theme  = {
-        ...variable,
-        ...mixin,
-        mq,
-        ...getTheme(themeName),
-    };
-    const global = getGlobalStyle({ theme });
+export const variable        = styleVariable;
+export const mq              = styleMq;
+export const mixin           = styleMixin;
+export const styledComponent = styledComp;
+export const getTheme        = styleGetTheme;
 
-    return {
-        theme,
-        global,
-    };
+export default {
+    variable,
+    mq,
+    mixin,
+    styledComponent,
+    getTheme,
 };

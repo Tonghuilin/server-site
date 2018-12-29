@@ -4,22 +4,24 @@ import Logo                       from '../logo';
 import DayNight                   from './day-night';
 
 // styled component
-import { Wrapper, Container, LeftWrapper, RightWrapper, Title } from './index.style';
-import { Button }                                               from '../style/typography';
+import { Content, Wrapper, LeftWrapper, RightWrapper, Title } from './index.style';
+import { Container, Button }                                  from '../style/styled-component';
 
 const Header = ({ title, logo, nav }) => {
     return (
         <Wrapper>
             <Container>
-                <LeftWrapper>
-                    <Logo {...logo} />
-                    <Title>{title}</Title>
-                </LeftWrapper>
+                <Content>
+                    <LeftWrapper>
+                        <Logo {...logo} />
+                        <Title>{title}</Title>
+                    </LeftWrapper>
 
-                <RightWrapper>
-                    <DayNight/>
-                    <Button>Join us</Button>
-                </RightWrapper>
+                    <RightWrapper>
+                        <DayNight/>
+                        <Button>Join us</Button>
+                    </RightWrapper>
+                </Content>
             </Container>
         </Wrapper>
     );

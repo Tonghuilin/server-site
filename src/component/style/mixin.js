@@ -1,7 +1,7 @@
 import variable from './variable';
 import Color    from 'color';
 
-export const pxToRem = (base = 16) => px => {
+export const pxToRemCompose = (base = 16) => px => {
     if (typeof px === 'string') {
         return px;
     }
@@ -9,8 +9,14 @@ export const pxToRem = (base = 16) => px => {
     return `${px / base}rem`;
 };
 
+export const pxToRem = pxToRemCompose(variable.fontSize);
+
+export const darken = (color, percentage) => Color(color).darken(percentage).hex();
+
+export const lighten = (color, percentage) => Color(color).lighten(percentage).hex();
+
 export default {
-    pxToRem: pxToRem(variable.fontSize),
-    darken:  (color, percentage) => Color(color).darken(percentage).hex(),
-    lighten: (color, percentage) => Color(color).lighten(percentage).hex(),
+    pxToRem,
+    darken,
+    lighten,
 };
