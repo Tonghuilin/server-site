@@ -1,5 +1,5 @@
 import styled                             from '@emotion/styled';
-import { Container as BaseContainer, H5 } from '../typography';
+import { Container as BaseContainer, H5 } from '../style/typography';
 
 export const Wrapper = styled.div`
     align-items: center;

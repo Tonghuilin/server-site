@@ -5,7 +5,7 @@ import DayNight                   from './day-night';
 
 // styled component
 import { Wrapper, Container, LeftWrapper, RightWrapper, Title } from './index.style';
-import { Button }                                               from '../typography';
+import { Button }                                               from '../style/typography';
 
 const Header = ({ title, logo, nav }) => {
     return (

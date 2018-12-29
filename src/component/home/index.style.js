@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { H1 } from '../typography';
+import { H1 } from '../style/typography';
 
 export const Title = styled(H1)``;
 

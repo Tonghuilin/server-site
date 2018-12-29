@@ -1,64 +1,21 @@
 import React                                      from 'react';
 import { string, shape, bool, number, oneOfType } from 'prop-types';
+import BannerMode                                 from './bannerMode';
+import DefaultMode                                from './defaultMode';
 
 // styled component
-import {
-    Wrapper,
-    Container,
-    Content,
-    Title,
-    Body,
-    Image,
-    ImageWrapper,
-    TextWrapper,
-} from './index.style';
+import { Wrapper } from './index.style';
 
-const ImageText = ({ id, title, body, image, setting }) => {
-    const { width, height, url, title: imageTitle } = image;
-
-    return (
-        <Wrapper id={id} {...setting}>
-            <Container {...setting}>
-                <Content {...setting}>
-                    <ImageWrapper {...setting}>
-                        <Image
-                            width={width}
-                            height={height}
-                            src={url}
-                            alt={imageTitle}
-                            {...setting}
-                        />
-                    </ImageWrapper>
-
-                    <TextWrapper {...setting}>
-                        <Title>{title}</Title>
-                        <Body dangerouslySetInnerHTML={{ __html: body }}/>
-                    </TextWrapper>
-                </Content>
-            </Container>
-        </Wrapper>
-    );
-};
+const ImageText = (props) => (
+    <Wrapper id={props.id} {...props.setting}>
+        {props.setting.fullWidth ? <BannerMode {...props} /> : <DefaultMode {...props} />}
+    </Wrapper>
+);
 
 ImageText.propTypes = {
     id:      string.isRequired,
-    title:   string,
-    body:    string,
-    image:   shape({
-        title:       string,
-        description: string,
-        url:         string,
-        fileType:    string,
-        width:       oneOfType([number, string]),
-        height:      oneOfType([number, string]),
-    }),
     setting: shape({
-        vertical:              bool,
-        reverse:               bool,
-        fullWidth:             bool,
-        bannerBackgroundColor: string,
-        imageBackgroundColor:  string,
-        textBackgroundColor:   string,
+        mode: string,
     }),
 };
 
@@ -71,6 +28,7 @@ ImageText.defaultProps = {
     },
     text:    {},
     setting: {
+        fullWidth: false,
         vertical: false,
         reverse:  false,
     },

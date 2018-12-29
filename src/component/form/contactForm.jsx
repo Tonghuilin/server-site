@@ -5,7 +5,7 @@ import TextInput  from '../input/textInput';
 
 // styled component
 import { Wrapper, Title }     from './contactForm.style';
-import { Container, Content } from '../typography';
+import { Container, Content } from '../style/typography';
 
 const ContactForm = ({ title, submitText }) => {
     const onSubmit = () => {

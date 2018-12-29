@@ -1,5 +1,5 @@
 import Styled  from '@emotion/styled';
-import { Img } from '../typography';
+import { Img } from '../style/typography';
 
 export const Wrapper = Styled.div(({ theme, width, height, color, isDefault }) => ({
     border:       `${theme.pxToRem(2)} solid ${color || theme.borderColor.common}`,

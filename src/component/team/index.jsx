@@ -3,7 +3,7 @@ import { string, arrayOf, shape } from 'prop-types';
 
 // styled component
 import { Wrapper, Content, TextWrapper, Title, Body } from './index.style';
-import { Container }                                  from '../typography';
+import { Container }                                  from '../style/typography';
 import TeamList                                       from './teamList';
 
 const Team = ({ title, desc, team }) => {

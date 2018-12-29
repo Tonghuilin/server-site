@@ -22,6 +22,10 @@ const makeHeadData = ({ componentProps }) => ({
     title: componentProps.title,
 });
 
+const makeFootData = ({ componentProps }) => ({
+    keyBMap: process.env.KEY_BMAP,
+});
+
 /**
  * prepare Hbs template data: inject html, then omit component and props used to generate html
  *
@@ -36,6 +40,7 @@ const prepareHbsTemplateData = (data = {}) => {
     const result = {
         head: makeHeadData(data),
         html: trySsr(data),
+        foot: makeFootData(data),
     };
 
     return result;

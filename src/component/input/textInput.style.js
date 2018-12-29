@@ -13,9 +13,12 @@ export const InputWrapper = styled.div(({ theme, mode }) => ({
     padding:      `${theme.pxToRem(3)} ${theme.pxToRem(6)}`,
 }));
 
-
-export const Label = styled.label`
-`;
+export const Label = styled.label(
+    ({ labelSsrOnly }) => (labelSsrOnly ? {
+        position:   'absolute',
+        userSelect: 'none',
+    } : {}),
+);
 
 export const Input = styled.input`
     background-color: inherit;

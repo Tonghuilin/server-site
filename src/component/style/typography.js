@@ -1,5 +1,4 @@
 import Styled from '@emotion/styled';
-import Color  from 'color';
 
 export const H1 = Styled.h1`
     font-size: ${({ theme }) => theme.pxToRem(48)};

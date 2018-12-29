@@ -4,6 +4,7 @@ import ImageText                  from '../image-text';
 import Social                     from '../social';
 import ContactForm                from '../form/contactForm';
 import Team                       from '../team';
+import Map                        from '../map';
 
 // styled component
 import { SectionWrapper } from './index.style';
@@ -18,6 +19,8 @@ const Switcher = ({ id, componentType, componentProps }) => {
         return <ContactForm id={id} {...componentProps} />;
     case 'team':
         return <Team id={id} {...componentProps} />;
+    case 'map':
+        return <Map/>;
     default:
         return null;
     }

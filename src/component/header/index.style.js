@@ -1,5 +1,5 @@
 import styled                             from '@emotion/styled';
-import { Container as BaseContainer, H1 } from '../typography';
+import { Container as BaseContainer, H1 } from '../style/typography';
 
 export const Wrapper = styled.header`
     background-color: ${({ theme }) => theme.backgroundColor.common};

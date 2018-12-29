@@ -33,7 +33,7 @@ const Avatar = ({ title, url, color, width, height }) => {
      * try to get image size
      */
     const getImageSize = () => {
-        if (!size && url && isClient) {
+        if (!size && url && process.env.IS_CLIENT) {
             const newImage = new Image();
             newImage.src   = url;
             newImage.addEventListener('load', loadHandler);

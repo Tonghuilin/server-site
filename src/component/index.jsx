@@ -4,20 +4,24 @@ import Home                from './home';
 // style
 import { ThemeProvider } from 'emotion-theming';
 import { Global }        from '@emotion/core';
-import getTheme          from '../theme';
-import getGlobalStyle    from './index.style';
+import getStyle          from './style';
 
 export const GlobalContext = React.createContext();
 
+/**
+ * output multiple <Global />, because emotion.js does not support multiple selectors in single <Global />,
+ *
+ * @param styles
+ * @returns {any[]}
+ * @constructor
+ */
+const GlobalStyle = ({ styles }) => Object.keys(styles).map(
+    (key) => <Global key={`global-style--${key}`} styles={styles[key]}/>,
+);
+
 const App = (props) => {
     const [themeName, setThemeName] = useState(props.themeName);
-    const theme                     = getTheme(themeName);
-
-    // emotion does not support multiple selector in single Global
-    const globalStyle   = getGlobalStyle({ theme });
-    const globalStyleEl = Object.keys(globalStyle).map(
-        (key) => <Global key={`global-style--${key}`} styles={globalStyle[key]}/>,
-    );
+    const { theme, global }                     = getStyle(themeName);
 
     const contextValue = {
         themeName,
@@ -28,7 +32,7 @@ const App = (props) => {
         <React.Fragment>
             <GlobalContext.Provider value={contextValue}>
                 <ThemeProvider theme={theme}>
-                    {globalStyleEl}
+                    <GlobalStyle styles={global} />
 
                     <Home {...props} theme={theme}/>
                 </ThemeProvider>

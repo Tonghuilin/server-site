@@ -1,8 +1,7 @@
 import App             from '../component';
-import pencilUrl       from '../asset/pencil.gif';
 import chemistryUrl    from '../asset/chemistry.gif';
 import thanksGivingUrl from '../asset/thanks-giving.gif';
-import Color           from '../theme/color';
+import Color           from '../component/style/color';
 import axios           from 'axios';
 
 export const getProps = async () => {
@@ -159,6 +158,11 @@ export const getProps = async () => {
                             title:      'Ready to join us this Christmas?',
                             submitText: 'Yes! Let us do this!',
                         },
+                    },
+                    {
+                        id:             'map',
+                        componentType:  'map',
+                        componentProps: {},
                     },
                 ],
             });

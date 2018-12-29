@@ -10,11 +10,11 @@ require('./global');
 const render = async () => {
     const dom = document.getElementById('App');
 
-    if (!isClient || !Boolean(dom)) {
+    if (!process.env.IS_CLIENT || !Boolean(dom)) {
         return false;
     }
 
-    if (isClient) {
+    if (process.env.IS_CLIENT) {
         const props = await getProps();
 
         ReactDOM.hydrate(

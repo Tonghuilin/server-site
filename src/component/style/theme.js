@@ -1,18 +1,7 @@
-import colors       from './color';
-import { getMixin } from './mixin';
-import logger       from '../helper/logger';
-
-export const common = {
-    font:            'Helvetica, Tahoma, Arial, STXihei, “华文细黑”, ' +
-                     '“Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif',
-    fontSize:        16,
-    transitionStyle: 'cubic-bezier(.88,.01,.68,1)',
-    transitionTime:  '0.2s',
-    transition:      `0.2s cubic-bezier(.88,.01,.68,1)`,
-};
+import colors   from './color';
+import logger   from '../../helper/logger';
 
 export const light = {
-    ...common,
     color:           {
         common: colors.white,
         body:   colors.dune,
@@ -33,7 +22,6 @@ export const light = {
 };
 
 export const dark = {
-    ...common,
     color:           {
         common: colors.white,
         body:   colors.white,
@@ -65,8 +53,5 @@ export default (themeName) => {
         logger.info(`theme [${themeName}] not found. Fall back to [light] `);
     }
 
-    return {
-        ...selectedTheme,
-        ...getMixin(selectedTheme),
-    };
+    return selectedTheme;
 };

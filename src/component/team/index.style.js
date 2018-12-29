@@ -1,5 +1,5 @@
-import Styled                             from '@emotion/styled';
-import { H4, Content as BaseContent } from '../typography';
+import Styled                         from '@emotion/styled';
+import { H4, Content as BaseContent } from '../style/typography';
 
 export const Wrapper = Styled.div`
     text-align: center;
