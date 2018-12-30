@@ -16,7 +16,7 @@ const Team = ({ title, desc, team }) => {
         <Wrapper>
             <Container>
                 <Content>
-                    <TeamList team={firstHalf}/>
+                    <TeamList team={firstHalf} />
 
                     <TextWrapper>
                         <Title>{title}</Title>
@@ -25,7 +25,7 @@ const Team = ({ title, desc, team }) => {
                         </Body>
                     </TextWrapper>
 
-                    <TeamList team={teamArr} reflective/>
+                    <TeamList team={teamArr} reflective />
                 </Content>
             </Container>
         </Wrapper>

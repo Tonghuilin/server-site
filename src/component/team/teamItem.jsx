@@ -1,8 +1,10 @@
 import React                    from 'react';
 import { string, number, bool } from 'prop-types';
 import Avatar                   from '../avatar';
+import TeamItemInfo             from './teamItemInfo';
 
-import { Item, ItemInner } from './teamItem.style';
+// styled component
+import { Item, ItemInner }      from './teamItem.style';
 
 const TeamItem = ({ thumbnail, name, position, index, reflective }) => {
 
@@ -10,6 +12,7 @@ const TeamItem = ({ thumbnail, name, position, index, reflective }) => {
         <Item index={index} reflective={reflective}>
             <ItemInner index={index}>
                 <Avatar title={`${name}, ${position}`} url={thumbnail}/>
+                <TeamItemInfo name={name} position={position} />
             </ItemInner>
         </Item>
     );

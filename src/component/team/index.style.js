@@ -1,18 +1,30 @@
 import Styled                         from '@emotion/styled';
 import { H4, Content as BaseContent } from '../style/styled-component';
-import { pxToRem }                    from '../style/mixin';
+import mq                             from '../style/mq';
 
 export const Wrapper = Styled.div`
-    text-align: center;
 `;
 
 export const Content = Styled(BaseContent)`
     display: flex;
+    flex-wrap: wrap;
+    
+    ${mq.tablet} {
+        flex-wrap: nowrap;
+    }
 `;
 
 export const TextWrapper = Styled.div`
     flex-basis: 100%;
     text-align: center;
+    order: -1;
+    flex-shrink: 0;
+    text-align: center;
+    
+    ${mq.tablet} {
+        order: unset;
+        flex-shrink: unset;
+    }
 `;
 
 export const Title = Styled(H4)``;
@@ -21,22 +33,12 @@ export const Body = Styled.div`
 `;
 
 export const List = Styled.div`
-    flex-basis: 25%;
+    flex-basis: 100%;
     flex-shrink: 0;
+    
+    ${mq.tablet} {
+        flex-basis: 25%;
+        text-align: center;
+    }
 `;
 
-export const Item = Styled.div(({ index, reflective }) => {
-    // add 1 offset to index for the reflective items
-    const ind    = reflective ? index + 1 : index;
-    const even   = ind % 2 === 0;
-    const prefix = even ? '-' : '';
-
-    return {
-        transform: `translate(${prefix}${pxToRem(25)})`,
-    };
-});
-
-export const ItemInner = Styled.div`
-    display: inline;
-    animation: 'float 5s infinite',
-`;
