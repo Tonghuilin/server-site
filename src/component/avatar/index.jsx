@@ -1,85 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { string, number }             from 'prop-types';
-import Icon                           from '../icon';
-import Loading                        from '../loading';
+import SmartImage                     from '../smart-image';
 
 // styled component
-import { Wrapper, Image as StyledImage } from './index.style';
+import { Wrapper } from './index.style';
 
-const Avatar = ({ title, url, color, width, height }) => {
-    const [size, setSize] = useState(undefined);
-
-    /**
-     * image load handler
-     * @param e
-     */
-    const loadHandler = (e = {}) => {
-        if (!e.composedPath) {
-            return;
-        }
-
-        const { width, height } = e.composedPath()[0] || {};
-        setSize({ width, height });
-    };
-
-    /**
-     * image error handler
-     */
-    const errorHandler = () => {
-        setSize({});
-    };
-
-    /**
-     * try to get image size
-     */
-    const getImageSize = () => {
-        if (!size && url && process.env.IS_CLIENT) {
-            const newImage = new Image();
-            newImage.src   = url;
-            newImage.addEventListener('load', loadHandler);
-            newImage.addEventListener('error', errorHandler);
+const Avatar = ({ title, url, borderColor, width, height }) => {
+    const responsive = {
+        tablet: {
+            width: 72,
+            height: 72,
         }
     };
 
-    useEffect(() => {
-        getImageSize();
-    });
-
-    const triedButFailed = JSON.stringify(size) === '{}';
-    const defaultAvatar = <Icon name="sprout" width="100%" height="100%"/>;
-
-    let content;
-    if (!url) {
-        content = defaultAvatar;
-    } else if (!size) {
-        content = <Loading />;
-    } else {
-        content = triedButFailed ? defaultAvatar : <StyledImage src={url} alt={title} size={size}/>;
-    }
+    const defaultIconStyle = {
+        backgroundColor: 'transparent',
+        padding: '0.3125rem',
+    };
 
     return (
         <Wrapper
             width={width}
             height={height}
-            color={color}
-            isDefault={!Boolean(url) || triedButFailed}
+            borderColor={borderColor}
         >
-            {content}
+            <SmartImage
+                src={url}
+                alt={title}
+                defaultIconName={'sprout'}
+                width={width}
+                height={height}
+                responsive={responsive}
+                defaultIconStyle={defaultIconStyle}
+            />
         </Wrapper>
     );
 };
 
 Avatar.propTypes = {
-    title:  string,
-    url:    string,
-    color:  string,
-    width:  number,
-    height: number,
+    title:       string,
+    url:         string,
+    borderColor: string,
+    width:       number,
+    height:      number,
 };
 
 Avatar.defaultProps = {
-    width:  72,
-    height: 72,
+    title:       '',
+    url:         '',
+    width:       36,
+    height:      36,
+    borderColor: '',
 };
 
 export default Avatar;
