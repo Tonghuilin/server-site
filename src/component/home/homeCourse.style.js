@@ -4,21 +4,65 @@ import { pxToRem, lighten }           from '../style/mixin';
 import color                          from '../style/color';
 import pathVerticalUrl                from '../../asset/path-vertical.png';
 import pathUrl                        from '../../asset/path.png';
+import mq                             from '../style/mq';
 
 export const Wrapper = Styled.div`
     background-color: ${props => props.theme.backgroundColor.banner};
     padding: ${pxToRem(30)} 0;
+    
+    ${mq.tabletLandscape} {
+        padding-top: 0;
+    }
 `;
 
 export const Content = Styled(BaseContent)`
+
+    #path-head-tablet-landscape {
+        display: none;
+    }
+    
+    #path-tail-tablet-landscape {
+        display: none;
+    }
+    
+    ${mq.tabletLandscape} {
+        #path-head-mobile {
+            display: none;
+        }
+
+        #path-head-tablet-landscape {
+            display: flex;
+            justify-content: center;
+        }
+        
+        #path-tail-mobile {
+            display: none;
+        }
+
+        #path-tail-tablet-landscape {
+            display: flex;
+            justify-content: center;
+        }
+    }
 `;
 
 export const PathHead = Styled.div`
-    transform: translateX(-${pxToRem(20)});
+    transform: translateX(${pxToRem(-20)});
+    
+    ${mq.tabletLandscape} {
+        transform: translateX(${pxToRem(-21)});
+    }
 `;
+
+
 
 export const PathTail = Styled.div`
     display: flex;
+    
+    ${mq.tabletLandscape} {
+        align-items: baseline;
+        transform: translate(${pxToRem(78)}, ${pxToRem(-56)});
+    }
 `;
 
 export const PathTailBody = Styled.div`
@@ -35,6 +79,20 @@ export const PathTailBody = Styled.div`
         position: absolute;
         top: ${pxToRem(-46)};
     }
+    
+    ${mq.tabletLandscape} {
+        flex-basis: ${pxToRem(240)};
+        height: ${pxToRem(80)};
+        background-size: ${pxToRem(80)};
+    }
+`;
+
+export const PathTailEnd = Styled.div`
+    transform: translateY(${pxToRem(1.8)});
+    
+    ${mq.tabletLandscape} {
+        transform: translateY(${pxToRem(44)});
+    }
 `;
 
 export const CourseWrapper = Styled.div`
@@ -43,16 +101,49 @@ export const CourseWrapper = Styled.div`
     background-size: ${pxToRem(40)};
     flex-basis: 100%;
     padding: ${pxToRem(8)} 0 ${pxToRem(20)} ${pxToRem(40)};
+    
+    ${mq.tabletLandscape} {
+        background-image: none;
+        display: flex;
+        flex-direction: column;
+        margin-top: ${pxToRem(-52)};
+        padding-left: 0;
+    }
 `;
 
 export const CourseItem = Styled.div`
     margin: ${pxToRem(14)} 0;
     position: relative;
+    
+    ${mq.tabletLandscape} {
+        align-self: ${props => props.index % 2 === 0 ? 'flex-end' : 'flex-start'};
+        flex-basis: ${pxToRem(132)};
+        width: 33%;
+    }
+`;
+
+export const CoursePathSegment = Styled.div`
+    display: none;
+    
+    ${mq.tabletLandscape} {
+        align-items: baseline;
+        display: flex;
+        flex-direction: ${props => props.index % 2 === 0 ? 'row-reverse' : undefined};
+        position: absolute;
+        left: ${props => props.index % 2 === 0 ? pxToRem(-195) : undefined};
+        right: ${props => props.index % 2 === 0 ? undefined : pxToRem(-195)};
+        top: ${pxToRem(-50)};
+    }
 `;
 
 export const CourseMarkerWrapper = Styled.div`
     position: absolute;
     left: ${pxToRem(-45)};
+    
+    ${mq.tabletLandscape} {
+        left: ${props => props.index % 2 === 0 ? pxToRem(-65) : 'auto'};
+        right: ${props => props.index % 2 === 0 ? 'auto' : pxToRem(-65)};
+    }
     
     &::before {
         background-color: ${props => props.theme.backgroundColor.common};
@@ -100,6 +191,17 @@ export const CourseTextWrapper = Styled.div`
         transform: rotate(-45deg);
         width: ${pxToRem(20)};
     }
+    
+    ${mq.tabletLandscape} {
+        margin: 0;
+        position: absolute;
+        width: 100%;
+
+        &::before {
+            left: ${props => props.index % 2 === 0 ? undefined : 'auto'};
+            right: ${props => props.index % 2 === 0 ? undefined : pxToRem(-4)};
+        }
+    }
 `;
 
 export const CourseTitle = Styled(H5)`
@@ -108,5 +210,5 @@ export const CourseTitle = Styled(H5)`
 `;
 
 export const CourseBody = Styled.div`
-    
+    font-size: 0.9rem;
 `;
