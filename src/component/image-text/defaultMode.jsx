@@ -36,8 +36,6 @@ DefaultMode.propTypes = {
     setting: shape({
         vertical:              bool,
         reverse:               bool,
-        fullWidth:             bool,
-        bannerBackgroundColor: string,
         imageBackgroundColor:  string,
         textBackgroundColor:   string,
     }),

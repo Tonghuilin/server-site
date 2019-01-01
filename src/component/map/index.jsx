@@ -3,6 +3,7 @@ import { string, number, oneOfType }  from 'prop-types';
 import Loading                        from '../loading';
 import PlaceFinder                    from './placeFinder';
 import { getInfoBoxHtml }             from './mapElement';
+import { GlobalContext }              from '../index';
 
 // styled component
 import { Wrapper, MapWrapper } from './index.style';
@@ -90,7 +91,7 @@ const addMarkerWithInfo = ({ map, who, point }) => {
     map.addOverlay(marker);
 };
 
-const Map = ({ width, height, zoom }) => {
+const Map = ({ themeName, width, height, zoom }) => {
     const [map, setMap]     = useState();
     const [point, setPoint] = useState();
     const who               = POINT_THL;
@@ -105,6 +106,14 @@ const Map = ({ width, height, zoom }) => {
 
         if (map && point) {
             addMarkerWithInfo({ who, map, point });
+        }
+
+        if (map && themeName === 'light') {
+            map.setMapStyle({ style: 'light' });
+        }
+
+        if (map && themeName === 'dark') {
+            map.setMapStyle({ style: 'dark' });
         }
     });
 
@@ -121,9 +130,10 @@ const Map = ({ width, height, zoom }) => {
 };
 
 Map.propTypes = {
-    width:  oneOfType([number, string]),
-    height: oneOfType([number, string]),
-    zoom:   number,
+    themeName: string.isRequired,
+    width:     oneOfType([number, string]),
+    height:    oneOfType([number, string]),
+    zoom:      number,
 };
 
 Map.defaultProps = {
@@ -132,4 +142,10 @@ Map.defaultProps = {
     zoom:   16,
 };
 
-export default Map;
+const MapWithGlobalContext = (props) => (
+    <GlobalContext.Consumer>
+        {({ themeName }) => <Map {...props} themeName={themeName}/>}
+    </GlobalContext.Consumer>
+);
+
+export default MapWithGlobalContext;

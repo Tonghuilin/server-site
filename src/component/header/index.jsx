@@ -4,8 +4,8 @@ import Logo                       from '../logo';
 import DayNight                   from './day-night';
 
 // styled component
-import { Content, Wrapper, LeftWrapper, RightWrapper, Title } from './index.style';
-import { Container, Button }                                  from '../style/styled-component';
+import { Content, Wrapper, LeftWrapper, RightWrapper, Title, Button } from './index.style';
+import { Container }                                                  from '../style/styled-component';
 
 const Header = ({ title, logo, nav }) => {
     return (

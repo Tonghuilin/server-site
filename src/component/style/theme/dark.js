@@ -2,20 +2,22 @@ import colors   from '../color';
 
 export default {
     color:           {
-        common: colors.white,
-        body:   colors.white,
-        button: colors.white,
-        icon:   colors.white,
-        a:      colors.celery,
+        common: colors.aluminium,
+        body:   colors.aluminium,
+        button: colors.aluminium,
+        icon:   colors.aluminium,
+        a:      colors.aluminium,
     },
     backgroundColor: {
-        common: colors.celery,
+        common: colors.dune,
+        header: colors.dune,
+        banner: colors.rhino,
         body:   colors.dune,
-        button: colors.mantis,
+        button: colors.rhino,
         icon:   colors.dune,
     },
     borderColor:     {
-        common: colors.mantis,
-        input:  colors.mantis,
+        common: colors.governorBay,
+        input:  colors.governorBay,
     },
 };

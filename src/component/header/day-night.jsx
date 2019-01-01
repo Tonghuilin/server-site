@@ -6,7 +6,8 @@ import { GlobalContext } from '../index';
 import { Button } from './day-night.style';
 
 const DayNight = ({ themeName, setThemeName }) => {
-    const name      = themeName === 'dark' ? 'night' : 'day';
+    const isDark = themeName === 'dark';
+    const name   = isDark ? 'night' : 'day';
 
     const onClick = (e) => {
         e.preventDefault();
@@ -18,8 +19,8 @@ const DayNight = ({ themeName, setThemeName }) => {
     };
 
     return (
-        <Button onClick={onClick}>
-            <Icon name={name} width="100%" height="100%" />
+        <Button isDark={isDark} onClick={onClick}>
+            <Icon name={name} width="100%" height="100%"/>
         </Button>
     );
 };

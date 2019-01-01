@@ -1,6 +1,7 @@
-import Styled               from '@emotion/styled';
-import { pxToRem, lighten } from '../style/mixin';
-import mq                   from '../style/mq';
+import Styled      from '@emotion/styled';
+import { pxToRem } from '../style/mixin';
+import mq          from '../style/mq';
+import color       from '../style/color';
 
 const getTranslateX = ({ index, reflective }) => {
     // add 1 offset to index for the reflective items
@@ -12,13 +13,18 @@ const getTranslateX = ({ index, reflective }) => {
 };
 
 export const Item = Styled.div`
-    border-bottom: ${pxToRem(1)} solid ${props => lighten(props.theme.borderColor.common, 0.5)};
+    border-bottom: ${pxToRem(1)} solid ${color.white};
     margin-bottom: ${pxToRem(12)};
 
     ${mq.tablet} {
         border-bottom: none;
         margin-bottom: ${pxToRem(8)};
         transform: translateX(${getTranslateX});
+    }
+    
+    &:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
     }
 `;
 

@@ -1,5 +1,5 @@
 import Styled      from '@emotion/styled';
-import { H5, P }   from '../style/styled-component';
+import { H6, P }   from '../style/styled-component';
 import { pxToRem } from '../style/mixin';
 import mq          from '../style/mq';
 
@@ -11,7 +11,7 @@ export const Wrapper = Styled.div`
     }
 `;
 
-export const Title = Styled(H5)`
+export const Title = Styled(H6)`
     margin: 0;
 `;
 

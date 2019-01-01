@@ -1,8 +1,14 @@
 import Styled                         from '@emotion/styled';
 import { H4, Content as BaseContent } from '../style/styled-component';
 import mq                             from '../style/mq';
+import { pxToRem }                    from '../style/mixin';
 
 export const Wrapper = Styled.div`
+    background-color: ${props => props.theme.backgroundColor.banner};
+    
+    ${mq.tablet} {
+        padding: ${pxToRem(24)} 0;
+    }
 `;
 
 export const Content = Styled(BaseContent)`

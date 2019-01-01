@@ -8,20 +8,20 @@ import { Wrapper } from './index.style';
 
 const ImageText = (props) => (
     <Wrapper id={props.id} {...props.setting}>
-        {props.setting.fullWidth ? <BannerMode {...props} /> : <DefaultMode {...props} />}
+        {props.setting.isBanner ? <BannerMode {...props} /> : <DefaultMode {...props} />}
     </Wrapper>
 );
 
 ImageText.propTypes = {
     id:      string.isRequired,
     setting: shape({
-        fullWidth: bool,
+        isBanner: bool,
     }),
 };
 
 ImageText.defaultProps = {
     setting: {
-        fullWidth: false,
+        isBanner: false,
     },
 };
 

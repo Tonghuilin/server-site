@@ -1,5 +1,7 @@
-import { css }  from '@emotion/core';
-import variable from './variable';
+import { css }     from '@emotion/core';
+import variable    from './variable';
+import { pxToRem } from './mixin';
+import mq          from './mq';
 
 /**
  * get global style by theme, e.g. body style
@@ -13,7 +15,10 @@ export default ({ theme }) => {
             background-color: ${theme.backgroundColor.body};
             color: ${theme.color.body};
             font-family: ${variable.font};
-            font-size: ${variable.fontSize}px;
+            font-size: ${variable.fontSize * 14 / 16}px;
+            font-weight: 100;
+            letter-spacing: ${pxToRem(.4)};
+            line-height: 1.5;
             margin: 0;
         }
     `;
@@ -34,10 +39,28 @@ export default ({ theme }) => {
     const animationFloat = css`
         @keyFrames float {
             0% {transform: translateY(0)}
-            25% {transform: translateY(15%)}
+            25% {transform: translateY(5%)}
             50% {transform: translateY(0)}
-            75% {transform: translateY(-15%)}
+            75% {transform: translateY(-5%)}
             100% {transform: translateY(0)}
+        }
+    `;
+
+    const animationRiseSet = css`
+        @keyFrames rise-set {
+            0% {transform: translate(0, 60%)}
+            25% {transform: translate(25%, 20%)}
+            50% {transform: translate(50%, 10%)}
+            75% {transform: translate(75%, 20%)}
+            100% {transform: translate(100%, 60%)}
+        }
+    `;
+
+    const mediaQueries = css`        
+        ${mq.tabletLandscape} {
+            body {
+                font-size: ${variable.fontSize}px;
+            }
         }
     `;
 
@@ -46,5 +69,7 @@ export default ({ theme }) => {
         all,
         a,
         animationFloat,
+        animationRiseSet,
+        mediaQueries,
     };
 };

@@ -30,7 +30,7 @@ export const Image = Styled(Img)`
 `;
 
 export const TextWrapper = Styled.div`
-    background-color: ${props => props.textBackgroundColor};
+    background-color: ${props => props.textBackgroundColor || props.theme.backgroundColor.common};
     text-align: center;
     
     ${mq.tablet} {

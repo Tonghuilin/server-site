@@ -5,6 +5,7 @@ import Social                     from '../social';
 import ContactForm                from '../form/contactForm';
 import Team                       from '../team';
 import Map                        from '../map';
+import HomeCourse                 from './homeCourse';
 
 // styled component
 import { SectionWrapper } from './index.style';
@@ -21,6 +22,8 @@ const Switcher = ({ id, componentType, componentProps }) => {
         return <Team id={id} {...componentProps} />;
     case 'map':
         return <Map/>;
+    case 'home-course':
+        return <HomeCourse />;
     default:
         return null;
     }

@@ -1,30 +1,47 @@
-import React                         from 'react';
-import { string, number, oneOfType } from 'prop-types';
+import React                                from 'react';
+import { string, number, oneOfType, shape } from 'prop-types';
 
 import { Svg } from './index.style';
 
-const Icon = ({ name, width, height, color }) => {
+const Icon = ({ id, name, width, height, color, responsive }) => {
     const iconUrl = `./asset/sprite.symbol.svg#${name}`;
 
     return name ? (
-        <Svg fill={color} width={width} height={height}>
+        <Svg id={id} fill={color} width={width} height={height} responsive={responsive}>
             <use xlinkHref={iconUrl} xlinkTitle={name}/>
         </Svg>
     ) : null;
 };
 
 Icon.propTypes = {
-    name:   string,
-    width:  oneOfType([number, string]),
-    height: oneOfType([number, string]),
-    color:  string,
+    id:         string,
+    name:       string,
+    color:      string,
+    width:      oneOfType([number, string]),
+    height:     oneOfType([number, string]),
+    responsive: shape({
+        tablet:          shape({
+            width:  oneOfType([number, string]),
+            height: oneOfType([number, string]),
+        }),
+        tabletLandscape: shape({
+            width:  oneOfType([number, string]),
+            height: oneOfType([number, string]),
+        }),
+        desktop:         shape({
+            width:  oneOfType([number, string]),
+            height: oneOfType([number, string]),
+        }),
+    }),
 };
 
 Icon.defaultProps = {
-    name:   '',
-    width:  50,
-    height: 50,
-    color:  '',
+    id:         '',
+    name:       '',
+    color:      '',
+    width:      50,
+    height:     50,
+    responsive: {},
 };
 
 export default Icon;

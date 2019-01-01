@@ -1,10 +1,10 @@
-import Styled                         from '@emotion/styled';
-import { Content as BaseContent, H1 } from '../style/styled-component';
-import { pxToRem }                    from '../style/mixin';
-import mq                             from '../style/mq';
+import Styled                                               from '@emotion/styled';
+import { Button as BaseButton, Content as BaseContent, H1 } from '../style/styled-component';
+import { pxToRem }                                          from '../style/mixin';
+import mq                                                   from '../style/mq';
 
 export const Wrapper = Styled.header`
-    background-color: ${({ theme }) => theme.backgroundColor.common};
+    background-color: ${({ theme }) => theme.backgroundColor.header};
     height: ${pxToRem(60)};
     
     ${mq.tablet} {
@@ -38,4 +38,13 @@ export const LeftWrapper = Styled.div`
 
 export const RightWrapper = Styled.div`
     display: flex;
+`;
+
+export const Button = Styled(BaseButton)`
+    height: 100%;
+    width: ${pxToRem(60)};
+    
+    ${mq.tablet} {
+        width: ${pxToRem(90)};
+    }
 `;
