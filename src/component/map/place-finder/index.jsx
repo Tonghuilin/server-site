@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { number }          from 'prop-types';
 import debounce            from 'lodash/debounce';
-import TextInput           from '../input/textInput';
-import { getPlace }        from '../provider/map';
+import TextInput           from '../../input/textInput';
+import { getPlace }        from '../../provider/map';
 import PlaceList           from './placeList';
+
+// styled component
+import { Wrapper } from './index.style';
 
 let getPlaceDebounced;
 
@@ -17,11 +20,11 @@ const PlaceFinder = ({ coolDown }) => {
     if (!getPlaceDebounced) {
         getPlaceDebounced = debounce(
             async (...args) => {
-                const res =  await getPlace(...args);
+                const res = await getPlace(...args);
                 setPlaces(res);
             },
             coolDown,
-        )
+        );
     }
 
     /**
@@ -45,10 +48,10 @@ const PlaceFinder = ({ coolDown }) => {
     };
 
     return (
-        <div>
+        <Wrapper>
             <TextInput id="map-find-place" onChange={onChange} value={query}/>
-            {query ? <PlaceList places={places} /> : null}
-        </div>
+            {query ? <PlaceList places={places}/> : null}
+        </Wrapper>
     );
 };
 

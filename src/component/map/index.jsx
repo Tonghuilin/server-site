@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { string, number, oneOfType }  from 'prop-types';
 import Loading                        from '../loading';
-import PlaceFinder                    from './placeFinder';
-import { getInfoBoxHtml }             from './mapElement';
-import { GlobalContext }              from '../index';
+import PlaceFinder                    from './place-finder';
+import RouteSwitcher                  from './route-switcher';
+import {
+    makeEffectInitMap, makeEffectSetMapTheme, makeEffectDoRouting,
+}                                     from './helper/effect';
 
 // styled component
 import { Wrapper, MapWrapper } from './index.style';
+
+import { GlobalContext } from '../index';
 
 export const MapContext = React.createContext();
 
@@ -19,110 +23,39 @@ const POINT_THL = {
     address: '1 Foo Road, Bar Suburb, Xuzhou',
 };
 
-/**
- * Init map and center point
- * @param who
- * @param zoom
- * @param setMap
- * @param setPoint
- * @returns {{map: BMap.Map, point: BMap.Point}}
- */
-const init = ({ who, zoom, setMap, setPoint }) => {
-    const { lat, lng } = who;
+const Map = ({ themeName, width, height, zoom }) => {
+    const [init, setInit]             = useState(false);
+    const [map, setMap]               = useState();
+    const [point, setPoint]           = useState();
+    const [routeMode, setRouteMode]   = useState('walking');
+    const [startPoint, setStartPoint] = useState();
 
-    const map   = new BMap.Map('thl-bmap');
-    const point = new BMap.Point(lng, lat);
+    const who = POINT_THL;
 
-    setMap(map);
-    setPoint(point);
+    useEffect(
+        makeEffectInitMap({ who, zoom, map, setMap, point, setPoint, setInit }),
+        [init],
+    );
+    useEffect(
+        makeEffectSetMapTheme({ map, themeName }),
+        [themeName],
+    );
+    useEffect(
+        makeEffectDoRouting({ map, point, startPoint, routeMode }),
+        [routeMode, startPoint],
+    );
 
-    map.centerAndZoom(point, zoom);
-    map.addControl(new BMap.NavigationControl());
-    map.addControl(new BMap.ScaleControl());
-    map.setCurrentCity('徐州');
-
-    return { map, point };
-};
-
-/**
- * add info box to marker
- *
- * @param map
- * @param point
- * @param who
- * @returns {BMapLib.InfoBox}
- */
-const createInfoBox = ({ map, point, who }) => {
-    const html   = getInfoBoxHtml({ who });
-    const option = {
-        boxStyle:        {
-            width:         280,
-            height:        150,
-            paddingBottom: 14,
-        },
-        closeIconUrl:    require('../../asset/cancel.png'),
-        closeIconMargin: 4,
-        align:           INFOBOX_AT_TOP,
-        enableAutoPan:   true,
+    const contextValue = {
+        map, setMap, point, setPoint, routeMode, setRouteMode, startPoint, setStartPoint,
     };
 
-    const infoBox = new BMapLib.InfoBox(map, html, option);
-
-    infoBox.addEventListener('close', () => {
-        map.panTo(point);
-    });
-
-    return infoBox;
-};
-
-/**
- * add marker to map
- * @param map
- * @param who
- * @param point
- */
-const addMarkerWithInfo = ({ map, who, point }) => {
-    const infoBox = createInfoBox({ map, point, who });
-    const marker  = new BMap.Marker(point);
-
-    marker.addEventListener('click', () => {
-        infoBox.open(marker);
-    });
-    map.addOverlay(marker);
-};
-
-const Map = ({ themeName, width, height, zoom }) => {
-    const [map, setMap]     = useState();
-    const [point, setPoint] = useState();
-    const who               = POINT_THL;
-
-    useEffect(() => {
-        setTimeout(() => {
-            if (!map) {
-                console.log('here');
-                init({ who, zoom, setMap, setPoint });
-            }
-        }, 500);
-
-        if (map && point) {
-            addMarkerWithInfo({ who, map, point });
-        }
-
-        if (map && themeName === 'light') {
-            map.setMapStyle({ style: 'light' });
-        }
-
-        if (map && themeName === 'dark') {
-            map.setMapStyle({ style: 'dark' });
-        }
-    });
-
     return (
-        <MapContext.Provider value={{ map }}>
+        <MapContext.Provider value={contextValue}>
             <Wrapper>
                 <MapWrapper width={width} height={height} id="thl-bmap">
                     <Loading/>
                 </MapWrapper>
+                <RouteSwitcher/>
                 <PlaceFinder/>
             </Wrapper>
         </MapContext.Provider>

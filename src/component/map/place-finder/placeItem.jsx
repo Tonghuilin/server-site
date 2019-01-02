@@ -1,17 +1,13 @@
 import React                              from 'react';
 import { string, shapeOf, shape, number } from 'prop-types';
+import RouteButton                        from './routeButton';
 
 const PlaceItem = ({ uid, city, district, name, location }) => {
-    const onClick = () => {
-        console.log(location);
-    };
-
     return (
         <li>
             <div>
                 <span>{city} {district} {name}</span>
-                <button onClick={onClick}>
-                </button>
+                <RouteButton {...location} />
             </div>
         </li>
     );
