@@ -1,5 +1,6 @@
 import App           from '../component';
 import bannerLandUrl from '../asset/banner-land.png';
+import treeUrl       from '../asset/tree.gif';
 import axios         from 'axios';
 
 export const getProps = async () => {
@@ -11,10 +12,10 @@ export const getProps = async () => {
                 logo:      {},
                 section:   [
                     {
-                        id:             'image-text-vertical',
+                        id:             'image-text-banner',
                         componentType:  'image-text',
                         componentProps: {
-                            title:   'We are building an ARK this Christmas!',
+                            title:   '欢迎大家来到通慧林英语！',
                             body:    'No, we don\'t mean a flood is coming. We just plan to put smiles on the faces of everyday people around us with our ARK (acts of random kindness).',
                             image:   {
                                 title:       'image title',
@@ -33,7 +34,7 @@ export const getProps = async () => {
                         id:             'section-social',
                         componentType:  'social',
                         componentProps: {
-                            title: 'Share with friends',
+                            title: '分享一下',
                             items: [
                                 {
                                     id:       'wechat',
@@ -70,7 +71,7 @@ export const getProps = async () => {
                         id:             'image-text',
                         componentType:  'image-text',
                         componentProps: {
-                            title: 'So here’s the plan.',
+                            title: '在通慧林...',
                             body:  '<p class="subheading mb-md-0">' +
                                    'Our debut ARK project this December is to share happiness with as many people as we\n' +
                                    'can. We believe Happiness is only real when shared. It will take more than our team\n' +
@@ -79,7 +80,7 @@ export const getProps = async () => {
                                    '</p>',
                             image: {
                                 title:       'image title',
-                                url:         'https://picsum.photos/300/100',
+                                url:         treeUrl,
                                 description: 'this is description',
                                 fileType:    '',
                             },
@@ -142,13 +143,26 @@ export const getProps = async () => {
                     {
                         id:             'map',
                         componentType:  'map',
-                        componentProps: {},
+                        componentProps: {
+                            hotPlaces: [
+                                {
+                                    lat:   34.266896,
+                                    lng:   117.197617,
+                                    title: '江苏省徐州市青年路小学',
+                                },
+                                {
+                                    lat:   34.222825,
+                                    lng:   117.293621,
+                                    title: '徐州市青年路小学绿地商务城分校',
+                                },
+                            ],
+                        },
                     },
                     {
                         id:             'contact-form',
                         componentType:  'contact-form',
                         componentProps: {
-                            title:      'Ready to join us this Christmas?',
+                            title:      '通慧林开新校区啦，加入我们吧！',
                             submitText: 'Yes! Let us do this!',
                         },
                     },

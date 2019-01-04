@@ -1,6 +1,6 @@
-import styled                             from '@emotion/styled';
-import { Container as BaseContainer, H5 } from '../style/styled-component';
-import { pxToRem }                        from '../style/mixin';
+import styled                                    from '@emotion/styled';
+import { Container as BaseContainer, H5, BLink } from '../style/styled-component';
+import { pxToRem }                               from '../style/mixin';
 
 export const Wrapper = styled.div`
     align-items: center;
@@ -21,9 +21,8 @@ export const List = styled.div`
     display: flex;
 `;
 
-export const Item = styled.a`
-    background-color: ${props => props.theme.backgroundColor.button};
-    display: block;
+export const Item = styled(BLink)`
+    border-radius: ${pxToRem(5)};
     margin: 0 ${pxToRem(5)};
     padding: ${pxToRem(8)};
 `;

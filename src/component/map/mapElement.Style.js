@@ -1,3 +1,5 @@
+import Styled from '@emotion/styled';
+
 export const infoWrapperCss = `
     background-color: white;
     border: 2px solid green;

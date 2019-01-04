@@ -1,10 +1,12 @@
-import Styled              from '@emotion/styled';
-import { pxToRem, darken } from './mixin';
-import variable            from './variable';
-import mq                  from './mq';
+import Styled                       from '@emotion/styled';
+import { pxToRem, lighten, darken } from './mixin';
+import variable                     from './variable';
+import mq                           from './mq';
+import color                        from './color';
 
 export const H1 = Styled.h1`
     font-size: ${pxToRem(24)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(36)};
@@ -17,6 +19,7 @@ export const H1 = Styled.h1`
 
 export const H2 = Styled.h2`
     font-size: ${pxToRem(22)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(32)};
@@ -29,6 +32,7 @@ export const H2 = Styled.h2`
 
 export const H3 = Styled.h3`
     font-size: ${pxToRem(20)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(28)};
@@ -41,6 +45,7 @@ export const H3 = Styled.h3`
 
 export const H4 = Styled.h4`
     font-size: ${pxToRem(18)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(24)};
@@ -53,6 +58,7 @@ export const H4 = Styled.h4`
 
 export const H5 = Styled.h5`
     font-size: ${pxToRem(16)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(20)};
@@ -65,6 +71,7 @@ export const H5 = Styled.h5`
 
 export const H6 = Styled.h6`
     font-size: ${pxToRem(14)};
+    margin: 1em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(16)};
@@ -73,6 +80,11 @@ export const H6 = Styled.h6`
     ${mq.tabletLandscape} {
         font-size: ${pxToRem(16)};
     }
+`;
+
+export const SubHeading = Styled.span`
+    color: ${lighten(color.dune, 0.4)};
+    font-size: ${pxToRem(14)};
 `;
 
 export const P = Styled.p`
@@ -99,11 +111,11 @@ export const Caption = Styled.caption`
     }
 `;
 
-export const Button = Styled.button(({ theme }) => ({
-    backgroundColor: theme.backgroundColor.button,
+export const Button = Styled.button(({ theme, selected }) => ({
+    backgroundColor: selected ? theme.backgroundColor.highlight : theme.backgroundColor.button,
     border:          'none',
     color:           theme.color.button,
-    cursor:          'pointer',
+    cursor:          selected ? 'initial' : 'pointer',
     fontSize:        pxToRem(14),
     fontWeight:      600,
     lineHeight:      1.5,
@@ -111,9 +123,27 @@ export const Button = Styled.button(({ theme }) => ({
     transition:      `background-color ${variable.transition}`,
 
     '&:hover': {
-        backgroundColor: darken(theme.backgroundColor.button, 0.5),
+        backgroundColor: selected ? undefined : darken(theme.backgroundColor.button, 0.2),
     },
 }));
+
+export const BLink = Styled.a`
+    align-items:     center;
+    background-color: ${props => props.theme.backgroundColor.button};
+    color:           ${props => props.theme.color.button};
+    display:         flex;
+    fontSize:        pxToRem(14);
+    fontWeight:      600;
+    justify-content: center;
+    lineHeight:      1.5;
+    padding:         ${pxToRem(8)} ${pxToRem(10)};
+    transition:      background-color ${variable.transition};
+    text-decoration: none;
+    
+    &:hover {
+        background-color: ${props => darken(props.theme.backgroundColor.button, 0.2)};
+    }
+`;
 
 export const Container = Styled.div`
     padding: 0 ${pxToRem(15)};

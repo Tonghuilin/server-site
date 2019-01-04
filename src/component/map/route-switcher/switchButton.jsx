@@ -13,9 +13,7 @@ const SwitchButton = ({ id, text, routeMode, setRouteMode }) => {
     };
 
     const selected = routeMode === id;
-    return selected ?
-        <Title>{text}</Title> :
-        <Button onClick={onClick}>{text}</Button>;
+    return <Button onClick={onClick} selected={selected}>{text}</Button>;
 };
 
 SwitchButton.propTypes = {

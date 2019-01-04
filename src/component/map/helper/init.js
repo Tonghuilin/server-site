@@ -10,17 +10,21 @@ import { getInfoBoxHtml } from '../mapElement';
  */
 export const initMap = ({ who, zoom, setMap, setPoint }) => {
     const { lat, lng } = who;
+    const option       = {
+        enableMapClick: false,
+    };
 
-    const map   = new BMap.Map('thl-bmap');
+    const map   = new BMap.Map('thl-bmap', option);
     const point = new BMap.Point(lng, lat);
 
-    setMap(map);
-    setPoint(point);
-
     map.centerAndZoom(point, zoom);
+
     map.addControl(new BMap.NavigationControl());
     map.addControl(new BMap.ScaleControl());
     map.setCurrentCity('徐州');
+
+    setMap(map);
+    setPoint(point);
 
     return { map, point };
 };
@@ -64,7 +68,14 @@ export const createInfoBox = ({ map, point, who }) => {
  */
 export const addMarkerWithInfo = ({ map, who, point }) => {
     const infoBox = createInfoBox({ map, point, who });
-    const marker  = new BMap.Marker(point);
+    const marker  = new BMap.Marker(
+        point,
+        {
+            enableMassClear: false,
+            title:           who.name,
+            raiseOnDrag:     true,
+        },
+    );
 
     marker.addEventListener('click', () => {
         infoBox.open(marker);

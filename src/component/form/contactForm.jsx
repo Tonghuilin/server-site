@@ -14,23 +14,31 @@ const ContactForm = ({ title, submitText }) => {
     const inputs = [
         {
             id:          'first-name',
-            label:       'I\'m',
-            placeholder: 'first name',
+            label:       '我叫',
+            placeholder: '名字',
             mode:        'inline-lite',
             onChange:    () => {
             },
         },
         {
-            id:          'email',
-            label:       ', my email is',
-            placeholder: 'email address',
+            id:          'wechat',
+            label:       ', 我的微信是',
+            placeholder: '微信号',
+            mode:        'inline-lite',
+            onChange:    () => {
+            },
+        },
+        {
+            id:          'qq',
+            label:       ', 我的QQ是',
+            placeholder: 'QQ号',
             mode:        'inline-lite',
             onChange:    () => {
             },
         },
         {
             id:          'phone',
-            label:       'and you can call me on',
+            label:       '，我的电话是',
             placeholder: '138xxxxxxxx',
             mode:        'inline-lite',
             onChange:    () => {

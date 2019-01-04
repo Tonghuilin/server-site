@@ -7,7 +7,7 @@ import { Button } from './day-night.style';
 
 const DayNight = ({ themeName, setThemeName }) => {
     const isDark = themeName === 'dark';
-    const name   = isDark ? 'night' : 'day';
+    const name   = isDark ? 'day' : 'night';
 
     const onClick = (e) => {
         e.preventDefault();

@@ -10,7 +10,7 @@ export const Body = Styled.div`
 `;
 
 export const ImageWrapper = Styled.div`
-    background-color: ${props => (props.imageBackgroundColor || props.theme.backgroundColor.banner)};
+    background-color: ${props => (props.imageBackgroundColor || 'transparent')};
     background-image: ${props => `url(${props.url})`};
     background-position: center;
     background-size: cover;

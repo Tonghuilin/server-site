@@ -21,9 +21,9 @@ const Switcher = ({ id, componentType, componentProps }) => {
     case 'team':
         return <Team id={id} {...componentProps} />;
     case 'map':
-        return <Map/>;
+        return <Map id={id} {...componentProps} />;
     case 'home-course':
-        return <HomeCourse />;
+        return <HomeCourse id={id} {...componentProps} />;
     default:
         return null;
     }
@@ -35,7 +35,7 @@ const HomeSection = ({ section }) => {
             {
                 section.map(
                     (secProps) => (
-                        <SectionWrapper key={secProps.id}>
+                        <SectionWrapper id={`home-section-${secProps.id}`} key={secProps.id}>
                             <Switcher {...secProps} />
                         </SectionWrapper>
                     ),

@@ -6,4 +6,6 @@ export const ButtonWrapper = styled.div`
     margin: ${pxToRem(16)} 0;
 `;
 
-export const SubmitButton = styled(Button)``;
+export const SubmitButton = styled(Button)`
+    border-radius: ${pxToRem(5)};
+`;

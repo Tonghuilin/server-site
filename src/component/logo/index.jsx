@@ -39,12 +39,12 @@ Logo.defaultProps = {
     title:      '',
     url:        logoUrl,
     linkTo:     '/',
-    width:      60,
-    height:     60,
+    width:      112,
+    height:     50,
     responsive: {
         tablet: {
-            width:  90,
-            height: 90,
+            width:  156,
+            height: 70,
         },
     },
 };

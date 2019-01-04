@@ -1,5 +1,4 @@
 import { infoWrapperCss, infoTitle, infoBody, infoItemCss } from './mapElement.Style';
-
 export const getInfoBoxHtml = ({ who }) => {
     const { name, phone, mobile, address } = who;
 

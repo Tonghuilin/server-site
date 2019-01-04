@@ -12,6 +12,7 @@ export const ImageWrapper = Styled(BaseImageWrapper)`
     background-position-y: 102%;
     background-repeat-y: no-repeat;
     background-size: ${pxToRem(150)};
+    background-color: ${props => (props.imageBackgroundColor || props.theme.backgroundColor.banner)};
     
     ${mq.tablet} {
         background-size: ${pxToRem(300)};   

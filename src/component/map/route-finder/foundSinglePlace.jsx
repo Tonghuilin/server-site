@@ -2,18 +2,24 @@ import React                              from 'react';
 import { string, shapeOf, shape, number } from 'prop-types';
 import RouteButton                        from './routeButton';
 
-const PlaceItem = ({ uid, city, district, name, location }) => {
+// styled component
+import { Item, Span, NameSpan } from './foundPlaces.style';
+
+const FoundSinglePlace = ({ uid, city, district, name, location }) => {
     return (
-        <li>
-            <div>
-                <span>{city} {district} {name}</span>
-                <RouteButton {...location} />
-            </div>
-        </li>
+        <Item>
+            <Span>{city}</Span>
+
+            <Span>{district}</Span>
+
+            <NameSpan>{name}</NameSpan>
+
+            <Span><RouteButton {...location} /></Span>
+        </Item>
     );
 };
 
-PlaceItem.proPTypes = {
+FoundSinglePlace.proPTypes = {
     uid:      string.isRequired,
     city:     string.isRequired,
     district: string.isRequired,
@@ -26,4 +32,4 @@ PlaceItem.proPTypes = {
     }).isRequired,
 };
 
-export default PlaceItem;
+export default FoundSinglePlace;

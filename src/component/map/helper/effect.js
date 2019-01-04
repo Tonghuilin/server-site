@@ -1,4 +1,5 @@
 import { addMarkerWithInfo, initMap } from './init';
+import { getRoutingOtion }            from './routing';
 
 /**
  * make effect - init map
@@ -22,7 +23,7 @@ export const makeEffectInitMap = ({ who, zoom, map, setMap, point, setPoint, set
         }
 
         setInit(true);
-    }, 500);
+    }, 0);
 };
 
 /**
@@ -32,7 +33,9 @@ export const makeEffectInitMap = ({ who, zoom, map, setMap, point, setPoint, set
  * @returns {Function}
  */
 export const makeEffectSetMapTheme = ({ map, themeName }) => () => {
-    if (!map) { return; }
+    if (!map) {
+        return;
+    }
 
     if (themeName === 'light') {
         map.setMapStyle({ style: 'light' });
@@ -41,44 +44,43 @@ export const makeEffectSetMapTheme = ({ map, themeName }) => () => {
     }
 };
 
+
 /**
  * make effect - do routing
  * @param map
- * @param {function} map.clearOverlays
- * @param point
- * @param startPoint
- * @param routeMode
+ * @param {function}        map.clearOverlays
+ * @param {{ lat, lng }}    point
+ * @param {{ lat, lng }}    startPoint
+ * @param {string}          routeMode
+ * @param {function}        setRoutePlans
  * @returns {Function}
  */
-export const makeEffectDoRouting = ({ map, point, startPoint, routeMode }) => () => {
+export const makeEffectDoRouting = ({ map, point, startPoint, routeMode, setRoutePlans }) => () => {
     if (!map || !startPoint || !point) {
         return;
     }
 
-    const option = {
-        renderOptions: { map: map },
-        autoViewpoint: true,
-    };
-
     map.clearOverlays();
+
+    const options = getRoutingOtion({ map, setRoutePlans });
 
     let routing;
 
     switch (routeMode) {
     case 'walking':
-        routing = new BMap.WalkingRoute(map, option);
+        routing = new BMap.WalkingRoute(map, options);
         break;
 
     case 'riding':
-        routing = new BMap.RidingRoute(map, option);
+        routing = new BMap.RidingRoute(map, options);
         break;
 
     case 'transit':
-        routing = new BMap.TransitRoute(map, option);
+        routing = new BMap.TransitRoute(map, options);
         break;
 
     case 'driving':
-        routing = new BMap.DrivingRoute(map, option);
+        routing = new BMap.DrivingRoute(map, options);
         break;
 
     default:
@@ -89,5 +91,4 @@ export const makeEffectDoRouting = ({ map, point, startPoint, routeMode }) => ()
     }
 
     routing.search(startPoint, point);
-    console.log(routing);
 };

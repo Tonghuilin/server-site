@@ -14,7 +14,12 @@ const color = {
     dune:             '#3a3934',
     governorBay:      '#465590',
     aluminium:        '#88888C',
+    bridalHeath:      '#F6EDDC',
+    lightBlue:        '#B5DAEA',
     rhino:            '#303A62',
+    periglacialBlue:  '#E3E5D8',
+    cadet:            '#586875',
+    riverBed:         '#424F59',
 };
 
 export default color;
