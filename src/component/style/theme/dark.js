@@ -7,7 +7,7 @@ export default {
         button:    colors.aluminium,
         icon:      colors.aluminium,
         a:         colors.aluminium,
-        highlight: colors.white,
+        highlight: colors.casablanca,
     },
     backgroundColor: {
         common:    colors.dune,

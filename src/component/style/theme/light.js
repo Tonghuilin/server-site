@@ -19,7 +19,7 @@ export default {
         highlight: colors.persianRed,
     },
     borderColor:     {
-        common: colors.sail,
-        input:  colors.sail,
+        common: colors.cadet,
+        input:  colors.cadet,
     },
 };

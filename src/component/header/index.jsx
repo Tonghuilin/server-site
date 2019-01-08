@@ -8,11 +8,6 @@ import { Content, Wrapper, LeftWrapper, RightWrapper, Title, BLink } from './ind
 import { Container }                                                  from '../style/styled-component';
 
 const Header = ({ title, logo, nav }) => {
-    const onClick = (evt) => {
-        evt.preventDefault();
-
-    };
-
     return (
         <Wrapper>
             <Container>
@@ -24,8 +19,9 @@ const Header = ({ title, logo, nav }) => {
 
                     <RightWrapper>
                         <DayNight/>
-                        <BLink href="#home-section-contact-form" onClick={onClick}>
-                            加入我们
+
+                        <BLink href="#home-section-home-contact-us">
+                            联系我们
                         </BLink>
                     </RightWrapper>
                 </Content>

@@ -34,22 +34,19 @@ export const getProps = async () => {
                         id:             'section-social',
                         componentType:  'social',
                         componentProps: {
-                            title: '分享一下',
+                            title: '扫一扫',
                             items: [
                                 {
                                     id:       'wechat',
+                                    label:    '微信',
                                     username: 'yanxsc',
                                     url:      'weichat.url',
                                 },
                                 {
                                     id:       'qq',
+                                    label:    'QQ',
                                     username: '123456',
                                     url:      'qq.url',
-                                },
-                                {
-                                    id:       'weibo',
-                                    username: '123456',
-                                    url:      'weibo.url',
                                 },
                             ],
                         },
@@ -58,13 +55,35 @@ export const getProps = async () => {
                         id:             'home-course',
                         componentType:  'home-course',
                         componentProps: {
-                            title: 'So here’s the plan.',
-                            body:  '<p class="subheading mb-md-0">' +
-                                   'Our debut ARK project this December is to share happiness with as many people as we\n' +
-                                   'can. We believe Happiness is only real when shared. It will take more than our team\n' +
-                                   'to make this dream come true so we are calling on friends to <a href="#" class="scroll-to">Join\n' +
-                                   'us.</a>' +
-                                   '</p>',
+                            title:  'So here’s the plan.',
+                            body:   '<p class="subheading mb-md-0">' +
+                                    'Our debut ARK project this December is to share happiness with as many people as we\n' +
+                                    'can. We believe Happiness is only real when shared. It will take more than our team\n' +
+                                    'to make this dream come true so we are calling on friends to <a href="#" class="scroll-to">Join\n' +
+                                    'us.</a>' +
+                                    '</p>',
+                            course: [
+                                {
+                                    name: 'Grade 1-2',
+                                    desc: 'Our debut ARK project this December is to share happiness with as ' +
+                                          'many people as we can. We believe Happiness is only real when shared',
+                                },
+                                {
+                                    name: 'Grade 3-4',
+                                    desc: 'Our debut ARK project this December is to share happiness with as ' +
+                                          'many people as we can. We believe Happiness is only real when shared',
+                                },
+                                {
+                                    name: 'Grade 5-6',
+                                    desc: 'Our debut ARK project this December is to share happiness with as ' +
+                                          'many people as we can. We believe Happiness is only real when shared',
+                                },
+                                {
+                                    name: 'Grade 7-9',
+                                    desc: 'Our debut ARK project this December is to share happiness with as ' +
+                                          'many people as we can. We believe Happiness is only real when shared',
+                                },
+                            ],
                         },
                     },
                     {
@@ -90,13 +109,14 @@ export const getProps = async () => {
                         id:             'team',
                         componentType:  'team',
                         componentProps: {
-                            title: 'Meet our team!',
+                            title: '通慧林的团队',
                             desc:  '<p>A little spend can go a long way to put a smile on the faces of everyday Nigerians. What act of random kindness can you suggest?</p>',
                             team:  [
                                 {
-                                    username: 'cyan',
-                                    name:     'Chi Yan',
-                                    position: 'Developer',
+                                    username:    'cyan',
+                                    name:        'Chi Yan',
+                                    position:    'Developer',
+                                    description: 'This is a description',
                                 },
                                 {
                                     username:  'linda',
@@ -141,29 +161,116 @@ export const getProps = async () => {
                         },
                     },
                     {
-                        id:             'map',
-                        componentType:  'map',
+                        id:             'home-contact-us',
+                        componentType:  'home-contact-us',
                         componentProps: {
-                            hotPlaces: [
+                            title:  '怎么联系通慧林？',
+                            description: '点击文字可以复制信息。',
+                            places: [
                                 {
-                                    lat:   34.266896,
-                                    lng:   117.197617,
-                                    title: '江苏省徐州市青年路小学',
+                                    lat:     34.262833,
+                                    lng:     117.192957,
+                                    name:    '通慧林本部',
+                                    phone:   '81238123',
+                                    mobile:  '13712341234',
+                                    address: '中山路1号',
+                                }, {
+                                    lat:     34.270004,
+                                    lng:     117.203117,
+                                    name:    '通慧林分校',
+                                    phone:   '81238123',
+                                    mobile:  '13712341234',
+                                    address: '淮海路1号',
+                                },
+                            ],
+                            socials: [
+                                {
+                                    id:       'wechat',
+                                    label:    '微信',
+                                    username: 'yanxsc',
+                                    url:      'weichat.url',
                                 },
                                 {
-                                    lat:   34.222825,
-                                    lng:   117.293621,
-                                    title: '徐州市青年路小学绿地商务城分校',
+                                    id:       'qq',
+                                    label:    'QQ',
+                                    username: '123456',
+                                    url:      'qq.url',
                                 },
                             ],
                         },
                     },
                     {
-                        id:             'contact-form',
-                        componentType:  'contact-form',
+                        id:             'map',
+                        componentType:  'map',
                         componentProps: {
-                            title:      '通慧林开新校区啦，加入我们吧！',
-                            submitText: 'Yes! Let us do this!',
+                            title:         '怎么去通慧林？',
+                            fromTitle:     '点击或者搜索想从哪里去',
+                            toTitle:       '选择校区',
+                            noPlanMessage: '找不到方案，可能是距离太短啦。',
+                            ourPlaces:     [
+                                {
+                                    lat:     34.262833,
+                                    lng:     117.192957,
+                                    name:    '通慧林本部',
+                                    phone:   '81238123',
+                                    mobile:  '13712341234',
+                                    address: '中山路1号',
+                                }, {
+                                    lat:     34.270004,
+                                    lng:     117.203117,
+                                    name:    '通慧林分校',
+                                    phone:   '81238123',
+                                    mobile:  '13712341234',
+                                    address: '淮海路1号',
+                                },
+                            ],
+                            hotPlaces:     [
+                                {
+                                    lat:   34.266896,
+                                    lng:   117.197617,
+                                    title: '青年路小学',
+                                },
+                                {
+                                    lng:   117.19309,
+                                    lat:   34.263192,
+                                    title: '徐师一附小',
+                                },
+                                {
+                                    lng:   117.198538,
+                                    lat:   34.259151,
+                                    title: '解放路小学',
+                                },
+                                {
+                                    lng:   117.200608,
+                                    lat:   34.26733,
+                                    title: '公园巷小学',
+                                },
+                                {
+                                    lng:   117.190894,
+                                    lat:   34.270292,
+                                    title: '少华街小学',
+                                },
+                                {
+                                    lng:   117.203345,
+                                    lat:   34.272172,
+                                    title: '大马路小学',
+                                },
+                                {
+                                    lng:   117.270816,
+                                    lat:   34.256175,
+                                    title: '云兴小学',
+                                },
+                                {
+                                    lng:   117.158992,
+                                    lat:   34.25768,
+                                    title: '星光小学',
+                                },
+                                {
+                                    lng:   117.200888,
+                                    lat:   34.280971,
+                                    title: '鼓楼小学',
+                                },
+                            ],
                         },
                     },
                 ],

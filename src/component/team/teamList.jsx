@@ -24,10 +24,7 @@ const TeamList = ({ team, reflective }) => {
 
 TeamList.propTypes = {
     team:       arrayOf(shape({
-        username:  string,
-        name:      string,
-        thumbnail: string,
-        position:  string,
+        username: string,
     })),
     reflective: bool,
 };

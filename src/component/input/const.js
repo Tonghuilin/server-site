@@ -1,3 +1,3 @@
-export const COMP_NAME = 'TextInput';
+export const TEXT_INPUT_MODE = ['std', 'lite', 'inline'];
 
-export const MODE      = ['std', 'lite', 'inline-std', 'inline-lite'];
+export const TEXT_INPUT_TOOL = ['copy', 'qr-code'];

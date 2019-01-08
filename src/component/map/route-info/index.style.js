@@ -7,23 +7,44 @@ import mq                     from '../../style/mq';
 export const Wrapper = Styled.div``;
 
 export const PlansWrapper = Styled.div`
+    position: relative;
+
+    &::after {
+        bottom: 0;
+        box-shadow: ${pxToRem(0)} ${pxToRem(-13)} ${pxToRem(17)} ${pxToRem(-12)} ${props => props.theme.backgroundColor.common} inset;
+        content: '';
+        height: ${pxToRem(10)};
+        left: 0;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
 `;
 
 export const PlanHeadingList = Styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 export const PlanHeading = Styled(Button)`
-    flex-basis: ${props => props.onlyPlan ? '100%' : '25%'};
-    min-width: ${pxToRem(100)};
+    flex-basis: ${props => props.onlyPlan ? '100%' : 'calc(20% - 2px)'};
+    min-width: ${pxToRem(70)};
     max-width: ${props => props.onlyPlan ? 'none' : pxToRem(180)};
+    margin-right: ${props => props.onlyPlan ? undefined : pxToRem(2)};
+    margin-bottom: ${props => props.onlyPlan ? undefined : pxToRem(2)};
     padding: ${pxToRem(5)};
     text-align: center;
+    
+    h6 {
+        font-size: inherit;
+        margin: 0;
+    }
 
     ${SubHeading} {
         color: inherit;
         display: ${props => props.onlyPlan ? 'inline-block' : 'block'};
+        font-size: 0.9em;
         margin-right: ${pxToRem(5)};
     }
 `;

@@ -6,13 +6,13 @@ import mq          from '../style/mq';
 export const Title = styled(H1)``;
 
 export const SectionWrapper = styled.div`
-    margin-bottom: ${pxToRem(24)};
+    margin: ${pxToRem(12)} 0;
     
     ${mq.tablet} {
-        margin-bottom: ${pxToRem(54)};
+        margin: ${pxToRem(26)} 0;
     }
     
-    &:last-of-type {
-        margin-bottom: 0;
+    &:first-of-type {
+        margin-top: 0;
     }
 `;

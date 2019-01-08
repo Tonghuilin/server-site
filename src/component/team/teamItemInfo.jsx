@@ -1,27 +1,39 @@
 import React                    from 'react';
 import { string, number, bool } from 'prop-types';
 
-import { Wrapper, Title, Body, Info } from './teamItemInfo.style';
+// styled component
+import { SubHeading }           from '../style/styled-component';
+import { Wrapper, Title, Heading, Body, BodyInner } from './teamItemInfo.style';
 
-const TeamItemInfo = ({ name, position }) => {
+const TeamItemInfo = ({ name, position, description }) => {
     return (
         <Wrapper>
-            <Title>{name}</Title>
-            <Body>
-                <Info>{position}</Info>
-            </Body>
+            <Title>
+                <Heading>{name}</Heading>
+                <SubHeading>{position}</SubHeading>
+            </Title>
+
+            {Boolean(description) && (
+                <Body>
+                    <BodyInner>
+                        {description}
+                    </BodyInner>
+                </Body>
+            )}
         </Wrapper>
     );
 };
 
 TeamItemInfo.propTypes = {
-    name:     string,
-    position: string,
+    name:        string,
+    position:    string,
+    description: string,
 };
 
 TeamItemInfo.defaultProps = {
     thumbnail: '',
     name:      '',
+    description: '',
 };
 
 export default TeamItemInfo;

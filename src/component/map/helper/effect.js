@@ -1,47 +1,55 @@
-import { addMarkerWithInfo, initMap } from './init';
-import { getRoutingOtion }            from './routing';
+import { initUs, initMap, applyMapTheme } from './map';
+import { getRoutingOption }               from './routing';
 
 /**
  * make effect - init map
- * @param who
- * @param zoom
+ * @param ourPlaces
+ * {{
+ *     lat
+ *     lng
+ *     name
+ * }[]}
+ * @param initView
+ * {{
+ *     lat
+ *     lng
+ *     zoom
+ * }}
+ * @param darkMode
  * @param map
  * @param setMap
- * @param point
- * @param setPoint
+ * @param setUs
+ * @param setEndPoint
  * @param setInit
  * @returns {Function}
  */
-export const makeEffectInitMap = ({ who, zoom, map, setMap, point, setPoint, setInit }) => () => {
+export const makeEffectInitMap = ({ ourPlaces, initView, darkMode, map, setMap, setUs, setEndPoint, setInit }) => () => {
     setTimeout(() => {
-        if (!map) {
-            initMap({ who, zoom, setMap, setPoint });
+        if (Boolean(map)) {
+            return;
         }
 
-        if (map && point) {
-            addMarkerWithInfo({ who, map, point });
-        }
+        const newMap = initMap({ initView, setMap });
+        applyMapTheme({ map: newMap, darkMode });
 
+        const us              = ourPlaces.map((place) => initUs({ who: place, map: newMap }));
+        const defaultEndPoint = us[0].point;
+
+        setMap(newMap);
+        setUs(us);
+        setEndPoint(defaultEndPoint);
         setInit(true);
     }, 0);
 };
 
 /**
- * make effect - set map theme
+ * make effect - switch map theme
  * @param map
- * @param themeName
- * @returns {Function}
+ * @param {boolean} darkMode
+ * @returns {function}
  */
-export const makeEffectSetMapTheme = ({ map, themeName }) => () => {
-    if (!map) {
-        return;
-    }
-
-    if (themeName === 'light') {
-        map.setMapStyle({ style: 'light' });
-    } else if (themeName === 'dark') {
-        map.setMapStyle({ style: 'dark' });
-    }
+export const makeEffectSwitchMapTheme = ({ map, darkMode }) => () => {
+    applyMapTheme({ map, darkMode });
 };
 
 
@@ -49,20 +57,20 @@ export const makeEffectSetMapTheme = ({ map, themeName }) => () => {
  * make effect - do routing
  * @param map
  * @param {function}        map.clearOverlays
- * @param {{ lat, lng }}    point
+ * @param {{ lat, lng }}    endPoint
  * @param {{ lat, lng }}    startPoint
  * @param {string}          routeMode
  * @param {function}        setRoutePlans
  * @returns {Function}
  */
-export const makeEffectDoRouting = ({ map, point, startPoint, routeMode, setRoutePlans }) => () => {
-    if (!map || !startPoint || !point) {
+export const makeEffectDoRouting = ({ map, endPoint, startPoint, routeMode, setRoutePlans }) => () => {
+    if (!map || !startPoint || !endPoint) {
         return;
     }
 
     map.clearOverlays();
 
-    const options = getRoutingOtion({ map, setRoutePlans });
+    const options = getRoutingOption({ map, setRoutePlans });
 
     let routing;
 
@@ -90,5 +98,5 @@ export const makeEffectDoRouting = ({ map, point, startPoint, routeMode, setRout
         return;
     }
 
-    routing.search(startPoint, point);
+    routing.search(startPoint, endPoint);
 };

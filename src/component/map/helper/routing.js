@@ -74,7 +74,7 @@ export const getResultTree = (result) => {
  * @param setRoutePlans
  * @returns {{renderOptions: {map: *}, autoViewpoint: boolean, onSearchComplete: onSearchComplete}}
  */
-export const getRoutingOtion = ({ map, setRoutePlans }) => ({
+export const getRoutingOption = ({ map, setRoutePlans }) => ({
     renderOptions:    { map: map },
     autoViewpoint:    true,
     onSearchComplete: (results) => {

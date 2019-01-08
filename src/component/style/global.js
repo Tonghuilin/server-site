@@ -56,6 +56,19 @@ export default ({ theme }) => {
         }
     `;
 
+    const animationLdsFacebook = css`
+        @keyframes lds-facebook {
+            0% {
+                top: 6px;
+                height: 51px;
+            }
+            50%, 100% {
+                top: 19px;
+                height: 26px;
+            }
+        }
+    `;
+
     const mediaQueries = css`        
         ${mq.tabletLandscape} {
             body {
@@ -70,6 +83,7 @@ export default ({ theme }) => {
         a,
         animationFloat,
         animationRiseSet,
+        animationLdsFacebook,
         mediaQueries,
     };
 };

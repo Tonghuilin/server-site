@@ -42,11 +42,13 @@ export const Content = Styled(BaseContent)`
         #path-tail-tablet-landscape {
             display: flex;
             justify-content: center;
+            flex-direction: ${props => props.tailIsReverse ? 'row-reverse' : undefined}
         }
     }
 `;
 
 export const PathHead = Styled.div`
+    color: ${color.cadet};
     transform: translateX(${pxToRem(-20)});
     
     ${mq.tabletLandscape} {
@@ -54,14 +56,13 @@ export const PathHead = Styled.div`
     }
 `;
 
-
-
 export const PathTail = Styled.div`
+    color: ${color.cadet};
     display: flex;
     
     ${mq.tabletLandscape} {
         align-items: baseline;
-        transform: translate(${pxToRem(78)}, ${pxToRem(-56)});
+        transform: translate(${props => props.isReverse ? pxToRem(-78) : pxToRem(78)}, ${pxToRem(-56)});
     }
 `;
 
@@ -84,14 +85,16 @@ export const PathTailBody = Styled.div`
         flex-basis: ${pxToRem(240)};
         height: ${pxToRem(80)};
         background-size: ${pxToRem(80)};
+        transform: ${props => props.isReverse ? 'scale(-1, 1)' : undefined};
     }
 `;
 
 export const PathTailEnd = Styled.div`
+    color: ${color.cadet};
     transform: translateY(${pxToRem(1.8)});
     
     ${mq.tabletLandscape} {
-        transform: translateY(${pxToRem(44)});
+        transform: translateY(${pxToRem(44)}) ${props => props.isReverse ? 'scale(-1, 1)' : undefined};
     }
 `;
 
@@ -123,6 +126,7 @@ export const CourseItem = Styled.div`
 `;
 
 export const CoursePathSegment = Styled.div`
+    color: ${color.cadet};
     display: none;
     
     ${mq.tabletLandscape} {

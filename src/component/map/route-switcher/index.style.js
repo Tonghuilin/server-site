@@ -2,7 +2,7 @@ import Styled                     from '@emotion/styled';
 import { Content as BaseContent } from '../../style/styled-component';
 
 export const Wrapper = Styled.div`
-    background-color: ${props => props.theme.backgroundColor.banner};
+    background-color: ${props => props.theme.backgroundColor.common};
 `;
 
 export const Content = Styled(BaseContent)`

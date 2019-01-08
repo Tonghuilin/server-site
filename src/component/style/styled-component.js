@@ -89,6 +89,7 @@ export const SubHeading = Styled.span`
 
 export const P = Styled.p`
     font-size: ${pxToRem(14)};
+    margin: 0.5em 0;
     
     ${mq.tablet} {
         font-size: ${pxToRem(14)};
@@ -111,37 +112,66 @@ export const Caption = Styled.caption`
     }
 `;
 
-export const Button = Styled.button(({ theme, selected }) => ({
-    backgroundColor: selected ? theme.backgroundColor.highlight : theme.backgroundColor.button,
-    border:          'none',
-    color:           theme.color.button,
-    cursor:          selected ? 'initial' : 'pointer',
-    fontSize:        pxToRem(14),
-    fontWeight:      600,
-    lineHeight:      1.5,
-    padding:         `${pxToRem(8)} ${pxToRem(10)}`,
-    transition:      `background-color ${variable.transition}`,
+export const Button = Styled.button`
+    background-color: ${({ selected, theme }) =>
+        selected ? theme.backgroundColor.highlight : theme.backgroundColor.button};
+    border:          none;
+    border-radius:    ${pxToRem(5)};
+    color:           ${props => props.theme.color.button};
+    cursor:          ${props => props.selected ? 'initial' : 'pointer'};
+    font-size:        ${pxToRem(14)};
+    font-weight:      600;
+    line-height:      1.5;
+    padding:         ${pxToRem(8)} ${pxToRem(10)};
+    transition:      background-color ${variable.transition}, color ${variable.transition};
 
-    '&:hover': {
-        backgroundColor: selected ? undefined : darken(theme.backgroundColor.button, 0.2),
-    },
-}));
+    &:hover {
+        background-color: ${({ selected, theme }) => selected ? undefined : darken(theme.backgroundColor.button, 0.2)};
+    }
+    
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+`;
+
+
+export const ReverseButton = Styled(Button)`
+    background-color: transparent;
+    color: ${props => props.isDark ? undefined : props.theme.color.common};
+
+    &:hover {
+        background-color: transparent;
+        color: ${props => props.theme.color.highlight};
+    }
+`;
 
 export const BLink = Styled.a`
-    align-items:     center;
+    align-items:      center;
     background-color: ${props => props.theme.backgroundColor.button};
+    border-radius:   ${pxToRem(5)};
     color:           ${props => props.theme.color.button};
     display:         flex;
-    fontSize:        pxToRem(14);
-    fontWeight:      600;
+    font-size:       ${pxToRem(14)};
+    font-weight:     600;
     justify-content: center;
-    lineHeight:      1.5;
+    line-height:     1.5;
     padding:         ${pxToRem(8)} ${pxToRem(10)};
     transition:      background-color ${variable.transition};
     text-decoration: none;
     
     &:hover {
         background-color: ${props => darken(props.theme.backgroundColor.button, 0.2)};
+    }
+`;
+
+export const ReverseBLink = Styled(BLink)`
+    background-color: transparent;
+    color: ${props => props.isDark ? undefined : props.theme.color.common};
+
+    &:hover {
+        background-color: transparent;
+        color: ${props => props.theme.color.highlight};
     }
 `;
 

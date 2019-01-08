@@ -3,7 +3,7 @@ import { string, shapeOf, shape, number } from 'prop-types';
 import RouteButton                        from './routeButton';
 
 // styled component
-import { Item, Span, NameSpan } from './foundPlaces.style';
+import { Item, Span, NameSpan, ButtonSpan } from './foundPlaces.style';
 
 const FoundSinglePlace = ({ uid, city, district, name, location }) => {
     return (
@@ -14,7 +14,7 @@ const FoundSinglePlace = ({ uid, city, district, name, location }) => {
 
             <NameSpan>{name}</NameSpan>
 
-            <Span><RouteButton {...location} /></Span>
+            <ButtonSpan><RouteButton {...location} /></ButtonSpan>
         </Item>
     );
 };

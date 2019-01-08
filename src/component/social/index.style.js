@@ -22,7 +22,6 @@ export const List = styled.div`
 `;
 
 export const Item = styled(BLink)`
-    border-radius: ${pxToRem(5)};
     margin: 0 ${pxToRem(5)};
     padding: ${pxToRem(8)};
 `;

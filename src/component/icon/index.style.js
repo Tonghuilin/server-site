@@ -3,7 +3,7 @@ import { pxToRem } from '../style/mixin';
 import mq          from '../style/mq';
 
 export const Svg = styled.svg`
-    fill:   ${props => props.fill || props.theme.color.icon};
+    fill:   ${props => props.fill || 'currentColor'};
     width:  ${props => pxToRem(props.width)};
     height: ${props => pxToRem(props.height)};
     

@@ -7,5 +7,4 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const SubmitButton = styled(Button)`
-    border-radius: ${pxToRem(5)};
 `;

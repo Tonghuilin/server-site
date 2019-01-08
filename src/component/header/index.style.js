@@ -1,9 +1,7 @@
-import Styled                                                      from '@emotion/styled';
-import {
-    Button as BaseButton, Content as BaseContent, H1, BLink as BaseBLink
-} from '../style/styled-component';
-import { pxToRem }                                                 from '../style/mixin';
-import mq                                                          from '../style/mq';
+import Styled                                             from '@emotion/styled';
+import { Content as BaseContent, H1, BLink as BaseBLink } from '../style/styled-component';
+import { pxToRem }                                        from '../style/mixin';
+import mq                                                 from '../style/mq';
 
 export const Wrapper = Styled.header`
     background-color: ${({ theme }) => theme.backgroundColor.header};
@@ -43,18 +41,10 @@ export const RightWrapper = Styled.div`
     display: flex;
 `;
 
-export const Button = Styled(BaseButton)`
-    height: 100%;
-    width: ${pxToRem(60)};
-
-    ${mq.tablet} {
-        width: ${pxToRem(90)};
-    }
-`;
-
 export const BLink = Styled(BaseBLink)`
     background-color: ${props => props.theme.backgroundColor.highlight};
     height: 100%;
+    padding: ${pxToRem(8)} ${pxToRem(14)};
     width: ${pxToRem(60)};
     
     ${mq.tablet} {

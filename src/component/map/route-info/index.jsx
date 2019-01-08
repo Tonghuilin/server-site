@@ -3,15 +3,15 @@ import { string, arrayOf, shape } from 'prop-types';
 import Plans                      from './plans';
 
 // styled component
-import { Container, Content }     from '../../style/styled-component';
-import { Wrapper }                from './index.style';
+import { Container, Content } from '../../style/styled-component';
+import { Wrapper }            from './index.style';
 
-const RouteInfo = ({ plans }) => {
+const RouteInfo = ({ plans, noPlanMessage }) => {
     return (
         <Wrapper>
             <Container>
                 <Content>
-                    <Plans plans={plans}/>
+                    <Plans plans={plans} noPlanMessage={noPlanMessage} />
                 </Content>
             </Container>
         </Wrapper>
@@ -19,11 +19,13 @@ const RouteInfo = ({ plans }) => {
 };
 
 RouteInfo.propTypes = {
-    plans: arrayOf(shape({})),
+    plans:         arrayOf(shape({})),
+    noPlanMessage: string,
 };
 
 RouteInfo.defaultProps = {
-    plans: [],
+    plans:         [],
+    noPlanMessage: '',
 };
 
 export default RouteInfo;

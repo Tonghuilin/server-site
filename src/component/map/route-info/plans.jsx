@@ -1,10 +1,10 @@
-import React, { useState, useEffect }                    from 'react';
-import { string, shape, arrayOf, number, boolean, func } from 'prop-types';
-import Routes                                            from './routes';
-import { MapContext }                                    from '../index';
+import React, { useState, useEffect }                 from 'react';
+import { string, shape, arrayOf, number, bool, func } from 'prop-types';
+import Routes                                         from './routes';
+import { MapContext }                                 from '../index';
 
 // styled component
-import { H5, SubHeading } from '../../style/styled-component';
+import { H6, SubHeading } from '../../style/styled-component';
 import {
     PlansWrapper, PlanHeadingList, PlanHeading, PlanBodyList, PlanBody,
 }                         from './index.style';
@@ -24,7 +24,7 @@ export const PlanContent = ({ routes, description, selected }) => {
 
 PlanContent.propTypes = {
     routes:   arrayOf(shape({})),
-    selected: boolean,
+    selected: bool,
 };
 
 PlanContent.defaultProps = {
@@ -42,10 +42,10 @@ const PlanTitle = ({ distance, duration, onlyPlan, index, tabIndex, setTabIndex 
 
     return (
         <PlanHeading onClick={onClick} selected={selected} onlyPlan={onlyPlan}>
-            <H5>
+            <H6>
                 方案
                 {onlyPlan ? '' : INDEX[index]}
-            </H5>
+            </H6>
 
             <SubHeading>{distance}</SubHeading>
             <SubHeading>{duration}</SubHeading>
@@ -54,11 +54,11 @@ const PlanTitle = ({ distance, duration, onlyPlan, index, tabIndex, setTabIndex 
 };
 
 PlanTitle.propTypes = {
-    onlyPlan:    boolean,
+    onlyPlan:    bool,
     index:       number.isRequired,
     distance:    string,
     duration:    string,
-    tabIndex:    func.isRequired,
+    tabIndex:    number.isRequired,
     setTabIndex: func.isRequired,
 };
 
@@ -69,7 +69,7 @@ PlanTitle.defaultProps = {
 };
 
 // show as tabs
-const Plans = ({ startPoint, routeMode, plans }) => {
+const Plans = ({ startPoint, routeMode, plans, noPlanMessage }) => {
     const [tabIndex, setTabIndex] = useState(0);
 
     // reset tabIndex after routeMode updated
@@ -77,8 +77,8 @@ const Plans = ({ startPoint, routeMode, plans }) => {
         setTabIndex(0);
     }, [routeMode]);
 
-    if (!plans.length && startPoint) {
-        return <p>no routes found</p>;
+    if (!plans.length && startPoint && noPlanMessage) {
+        return <p>{noPlanMessage}</p>;
     }
 
     return (
@@ -110,15 +110,17 @@ const Plans = ({ startPoint, routeMode, plans }) => {
 };
 
 Plans.propTypes = {
-    routeMode:  string,
-    startPoint: shape({}),
-    plans:      arrayOf(shape({})),
+    routeMode:     string,
+    startPoint:    shape({}),
+    plans:         arrayOf(shape({})),
+    noPlanMessage: string,
 };
 
 Plans.defaultProps = {
-    routeMode:  '',
-    plans:      [],
-    startPoint: undefined,
+    routeMode:     '',
+    plans:         [],
+    startPoint:    undefined,
+    noPlanMessage: '',
 };
 
 

@@ -11,9 +11,9 @@ const RouteSwitcher = () => {
         <Wrapper>
             <Container>
                 <Content>
-                    <SwitchButton id="walking" text="步行" />
+                    <SwitchButton id="walking" text="走路" />
                     <SwitchButton id="riding" text="骑车" />
-                    <SwitchButton id="transit" text="公共交通" />
+                    <SwitchButton id="transit" text="公交" />
                     <SwitchButton id="driving" text="开车" />
                 </Content>
             </Container>
