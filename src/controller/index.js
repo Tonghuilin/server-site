@@ -1,7 +1,8 @@
-import App           from '../component';
-import bannerLandUrl from '../asset/banner-land.png';
-import treeUrl       from '../asset/tree.gif';
-import axios         from 'axios';
+import App             from '../component';
+import bannerLandUrl   from '../asset/banner-land.png';
+import treeUrl         from '../asset/tree.gif';
+import wechatQrCodeUrl from '../asset/qr-code-wechat.jpeg';
+import axios           from 'axios';
 
 export const getProps = async () => {
     const someFetch = () => new Promise((resolve) => {
@@ -34,13 +35,14 @@ export const getProps = async () => {
                         id:             'section-social',
                         componentType:  'social',
                         componentProps: {
-                            title: '扫一扫',
+                            title: '关注我们',
                             items: [
                                 {
-                                    id:       'wechat',
-                                    label:    '微信',
-                                    username: 'yanxsc',
-                                    url:      'weichat.url',
+                                    id:        'wechat',
+                                    label:     '微信',
+                                    username:  'yanxsc',
+                                    url:       'weichat.url',
+                                    qrCodeUrl: wechatQrCodeUrl,
                                 },
                                 {
                                     id:       'qq',
@@ -55,8 +57,8 @@ export const getProps = async () => {
                         id:             'home-course',
                         componentType:  'home-course',
                         componentProps: {
-                            title:  'So here’s the plan.',
-                            body:   '<p class="subheading mb-md-0">' +
+                            title:  '通慧林的课程',
+                            desc:   '<p class="subheading mb-md-0">' +
                                     'Our debut ARK project this December is to share happiness with as many people as we\n' +
                                     'can. We believe Happiness is only real when shared. It will take more than our team\n' +
                                     'to make this dream come true so we are calling on friends to <a href="#" class="scroll-to">Join\n' +
@@ -164,9 +166,9 @@ export const getProps = async () => {
                         id:             'home-contact-us',
                         componentType:  'home-contact-us',
                         componentProps: {
-                            title:  '怎么联系通慧林？',
-                            description: '点击文字可以复制信息。',
-                            places: [
+                            title:       '怎么联系通慧林？',
+                            desc: '小窍门：点击文字可以复制信息，还可以试试点击二维码图标。',
+                            places:      [
                                 {
                                     lat:     34.262833,
                                     lng:     117.192957,
@@ -183,12 +185,13 @@ export const getProps = async () => {
                                     address: '淮海路1号',
                                 },
                             ],
-                            socials: [
+                            socials:     [
                                 {
                                     id:       'wechat',
                                     label:    '微信',
                                     username: 'yanxsc',
                                     url:      'weichat.url',
+                                    qrCodeUrl: wechatQrCodeUrl,
                                 },
                                 {
                                     id:       'qq',

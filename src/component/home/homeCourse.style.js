@@ -1,10 +1,10 @@
-import Styled                         from '@emotion/styled';
-import { Content as BaseContent, H5 } from '../style/styled-component';
-import { pxToRem, lighten }           from '../style/mixin';
-import color                          from '../style/color';
-import pathVerticalUrl                from '../../asset/path-vertical.png';
-import pathUrl                        from '../../asset/path.png';
-import mq                             from '../style/mq';
+import Styled                                         from '@emotion/styled';
+import { Content as BaseContent, H4, H5, SubHeading } from '../style/styled-component';
+import { pxToRem, lighten }                           from '../style/mixin';
+import color                                          from '../style/color';
+import pathVerticalUrl                                from '../../asset/path-vertical.png';
+import pathUrl                                        from '../../asset/path.png';
+import mq                                             from '../style/mq';
 
 export const Wrapper = Styled.div`
     background-color: ${props => props.theme.backgroundColor.banner};
@@ -13,6 +13,14 @@ export const Wrapper = Styled.div`
     ${mq.tabletLandscape} {
         padding-top: 0;
     }
+`;
+
+export const Title = Styled(H4)`
+    text-align: center;
+`;
+
+export const SubTitle = Styled(SubHeading)`
+    text-align: center;
 `;
 
 export const Content = Styled(BaseContent)`

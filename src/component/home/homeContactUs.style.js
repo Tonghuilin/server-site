@@ -1,6 +1,7 @@
-import Styled      from '@emotion/styled';
-import { H4 }      from '../style/styled-component';
-import { pxToRem, rgba } from '../style/mixin';
+import Styled                   from '@emotion/styled';
+import { H4 }                   from '../style/styled-component';
+import { Wrapper as QrWrapper } from '../smart-button/qrButton.style';
+import { pxToRem, rgba }        from '../style/mixin';
 
 export const Wrapper = Styled.div`
     border-bottom: ${pxToRem(1)} solid ${props => rgba(props.theme.borderColor.common, 0.1)};
@@ -23,10 +24,19 @@ export const Paragraph = Styled.div`
 `;
 
 export const InfoWrapper = Styled.div`
-    display: inline-block;
-        margin: 0 ${pxToRem(4)};
+    align-items: center;
+    border-bottom: ${pxToRem(1)} solid ${props => rgba(props.theme.borderColor.common, 0.1)};
+    display: inline-flex;
+    margin: 0 ${pxToRem(4)};
     position: relative;
     top: ${pxToRem(-4)};
+    
+    ${QrWrapper} {
+        a {
+            padding: 0;
+            margin: 0;
+        }
+    }
 `;
 
 export const HighLight = Styled.span`

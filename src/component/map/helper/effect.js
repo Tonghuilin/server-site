@@ -29,10 +29,10 @@ export const makeEffectInitMap = ({ ourPlaces, initView, darkMode, map, setMap, 
             return;
         }
 
-        const newMap = initMap({ initView, setMap });
+        const { map: newMap, point: initViewPoint } = initMap({ initView, setMap });
         applyMapTheme({ map: newMap, darkMode });
 
-        const us              = ourPlaces.map((place) => initUs({ who: place, map: newMap }));
+        const us              = ourPlaces.map((place) => initUs({ who: place, map: newMap, initViewPoint }));
         const defaultEndPoint = us[0].point;
 
         setMap(newMap);

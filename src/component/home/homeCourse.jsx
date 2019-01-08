@@ -6,11 +6,16 @@ import color                            from '../style/color';
 // styled component
 import { Container } from '../style/styled-component';
 import {
-    Wrapper, Content,
+    Wrapper, Content, Title, SubTitle,
     PathHead, PathTail, PathTailBody, PathTailEnd, CourseWrapper,
     CourseItem, CoursePathSegment, CourseMarkerWrapper, CourseTextWrapper, CourseTitle, CourseBody,
 }                    from './homeCourse.style';
 
+/**
+ * Path Segment: head
+ * @returns {*[]}
+ * @constructor
+ */
 const PathHeads = () => {
     const mobile = (
         <PathHead key="path-head-mobile" id="path-head-mobile">
@@ -27,6 +32,12 @@ const PathHeads = () => {
     return [mobile, landscape];
 };
 
+/**
+ * Path segment: tail
+ * @param isReverse
+ * @returns {*[]}
+ * @constructor
+ */
 const PathTails = ({ isReverse }) => {
     const landscapeCurveName = isReverse ?
         'path-curve-half-right' : 'path-curve-half-left';
@@ -55,7 +66,7 @@ const PathTails = ({ isReverse }) => {
             </div>
 
             <PathTailBody isReverse={isReverse}>
-                <Icon name="children" width="180" height="90" />
+                <Icon name="children" width="180" height="90"/>
             </PathTailBody>
 
             <PathTailEnd isReverse={isReverse}>
@@ -75,7 +86,15 @@ PathTail.defaultProps = {
     isReverse: false,
 };
 
-const HomeCourse = ({ course }) => {
+/**
+ * Default
+ * @param title
+ * @param desc
+ * @param course
+ * @returns {*}
+ * @constructor
+ */
+const HomeCourse = ({ title, desc, course }) => {
     const HIGHLIGHT_COLORS = [
         color.persianRed,
         color.casablanca,
@@ -90,38 +109,43 @@ const HomeCourse = ({ course }) => {
         <Wrapper>
             <Container>
                 <Content tailIsReverse={tailIsReverse}>
-                    <PathHeads/>
+                    <Title>{title}</Title>
+                    <SubTitle dangerouslySetInnerHTML={{ __html: desc }}/>
 
-                    <CourseWrapper>
-                        {
-                            course.map(({ name, desc }, index) => {
-                                const markerColor = HIGHLIGHT_COLORS[index % 5];
-                                const curveName   = index % 2 === 0 ?
-                                    'path-curve-half-right' : 'path-curve-half-left';
+                    <div>
+                        <PathHeads/>
 
-                                return (
-                                    <CourseItem key={index} index={index}>
-                                        <CoursePathSegment index={index}>
-                                            <Icon name={curveName} height="240"
-                                                  width="120"/>
-                                            <Icon name="path" height="80" width="80"/>
-                                        </CoursePathSegment>
+                        <CourseWrapper>
+                            {
+                                course.map(({ name, desc }, index) => {
+                                    const markerColor = HIGHLIGHT_COLORS[index % 5];
+                                    const curveName   = index % 2 === 0 ?
+                                        'path-curve-half-right' : 'path-curve-half-left';
 
-                                        <CourseMarkerWrapper index={index}>
-                                            <Icon name="marker" color={markerColor} width="50" height="72"/>
-                                        </CourseMarkerWrapper>
+                                    return (
+                                        <CourseItem key={index} index={index}>
+                                            <CoursePathSegment index={index}>
+                                                <Icon name={curveName} height="240"
+                                                      width="120"/>
+                                                <Icon name="path" height="80" width="80"/>
+                                            </CoursePathSegment>
 
-                                        <CourseTextWrapper index={index}>
-                                            <CourseTitle>{name}</CourseTitle>
-                                            <CourseBody>{desc}</CourseBody>
-                                        </CourseTextWrapper>
-                                    </CourseItem>
-                                );
-                            })
-                        }
-                    </CourseWrapper>
+                                            <CourseMarkerWrapper index={index}>
+                                                <Icon name="marker" color={markerColor} width="50" height="72"/>
+                                            </CourseMarkerWrapper>
 
-                    <PathTails isReverse={tailIsReverse}/>
+                                            <CourseTextWrapper index={index}>
+                                                <CourseTitle>{name}</CourseTitle>
+                                                <CourseBody>{desc}</CourseBody>
+                                            </CourseTextWrapper>
+                                        </CourseItem>
+                                    );
+                                })
+                            }
+                        </CourseWrapper>
+
+                        <PathTails isReverse={tailIsReverse}/>
+                    </div>
                 </Content>
             </Container>
         </Wrapper>
@@ -129,10 +153,14 @@ const HomeCourse = ({ course }) => {
 };
 
 HomeCourse.propTypes = {
+    title:  string,
+    desc:   string,
     course: arrayOf(shape({})),
 };
 
 HomeCourse.defaultProps = {
+    title:  '',
+    desc:   '',
     course: [],
 };
 

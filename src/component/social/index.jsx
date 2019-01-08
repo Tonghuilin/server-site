@@ -1,11 +1,23 @@
 import React                      from 'react';
 import { string, arrayOf, shape } from 'prop-types';
-import Icon                       from '../icon';
+import { QrButton }               from '../smart-button';
 
 // styled component
 import { Wrapper, Container, Title, List, Item } from './index.style';
 
+const SocialItem = ({ id, url, qrCodeUrl }) => {
+    return (
+        <Item>
+            <QrButton iconName={id} url={qrCodeUrl} reverse={false} />
+        </Item>
+    );
+};
+
 const Social = ({ title, items }) => {
+    if (!items.length) {
+        return null;
+    }
+
     return (
         <Wrapper>
             <Container>
@@ -13,10 +25,8 @@ const Social = ({ title, items }) => {
                 {
                     items.length ? (
                         <List>
-                            {items.map(({ id, url }) => (
-                                <Item href={url} key={id}>
-                                    <Icon name={id} width={20} height={20}/>
-                                </Item>
+                            {items.map(props => (
+                                <SocialItem key={props.id} {...props} />
                             ))}
                         </List>
                     ) : null
@@ -29,9 +39,10 @@ const Social = ({ title, items }) => {
 Social.propTypes = {
     title: string,
     items: arrayOf(shape({
-        id:       string,
-        username: string,
-        url:      string,
+        id:        string,
+        username:  string,
+        url:       string,
+        qrCodeUrl: string,
     })),
 };
 

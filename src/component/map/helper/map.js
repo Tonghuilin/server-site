@@ -8,7 +8,7 @@ import { getInfoBoxHtml } from './mapElement';
  *     lng
  *     zoom
  * }}
- * @returns {BMap.Map}
+ * @returns {{map: BMap.Map, point: BMap.Point}}
  */
 export const initMap = ({ initView }) => {
     const { lat, lng, zoom } = initView;
@@ -27,7 +27,7 @@ export const initMap = ({ initView }) => {
     map.addControl(new BMap.NavigationControl());
     map.setCurrentCity('徐州');
 
-    return map;
+    return { map, point };
 };
 
 /**
@@ -36,10 +36,11 @@ export const initMap = ({ initView }) => {
  * @param map
  * @param point
  * @param info
+ * @param initViewPoint
  *
  * @returns {BMapLib.InfoBox}
  */
-export const createInfoBox = ({ map, point, info }) => {
+export const createInfoBox = ({ map, point, info, initViewPoint }) => {
     const html   = getInfoBoxHtml({ info });
     const option = {
         boxStyle:        {
@@ -47,7 +48,7 @@ export const createInfoBox = ({ map, point, info }) => {
             height:        150,
             paddingBottom: 14,
         },
-        closeIconUrl:    require('../../../asset/cancel.png'),
+        closeIconUrl:    require('../../../asset/cross.png'),
         closeIconMargin: 4,
         align:           INFOBOX_AT_TOP,
         enableAutoPan:   true,
@@ -55,7 +56,7 @@ export const createInfoBox = ({ map, point, info }) => {
 
     const infoBox = new BMapLib.InfoBox(map, html, option);
     infoBox.addEventListener('close', () => {
-        map.panTo(point);
+        map.panTo(initViewPoint);
     });
 
     return infoBox;
@@ -70,9 +71,10 @@ export const createInfoBox = ({ map, point, info }) => {
  *     lng
  *     name
  * }}
+ * @param initViewPoint
  * @returns {{point: BMap.Point, marker: BMap.Marker, infoBox: BMapLib.InfoBox}}
  */
-export const initUs = ({ map, who }) => {
+export const initUs = ({ map, who, initViewPoint }) => {
     const { lat, lng, name } = who;
 
     // create marker
@@ -87,7 +89,7 @@ export const initUs = ({ map, who }) => {
     );
 
     // create info box
-    const infoBox = createInfoBox({ map, point, info: who });
+    const infoBox = createInfoBox({ map, point, info: who, initViewPoint });
     marker.addEventListener('click', () => {
         infoBox.open(marker);
     });

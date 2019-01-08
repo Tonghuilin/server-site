@@ -1,9 +1,8 @@
 import Styled            from '@emotion/styled';
 import { ReverseButton } from '../style/styled-component';
-import { pxToRem, rgba }       from '../style/mixin';
+import { pxToRem }       from '../style/mixin';
 
 export const TextButton = Styled(ReverseButton)`
-    border-bottom: ${pxToRem(1)} solid ${props => rgba(props.theme.borderColor.common, 0.1)};
     border-radius: 0;
     height: ${pxToRem(32)};
     padding: ${pxToRem(5)};
@@ -13,6 +12,8 @@ export const TextButton = Styled(ReverseButton)`
         height: 70%;
         width: auto;
         margin-left: ${pxToRem(5)};
+        position: relative;
+        top: ${pxToRem(2)};
     }
 `;
 

@@ -19,7 +19,8 @@ export const Content = Styled(BaseContent)`
 `;
 
 export const Title = Styled(H1)`
-    margin: ${pxToRem(30)} 0 0 ${pxToRem(10)};
+    margin-bottom: 0;
+    margin-top: ${pxToRem(30)};
     font-size: ${pxToRem(18)};
     
     ${mq.tablet} {

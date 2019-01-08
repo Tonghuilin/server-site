@@ -16,7 +16,7 @@ const CloseButton = ({ setPlaces }) => {
 
     return (
         <Button onClick={onClick}>
-            <Icon name="cancel" width="20" height="20"/>
+            <Icon name="cross" width="20" height="20"/>
         </Button>
     );
 };
