@@ -1,13 +1,17 @@
-import Styled                                   from '@emotion/styled';
+import Styled                       from '@emotion/styled';
 import { H4, Button as BaseButton } from '../style/styled-component';
-import { pxToRem }                              from '../style/mixin';
+import { pxToRem }                  from '../style/mixin';
+import mq                           from '../style/mq';
 
 export const Wrapper = Styled.div`
-    padding: ${pxToRem(24)} 0 ${pxToRem(8)};
+    padding: ${pxToRem(16)} 0 ${pxToRem(24)};
+    
+    ${mq.tabletLandscape} {
+        padding: ${pxToRem(30)} 0;
+    }
 `;
 
 export const Heading = Styled(H4)`
-    margin: 0;
     text-align: center;
 `;
 

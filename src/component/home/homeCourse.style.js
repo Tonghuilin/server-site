@@ -8,10 +8,10 @@ import mq                                             from '../style/mq';
 
 export const Wrapper = Styled.div`
     background-color: ${props => props.theme.backgroundColor.banner};
-    padding: ${pxToRem(30)} 0;
+    padding: ${pxToRem(16)} 0 ${pxToRem(24)};
     
     ${mq.tabletLandscape} {
-        padding-top: 0;
+        padding: ${pxToRem(30)} 0;
     }
 `;
 
@@ -77,7 +77,7 @@ export const PathTail = Styled.div`
 export const PathTailBody = Styled.div`
     background-image: url(${pathUrl});
     background-position: center left;
-    background-repeat-y: no-repeat;
+    background-repeat: repeat no-repeat;
     background-size: ${pxToRem(40)};
     display: flex;
     justify-content: center;
@@ -108,7 +108,7 @@ export const PathTailEnd = Styled.div`
 
 export const CourseWrapper = Styled.div`
     background-image: url(${pathVerticalUrl});
-    background-repeat-x: no-repeat;
+    background-repeat: no-repeat repeat;
     background-size: ${pxToRem(40)};
     flex-basis: 100%;
     padding: ${pxToRem(8)} 0 ${pxToRem(20)} ${pxToRem(40)};

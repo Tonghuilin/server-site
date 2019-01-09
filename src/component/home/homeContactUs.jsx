@@ -1,9 +1,12 @@
 import React                      from 'react';
 import { string, arrayOf, shape } from 'prop-types';
 import { CopyButton, QrButton }   from '../smart-button';
+import Icon                       from '../icon';
 
-import { Container, Content, SubHeading }                                   from '../style/styled-component';
-import { Wrapper, Title, Body, Section, Paragraph, InfoWrapper, HighLight } from './homeContactUs.style';
+import { Container, SubHeading }                                                     from '../style/styled-component';
+import {
+    Wrapper, Content, Title, Body, Section, Paragraph, InfoWrapper, HighLight, DecorWrapper,
+} from './homeContactUs.style';
 
 /**
  * Child: Info segment
@@ -78,20 +81,24 @@ const HomeContactUs = ({ title, desc, places, socials }) => {
                     <SubHeading>{desc}</SubHeading>
 
                     <Body>
-                    {places.map((place, index) => <ContactPlace key={index} {...place} />)}
+                        {places.map((place, index) => <ContactPlace key={index} {...place} />)}
 
-                    <Section>
-                        <Paragraph>
-                            您还可以通过
-                            <HighLight>微信</HighLight>
-                            <Info value={socials[0].username} qrCodeUrl={socials[0].qrCodeUrl}/>
-                            或者
-                            <HighLight>QQ</HighLight>
-                            <Info value={socials[1].username}/>
-                            联系我们。
-                        </Paragraph>
-                    </Section>
+                        <Section>
+                            <Paragraph>
+                                您还可以通过
+                                <HighLight>微信</HighLight>
+                                <Info value={socials[0].username} qrCodeUrl={socials[0].qrCodeUrl}/>
+                                或者
+                                <HighLight>QQ</HighLight>
+                                <Info value={socials[1].username}/>
+                                联系我们。
+                            </Paragraph>
+                        </Section>
                     </Body>
+
+                    <DecorWrapper>
+                        <Icon name="mountain" width={100} height={100} />
+                    </DecorWrapper>
                 </Content>
             </Container>
         </Wrapper>

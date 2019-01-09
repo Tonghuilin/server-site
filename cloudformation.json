@@ -1,0 +1,118 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "14659982-3536-43af-8f46-aaed4182b605": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 440,
+          "y": 60
+        },
+        "z": 0,
+        "embeds": []
+      }
+    }
+  },
+  "Parameters": {
+    "company": {
+      "Type": "String",
+      "Default": "thl",
+      "AllowedValues": ["thl"],
+      "Description": "Company name"
+    },
+    "app": {
+      "Type": "String",
+      "Default": "site",
+      "AllowedValues": ["site"],
+      "Description": "Application name"
+    },
+    "env": {
+      "Type": "String",
+      "Default": "dev",
+      "AllowedValues": ["dev", "stage", "prod"],
+      "Description": "Environment name"
+    }
+  },
+  "Resources": {
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "AccessControl": "PublicRead",
+        "BucketName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "company"
+              },
+              {
+                "Ref": "app"
+              },
+              {
+                "Ref": "env"
+              }
+            ]
+          ]
+        },
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html"
+        },
+        "Tags": [
+          {
+            "Key": "company",
+            "Value": {
+              "Ref": "company"
+            }
+          },
+          {
+            "Key": "app",
+            "Value": {
+              "Ref": "app"
+            }
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "14659982-3536-43af-8f46-aaed4182b605"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "WebsiteURL": {
+      "Value": {
+        "Fn::GetAtt": [
+          "S3Bucket",
+          "WebsiteURL"
+        ]
+      },
+      "Description": "URL for website hosted on S3"
+    },
+    "S3BucketSecureURL": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Fn::GetAtt": [
+                "S3Bucket",
+                "DomainName"
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  }
+}

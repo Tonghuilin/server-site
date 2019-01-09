@@ -1,10 +1,10 @@
+// config env variables
+require('../config-env');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { component, getProps } from './controller';
-
-// Set global variables in Node
-require('./global');
 
 // Render
 const render = async () => {

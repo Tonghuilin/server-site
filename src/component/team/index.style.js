@@ -5,9 +5,10 @@ import { pxToRem }                    from '../style/mixin';
 
 export const Wrapper = Styled.div`
     background-color: ${props => props.theme.backgroundColor.banner};
+    padding: ${pxToRem(16)} 0 ${pxToRem(24)};
     
     ${mq.tablet} {
-        padding: ${pxToRem(24)} 0;
+        padding: ${pxToRem(30)} 0;
     }
 `;
 

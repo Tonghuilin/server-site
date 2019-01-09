@@ -1,8 +1,10 @@
-import App             from '../component';
-import bannerLandUrl   from '../asset/banner-land.png';
-import treeUrl         from '../asset/tree.gif';
-import wechatQrCodeUrl from '../asset/qr-code-wechat.jpeg';
-import axios           from 'axios';
+import App                     from '../component';
+import bannerLandUrl           from '../asset/banner-land.png';
+import treeUrl                 from '../asset/tree.gif';
+import wechatQrCodeUrl         from '../asset/qr-code-wechat.jpeg';
+import wechatOfficialQrCodeUrl from '../asset/qr-code-wechat-official.jpeg';
+import qqQrCodeUrl             from '../asset/qr-code-qq.jpg';
+import axios                   from 'axios';
 
 export const getProps = async () => {
     const someFetch = () => new Promise((resolve) => {
@@ -35,8 +37,15 @@ export const getProps = async () => {
                         id:             'section-social',
                         componentType:  'social',
                         componentProps: {
-                            title: '关注我们',
+                            title: '扫一扫',
                             items: [
+                                {
+                                    id:        'wechat-official',
+                                    label:     '微信公众号',
+                                    username:  'yanxsc-official',
+                                    url:       'weichat.url',
+                                    qrCodeUrl: wechatOfficialQrCodeUrl,
+                                },
                                 {
                                     id:        'wechat',
                                     label:     '微信',
@@ -45,10 +54,11 @@ export const getProps = async () => {
                                     qrCodeUrl: wechatQrCodeUrl,
                                 },
                                 {
-                                    id:       'qq',
-                                    label:    'QQ',
-                                    username: '123456',
-                                    url:      'qq.url',
+                                    id:        'qq',
+                                    label:     'QQ',
+                                    username:  '123456',
+                                    url:       'qq.url',
+                                    qrCodeUrl: qqQrCodeUrl,
                                 },
                             ],
                         },
@@ -166,9 +176,9 @@ export const getProps = async () => {
                         id:             'home-contact-us',
                         componentType:  'home-contact-us',
                         componentProps: {
-                            title:       '怎么联系通慧林？',
-                            desc: '小窍门：点击文字可以复制信息，还可以试试点击二维码图标。',
-                            places:      [
+                            title:   '怎么联系通慧林？',
+                            desc:    '小窍门：点击文字可以复制信息，还可以试试点击二维码图标。',
+                            places:  [
                                 {
                                     lat:     34.262833,
                                     lng:     117.192957,
@@ -185,12 +195,12 @@ export const getProps = async () => {
                                     address: '淮海路1号',
                                 },
                             ],
-                            socials:     [
+                            socials: [
                                 {
-                                    id:       'wechat',
-                                    label:    '微信',
-                                    username: 'yanxsc',
-                                    url:      'weichat.url',
+                                    id:        'wechat',
+                                    label:     '微信',
+                                    username:  'yanxsc',
+                                    url:       'weichat.url',
                                     qrCodeUrl: wechatQrCodeUrl,
                                 },
                                 {

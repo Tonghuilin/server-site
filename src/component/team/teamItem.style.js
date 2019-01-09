@@ -23,6 +23,11 @@ export const Item = Styled.div`
         margin-bottom: ${pxToRem(8)};
         transform: translateX(${getTranslateX});
     }
+    
+    &:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
 `;
 
 export const ItemInner = Styled.div`

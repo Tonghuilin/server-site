@@ -1,4 +1,4 @@
-require('./src/global');
+require('./config-env');
 
 const path               = require('path');
 const { SsrByHbsPlugin } = require('./webpack/plugin-ssr-by-hbs/index');
