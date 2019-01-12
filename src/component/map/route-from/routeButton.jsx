@@ -19,7 +19,7 @@ export const RouteButton = ({ title, lat, lng, startPoint, setStartPoint, setPla
     };
 
     const selected = (startPoint.lat === lat && startPoint.lng === lng);
-    return <Button onClick={onClick} selected={selected}>{title}</Button>;
+    return <Button onClick={onClick} selected={selected} aria-label="do routing button">{title}</Button>;
 };
 
 RouteButton.propTypes = {

@@ -17,11 +17,11 @@
     }
   },
   "Parameters": {
-    "company": {
+    "env": {
       "Type": "String",
-      "Default": "thl",
-      "AllowedValues": ["thl"],
-      "Description": "Company name"
+      "Default": "stage",
+      "AllowedValues": ["stage", "prod"],
+      "Description": "Environment name"
     },
     "app": {
       "Type": "String",
@@ -29,24 +29,24 @@
       "AllowedValues": ["site"],
       "Description": "Application name"
     },
-    "env": {
+    "dept": {
       "Type": "String",
-      "Default": "dev",
-      "AllowedValues": ["dev", "stage", "prod"],
-      "Description": "Environment name"
+      "Default": "english",
+      "AllowedValues": ["english"],
+      "Description": "Department name"
     }
   },
   "Resources": {
-    "S3Bucket": {
+    "S3BucketPipeline": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "AccessControl": "PublicRead",
         "BucketName": {
           "Fn::Join": [
             "-",
             [
+              "pipeline",
               {
-                "Ref": "company"
+                "Ref": "dept"
               },
               {
                 "Ref": "app"
@@ -57,14 +57,12 @@
             ]
           ]
         },
-        "WebsiteConfiguration": {
-          "IndexDocument": "index.html"
-        },
+        "AccessControl": "Private",
         "Tags": [
           {
-            "Key": "company",
+            "Key": "dept",
             "Value": {
-              "Ref": "company"
+              "Ref": "dept"
             }
           },
           {
@@ -80,39 +78,63 @@
             }
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "14659982-3536-43af-8f46-aaed4182b605"
-        }
+      }
+    },
+    "S3BucketSite": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "dept"
+              },
+              {
+                "Ref": "app"
+              },
+              {
+                "Ref": "env"
+              }
+            ]
+          ]
+        },
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html"
+        },
+        "Tags": [
+          {
+            "Key": "dept",
+            "Value": {
+              "Ref": "dept"
+            }
+          },
+          {
+            "Key": "app",
+            "Value": {
+              "Ref": "app"
+            }
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ]
       }
     }
   },
   "Outputs": {
-    "WebsiteURL": {
+    "SiteURL": {
       "Value": {
         "Fn::GetAtt": [
-          "S3Bucket",
+          "S3BucketSite",
           "WebsiteURL"
         ]
       },
       "Description": "URL for website hosted on S3"
-    },
-    "S3BucketSecureURL": {
-      "Value": {
-        "Fn::Join": [
-          "",
-          [
-            "https://",
-            {
-              "Fn::GetAtt": [
-                "S3Bucket",
-                "DomainName"
-              ]
-            }
-          ]
-        ]
-      }
     }
   }
 }

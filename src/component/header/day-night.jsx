@@ -19,7 +19,7 @@ const DayNight = ({ themeName, setThemeName }) => {
     };
 
     return (
-        <Button isDark={isDark} onClick={onClick}>
+        <Button isDark={isDark} onClick={onClick} aria-label="day or night mode switcher">
             <Icon name={name} width="100%" height="100%"/>
         </Button>
     );

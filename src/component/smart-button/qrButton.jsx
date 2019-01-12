@@ -3,7 +3,7 @@ import { string, number, bool, oneOfType } from 'prop-types';
 import Icon                                from '../icon';
 
 // styled component
-import { Img }                                                        from '../style/styled-component';
+import { Img, SrOnlySpan }                                            from '../style/styled-component';
 import { OpenButton, ReverseOpenButton, CloseButton, Wrapper, Popup } from './qrButton.style';
 
 const QrButton = ({ iconName, url, width, height, reverse }) => {
@@ -23,12 +23,18 @@ const QrButton = ({ iconName, url, width, height, reverse }) => {
 
     return (
         <Wrapper open={open}>
-            <StyledOpenButton href={url} onClick={onOpen} target="_blank">
+            <StyledOpenButton
+                href={url}
+                onClick={onOpen}
+                target="_blank"
+                rel="noreferrer"
+            >
+                <SrOnlySpan>QR code link</SrOnlySpan>
                 <Icon name={iconName} width={width} height={height}/>
             </StyledOpenButton>
 
             <Popup>
-                <CloseButton onClick={onClose}>
+                <CloseButton onClick={onClose} aria-label="close QR code popup">
                     <Icon name="cross"/>
                 </CloseButton>
 

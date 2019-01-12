@@ -19,14 +19,16 @@ process.on('message', async (msg) => {
     const module                  = require(filePath);
     const { getProps, component } = module;
 
-    logger.logInfo(`Message from parent: ${msg}`);
+    logger.logInfo(`Directive from parent: ${msg}`);
 
     try {
         const componentProps  = await getProps();
         const hbsTemplateData = await prepareHbsTemplateData({ component, componentProps });
 
         process.send(hbsTemplateData);
+        process.exit();
     } catch (error) {
         process.send(error);
+        process.exit();
     }
 });

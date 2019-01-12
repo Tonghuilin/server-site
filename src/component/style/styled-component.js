@@ -176,6 +176,7 @@ export const ReverseBLink = Styled(BLink)`
 `;
 
 export const Container = Styled.div`
+    height: 100%;
     padding: 0 ${pxToRem(15)};
 `;
 
@@ -188,6 +189,17 @@ export const Content = Styled.div`
 export const Img = Styled.img`
     height: auto;
     width: 100%;
+`;
+
+export const SrOnlySpan = Styled.span`
+    position: absolute;
+    width: ${pxToRem(1)};
+    height: ${pxToRem(1)};
+    padding: 0;
+    margin: ${pxToRem(-1)};
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
 `;
 
 export default {

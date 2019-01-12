@@ -15,7 +15,7 @@ export const Heading = Styled(H4)`
     text-align: center;
 `;
 
-export const MapWrapper = Styled.div(({ width, height }) => ({
+export const MapWrapper = Styled.div(({ failed, width, height }) => (failed ? {} : {
     width:  pxToRem(width),
     height: pxToRem(height),
 }));

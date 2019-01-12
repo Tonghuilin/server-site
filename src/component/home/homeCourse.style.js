@@ -57,10 +57,10 @@ export const Content = Styled(BaseContent)`
 
 export const PathHead = Styled.div`
     color: ${color.cadet};
-    transform: translateX(${pxToRem(-20)});
+    transform: translate(${pxToRem(-20)}, ${pxToRem(8)});
     
     ${mq.tabletLandscape} {
-        transform: translateX(${pxToRem(-21)});
+        transform: translate(${pxToRem(-21)}, 0);
     }
 `;
 
@@ -76,7 +76,7 @@ export const PathTail = Styled.div`
 
 export const PathTailBody = Styled.div`
     background-image: url(${pathUrl});
-    background-position: center left;
+    background-position: 0 ${pxToRem(20)};
     background-repeat: repeat no-repeat;
     background-size: ${pxToRem(40)};
     display: flex;
@@ -90,9 +90,10 @@ export const PathTailBody = Styled.div`
     }
     
     ${mq.tabletLandscape} {
+        background-position: center left;
+        background-size: ${pxToRem(80)};
         flex-basis: ${pxToRem(240)};
         height: ${pxToRem(80)};
-        background-size: ${pxToRem(80)};
         transform: ${props => props.isReverse ? 'scale(-1, 1)' : undefined};
     }
 `;

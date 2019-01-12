@@ -88,7 +88,7 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
         const pageDataString = bufToJson(buf, null, 4);
 
         // logger.logInfo(`[message] ${pageDataString}`);
-        logger.logInfo(`[message length] ${pageDataString.length}`);
+        logger.logInfo(`[child process sends message] ${pageDataString.length}`);
         resolve(pageData);
     });
 
@@ -101,17 +101,17 @@ const getTemplateData = (filePath) => new Promise((resolve, reject) => {
     });
 
     forked.on('close', (code) => {
-        console.log('[code on close] ', code);
+        logger.logInfo(`[child process is close] Close Code ${code}`);
     });
 
-    forked.send('getProps');
+    forked.send('Go for props');
 
     stdout.on('data', (data) => {
-        logger.logInfo(`[stdout data] ${data}`);
+        logger.logInfo(`[child process prints data] ${data}`);
     });
 
     stderr.on('data', (err) => {
-        logger.logInfo(`[stdout err] ${err}`);
+        logger.logInfo(`[child process prints err] ${err}`);
     });
 });
 
@@ -146,30 +146,30 @@ const writePages = async (config) => {
 };
 
 /**
- * Need to add entry files (controller/*.js) to watch list, since they're only used for SSR
+ * Need to add entry files (controller/*.js) to watch list because they're only used for SSR
  *
  * @param entry
  * @param fileDependencies
  */
-const addToDependencies = ({ template, partials }, { fileDependencies }) => {
-    if (!fileDependencies) {
-        return;
-    }
-
-    // glob patterns to track => file paths
-    const filePaths = flattern(
-        [template, ...partials].map((pattern) => glob.sync(pattern)),
-    );
-
-    filePaths.forEach(filePath => {
-        if (fileDependencies.has(filePath)) {
-            return;
-        }
-
-        fileDependencies.add(filePath);
-        logger.logInfo(`Added ${filePath} to file dependencies`);
-    });
-};
+// const addToDependencies = ({ template, partials }, { fileDependencies }) => {
+//     if (!fileDependencies) {
+//         return;
+//     }
+//
+//     // glob patterns to track => file paths
+//     const filePaths = flattern(
+//         [template, ...partials].map((pattern) => glob.sync(pattern)),
+//     );
+//
+//     filePaths.forEach(filePath => {
+//         if (fileDependencies.has(filePath)) {
+//             return;
+//         }
+//
+//         fileDependencies.add(filePath);
+//         logger.logInfo(`Added ${filePath} to file dependencies`);
+//     });
+// };
 
 /**
  * Prepare data.json for handlebars templates
@@ -193,10 +193,10 @@ class SsrByHbsPlugin {
                 logger.logErr(err);
             }
         });
-
-        compiler.hooks.emit.tap(PLUGIN_NAME, (compliation) => {
-            addToDependencies(this.config, compliation);
-        });
+        //
+        // compiler.hooks.emit.tap(PLUGIN_NAME, (compliation) => {
+        //     addToDependencies(this.config, compliation);
+        // });
     }
 }
 

@@ -13,7 +13,8 @@ export const ImageWrapper = Styled.div`
     background-color: ${props => (props.imageBackgroundColor || 'transparent')};
     background-image: ${props => `url(${props.url})`};
     background-position: center;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
     height: ${pxToRem(100)};
     width: 100%;
     

@@ -1,5 +1,6 @@
 import { initUs, initMap, applyMapTheme } from './map';
 import { getRoutingOption }               from './routing';
+import logger                             from '../../../helper/logger';
 
 /**
  * make effect - init map
@@ -21,24 +22,32 @@ import { getRoutingOption }               from './routing';
  * @param setUs
  * @param setEndPoint
  * @param setInit
+ * @param setFailed
  * @returns {Function}
  */
-export const makeEffectInitMap = ({ ourPlaces, initView, darkMode, map, setMap, setUs, setEndPoint, setInit }) => () => {
+export const makeEffectInitMap = ({
+    ourPlaces, initView, darkMode, map, setMap, setUs, setEndPoint, setInit, setFailed
+}) => () => {
     setTimeout(() => {
         if (Boolean(map)) {
             return;
         }
 
-        const { map: newMap, point: initViewPoint } = initMap({ initView, setMap });
-        applyMapTheme({ map: newMap, darkMode });
+        try {
+            const { map: newMap, point: initViewPoint } = initMap({ initView, setMap });
+            applyMapTheme({ map: newMap, darkMode });
 
-        const us              = ourPlaces.map((place) => initUs({ who: place, map: newMap, initViewPoint }));
-        const defaultEndPoint = us[0].point;
+            const us              = ourPlaces.map((place) => initUs({ who: place, map: newMap, initViewPoint }));
+            const defaultEndPoint = us[0].point;
 
-        setMap(newMap);
-        setUs(us);
-        setEndPoint(defaultEndPoint);
-        setInit(true);
+            setMap(newMap);
+            setUs(us);
+            setEndPoint(defaultEndPoint);
+            setInit(true);
+        } catch (e) {
+            logger.log(e);
+            setFailed(true);
+        }
     }, 0);
 };
 

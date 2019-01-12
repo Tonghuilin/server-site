@@ -2,7 +2,6 @@ import React                  from 'react';
 import { func }               from 'prop-types';
 import Icon                   from '../../icon';
 
-;
 import { RouteFinderContext } from './index';
 
 // styled component
@@ -15,7 +14,7 @@ const CloseButton = ({ setPlaces }) => {
     };
 
     return (
-        <Button onClick={onClick}>
+        <Button onClick={onClick} aria-label="close found places list">
             <Icon name="cross" width="20" height="20"/>
         </Button>
     );

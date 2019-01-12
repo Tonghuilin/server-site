@@ -24,6 +24,7 @@ export const MapContext = React.createContext();
 
 const Map = ({ darkMode, title, fromTitle, toTitle, width, height, zoom, hotPlaces, ourPlaces, noPlanMessage }) => {
     const [init, setInit]             = useState(false);
+    const [failed, setFailed]         = useState(false);
     const [map, setMap]               = useState();
     const [point, setPoint]           = useState();
     const [us, setUs]                 = useState([]);
@@ -40,6 +41,7 @@ const Map = ({ darkMode, title, fromTitle, toTitle, width, height, zoom, hotPlac
         startPoint, setStartPoint,
         routeMode, setRouteMode,
         routePlans, setRoutePlans,
+        failed, setFailed,
     };
 
     const initView = {
@@ -49,7 +51,7 @@ const Map = ({ darkMode, title, fromTitle, toTitle, width, height, zoom, hotPlac
     };
 
     useEffect(
-        makeEffectInitMap({ ourPlaces, initView, darkMode, map, setMap, setUs, setEndPoint, setInit }),
+        makeEffectInitMap({ ourPlaces, initView, darkMode, map, setMap, setUs, setEndPoint, setInit, setFailed }),
         [init],
     );
     useEffect(
@@ -70,12 +72,12 @@ const Map = ({ darkMode, title, fromTitle, toTitle, width, height, zoom, hotPlac
 
                 {init && <RouteFrom hotPlaces={hotPlaces} title={fromTitle}/>}
 
-                <MapWrapper width={width} height={height} id="thl-bmap">
+                <MapWrapper failed={failed} width={width} height={height} id="thl-bmap">
                     <Loading/>
                 </MapWrapper>
 
                 {init && <RouteSwitcher/>}
-                {init && <RouteInfo plans={routePlans} noPlanMessage={noPlanMessage} />}
+                {init && <RouteInfo plans={routePlans} noPlanMessage={noPlanMessage}/>}
             </Wrapper>
         </MapContext.Provider>
     );

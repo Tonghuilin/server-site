@@ -2,7 +2,7 @@ import React                   from 'react';
 import { func, string, shape } from 'prop-types';
 
 // styled component
-import { Title, Button } from './switchButton.style';
+import { Button } from './switchButton.style';
 
 import { MapContext } from '../index';
 
@@ -13,7 +13,7 @@ const SwitchButton = ({ id, text, routeMode, setRouteMode }) => {
     };
 
     const selected = routeMode === id;
-    return <Button onClick={onClick} selected={selected}>{text}</Button>;
+    return <Button onClick={onClick} selected={selected} aria-label="switch route mode button">{text}</Button>;
 };
 
 SwitchButton.propTypes = {

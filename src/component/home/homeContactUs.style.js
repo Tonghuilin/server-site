@@ -19,13 +19,13 @@ export const Content = Styled(BaseContent)`
 `;
 
 export const DecorWrapper = Styled.div`
-    bottom: ${pxToRem(-57)};
+    bottom: ${pxToRem(-64)};
     position: absolute;
     right: 0;
     z-index: -1;
     
     ${mq.tabletLandscape} {
-        bottom: ${pxToRem(-63)};
+        bottom: ${pxToRem(-70)};
     }
 `;
 

@@ -8,7 +8,7 @@ const Form = ({ method, action, children, onSubmit, submitText }) => {
             {children}
 
             <ButtonWrapper>
-                <SubmitButton type="submit">
+                <SubmitButton type="submit" aria-label="form submit button">
                     {submitText}
                 </SubmitButton>
             </ButtonWrapper>

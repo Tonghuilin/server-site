@@ -2,11 +2,13 @@ import variable from './variable';
 import Color    from 'color';
 
 export const pxToRemCompose = (base = 16) => px => {
-    if (typeof px === 'string') {
+    const reg = new RegExp('^[0-9]+$');
+
+    if (typeof px === 'string' && !reg.test(px)) {
         return px;
     }
 
-    return `${px / base}rem`;
+    return `${Number(px) / base}rem`;
 };
 
 export const pxToRem = pxToRemCompose(variable.fontSize);

@@ -7,7 +7,7 @@ const { log, color }  = require('../../../src/helper/logger');
  * @param err
  * @returns {void | *}
  */
-const logErr = (err) => log(color.error(`${PLUGIN_NAME}: ${err}`));
+const logErr = (err) => log(color.error(`\n ${PLUGIN_NAME}: ${err} \n`));
 
 /**
  * Log info
@@ -15,7 +15,7 @@ const logErr = (err) => log(color.error(`${PLUGIN_NAME}: ${err}`));
  * @param msg
  * @returns {void | *}
  */
-const logInfo = (msg) => log(color.grayout(`${PLUGIN_NAME}: ${msg}`));
+const logInfo = (msg) => log(color.grayout(`\n ${PLUGIN_NAME}: ${msg} \n`));
 
 module.exports = {
     logErr,

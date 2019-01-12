@@ -3,11 +3,14 @@ import { string, number, oneOfType, shape } from 'prop-types';
 import StartImage                           from '../smart-image';
 import logoUrl                              from '../../asset/logo.png';
 
-import { Wrapper } from './index.style';
+// styled component
+import { SrOnlySpan } from '../style/styled-component';
+import { Wrapper }    from './index.style';
 
 const Logo = ({ title, url, linkTo, width, height, responsive }) => (
     <Wrapper>
         <a href={linkTo}>
+            <SrOnlySpan>site logo</SrOnlySpan>
             <StartImage src={url} alt={title} width={width} height={height} responsive={responsive}/>
         </a>
     </Wrapper>
