@@ -17,6 +17,12 @@
     }
   },
   "Parameters": {
+    "domain": {
+      "Type": "String",
+      "Default": "tonghuilin.com",
+      "AllowedValues": ["tonghuilin.com"],
+      "Description": "Route 53 domain name"
+    },
     "env": {
       "Type": "String",
       "Default": "stage",
@@ -85,16 +91,13 @@
       "Properties": {
         "BucketName": {
           "Fn::Join": [
-            "-",
+            ".",
             [
               {
-                "Ref": "dept"
-              },
-              {
-                "Ref": "app"
-              },
-              {
                 "Ref": "env"
+              },
+              {
+                "Ref": "domain"
               }
             ]
           ]
@@ -124,6 +127,40 @@
           }
         ]
       }
+    },
+    "S3BucketSitePolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3BucketSite"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": ["s3:GetObject"],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Fn::Join": [
+                        ".",
+                        [{ "Ref": "env" }, { "Ref": "domain"}]
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              },
+              "Principal": "*"
+            }
+          ]
+        }
+      },
+      "DependsOn": "S3BucketSite"
     }
   },
   "Outputs": {
