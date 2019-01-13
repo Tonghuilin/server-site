@@ -42,6 +42,9 @@
       "Description": "Department name"
     }
   },
+  "Conditions": {
+    "IsProd": { "Fn::Equals": [{"Ref": "env"}, "prod"] }
+  },
   "Resources": {
     "S3BucketPipeline": {
       "Type": "AWS::S3::Bucket",
@@ -102,7 +105,7 @@
             ]
           ]
         },
-        "AccessControl": "PublicRead",
+        "AccessControl": "Private",
         "WebsiteConfiguration": {
           "IndexDocument": "index.html"
         },
@@ -138,9 +141,9 @@
           "Version": "2012-10-17",
           "Statement": [
             {
-              "Action": ["s3:GetObject"],
               "Effect": "Allow",
-              "Resource": {
+              "Action": ["s3:GetObject"],
+              "Resource": [{
                 "Fn::Join": [
                   "",
                   [
@@ -154,8 +157,10 @@
                     "/*"
                   ]
                 ]
-              },
-              "Principal": "*"
+              }],
+              "Principal": {
+                "AWS": "*"
+              }
             }
           ]
         }
